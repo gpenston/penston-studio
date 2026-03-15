@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penston Studio</title>
+  <meta name="description" content="George Penston — Design Director and maker.">
+  <meta property="og:title" content="Penston Studio">
+  <meta property="og:description" content="George Penston — Design Director and maker.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://penston.studio">
+  <link rel="stylesheet" href="/assets/style.css">
+  <style>
+    /* ===== Home-specific styles ===== */
+    .hero {
+      padding: 96px 0 80px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .hero-name {
+      font-size: clamp(40px, 6vw, 60px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero-bio {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    /* ===== Projects ===== */
+    .projects {
+      padding: 64px 0;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 32px;
+    }
+
+    .project-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      background: var(--bg-secondary);
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      margin-bottom: 16px;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+      color: var(--text-primary);
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 11px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .project-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .project-icon-placeholder {
+      font-size: 22px;
+    }
+
+    .project-info { flex: 1; min-width: 0; }
+
+    .project-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .project-badge {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-light);
+      color: var(--text-tertiary);
+    }
+
+    .project-arrow {
+      color: var(--text-tertiary);
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .project-card:hover .project-arrow {
+      transform: translateX(3px);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-inner">
+        <span class="nav-wordmark">penston<span>.</span>studio</span>
+        <ul class="nav-links">
+          <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/gpenston" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <span class="hero-label">Design Director &amp; Maker</span>
+      <h1 class="hero-name">George<br>Penston</h1>
+      <p class="hero-bio">
+        I lead design at LinkedIn and build things on the side. This is where the side projects live.
+      </p>
+    </section>
+
+    <section class="projects">
+      <p class="section-label">Projects</p>
+
+      <a href="/markedly/" class="project-card">
+        <div class="project-icon">
+          <!-- Replace src with your actual icon once available -->
+          <span class="project-icon-placeholder">↓</span>
+        </div>
+        <div class="project-info">
+          <div class="project-name">Markedly</div>
+          <div class="project-desc">Convert documents and images to Markdown — locally, instantly, for free.</div>
+        </div>
+        <div class="project-meta">
+          <span class="project-badge">macOS</span>
+          <svg class="project-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <span class="footer-copy">© 2026 George Penston</span>
+        <ul class="footer-links">
+          <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/gpenston" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

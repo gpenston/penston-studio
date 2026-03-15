@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markedly — Convert files to Markdown</title>
+  <meta name="description" content="A free macOS app that converts documents, PDFs, spreadsheets, and images to Markdown. Everything stays on your Mac.">
+  <meta property="og:title" content="Markedly — Convert files to Markdown">
+  <meta property="og:description" content="A free macOS app that converts documents, PDFs, spreadsheets, and images to Markdown. Everything stays on your Mac.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://penston.studio/markedly">
+  <link rel="stylesheet" href="/assets/style.css">
+  <style>
+    /* ===== Markedly-specific styles ===== */
+    .page-header {
+      padding: 48px 0 0;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding: 48px 0 64px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .app-identity {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .app-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 13px;
+    }
+
+    .app-icon-placeholder {
+      font-size: 28px;
+      color: var(--accent);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+    }
+
+    .app-name-group { }
+
+    .app-name {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .app-platform {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    .hero-headline {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 500px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 14px;
+      padding: 12px 0;
+      border-radius: 8px;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover { color: var(--accent); }
+
+    .btn-soon {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-secondary);
+      color: var(--text-tertiary);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+      cursor: default;
+    }
+
+    .badge-soon {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--border-light);
+      color: var(--text-tertiary);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ===== Features ===== */
+    .features {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 28px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .feature-item {
+      background: var(--bg-primary);
+      padding: 24px;
+    }
+
+    .feature-icon {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .feature-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ===== Formats ===== */
+    .formats {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .format-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .format-group {
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+    }
+
+    .format-group-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      width: 100px;
+      flex-shrink: 0;
+    }
+
+    .format-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .format-tag {
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Space Grotesk', sans-serif;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      color: var(--text-secondary);
+    }
+
+    /* ===== FARA ===== */
+    .fara {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .fara-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .fara-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .fara-heading {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .fara-body {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .fara-body a {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: var(--border-medium);
+    }
+
+    .fara-body a:hover {
+      color: var(--accent);
+      text-decoration-color: var(--accent);
+    }
+
+    .fara-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .fara-link:hover { color: var(--accent-hover); }
+
+    /* ===== Support ===== */
+    .support {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .support-links {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .support-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .support-link-item:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .support-link-label {
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .support-link-sub {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    .support-link-arrow {
+      color: var(--text-tertiary);
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .support-link-item:hover .support-link-arrow {
+      transform: translateX(3px);
+      color: var(--accent);
+    }
+
+    /* ===== Privacy Policy ===== */
+    .privacy {
+      padding: 56px 0;
+    }
+
+    .privacy-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .privacy h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .privacy-updated {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 28px;
+    }
+
+    .privacy h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 24px 0 8px;
+      color: var(--text-primary);
+    }
+
+    .privacy p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .privacy ul {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+    }
+
+    .privacy ul li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .privacy ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-tertiary);
+    }
+
+    .privacy a {
+      color: var(--text-secondary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: var(--border-medium);
+    }
+
+    .privacy a:hover { color: var(--accent); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .format-group {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .format-group-label {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav page-header">
+      <div class="nav-inner">
+        <a href="/" class="nav-wordmark">penston<span>.</span>studio</a>
+        <ul class="nav-links">
+          <li><a href="#support">Support</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <a href="/" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        All projects
+      </a>
+
+      <div class="app-identity">
+        <div class="app-icon">
+          <!-- Replace with: <img src="/assets/markedly-icon.png" alt="Markedly"> -->
+          <span class="app-icon-placeholder">↓</span>
+        </div>
+        <div class="app-name-group">
+          <div class="app-name">Markedly</div>
+          <div class="app-platform">macOS · Free</div>
+        </div>
+      </div>
+
+      <h1 class="hero-headline">Convert anything<br>to <em>Markdown</em>.</h1>
+      <p class="hero-sub">
+        Drop in a Word doc, PDF, spreadsheet, or image. Get clean Markdown back.
+        Everything happens on your Mac — nothing leaves your machine.
+      </p>
+
+      <div class="cta-group">
+        <span class="btn-soon">
+          Download on the Mac App Store
+          <span class="badge-soon">Coming soon</span>
+        </span>
+        <a href="https://github.com/gpenston/Markedly" target="_blank" rel="noopener" class="btn-secondary">
+          View on GitHub
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M5 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M8 2h4m0 0v4m0-4L6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <p class="section-label">What it does</p>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🗂</div>
+          <div class="feature-name">Drag &amp; drop</div>
+          <div class="feature-desc">Drop files onto the window or use Cmd+O. Convert one file or a hundred at once.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-name">Fully local</div>
+          <div class="feature-desc">No uploads, no accounts, no analytics. Your files never leave your Mac.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⚡️</div>
+          <div class="feature-name">Shortcuts &amp; Services</div>
+          <div class="feature-desc">Works with macOS Shortcuts and the right-click Services menu in Finder.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📋</div>
+          <div class="feature-name">Format-aware</div>
+          <div class="feature-desc">Preserves headings, tables, bold, italic, links, and list structure.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supported Formats -->
+    <section class="formats">
+      <p class="section-label">Supported formats</p>
+      <div class="format-groups">
+        <div class="format-group">
+          <span class="format-group-label">Documents</span>
+          <div class="format-tags">
+            <span class="format-tag">DOCX</span>
+            <span class="format-tag">DOC</span>
+            <span class="format-tag">RTF</span>
+            <span class="format-tag">HTML</span>
+          </div>
+        </div>
+        <div class="format-group">
+          <span class="format-group-label">PDF</span>
+          <div class="format-tags">
+            <span class="format-tag">PDF</span>
+          </div>
+        </div>
+        <div class="format-group">
+          <span class="format-group-label">Spreadsheets</span>
+          <div class="format-tags">
+            <span class="format-tag">XLSX</span>
+            <span class="format-tag">XLS</span>
+            <span class="format-tag">CSV</span>
+            <span class="format-tag">TSV</span>
+          </div>
+        </div>
+        <div class="format-group">
+          <span class="format-group-label">Images</span>
+          <div class="format-tags">
+            <span class="format-tag">PNG</span>
+            <span class="format-tag">JPG</span>
+            <span class="format-tag">TIFF</span>
+            <span class="format-tag">HEIC</span>
+            <span class="format-tag">GIF</span>
+            <span class="format-tag">BMP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FARA -->
+    <section class="fara">
+      <div class="fara-card">
+        <div class="fara-label">Built with purpose</div>
+        <h2 class="fara-heading">Supporting Friedreich's Ataxia research</h2>
+        <p class="fara-body">
+          Markedly is free, and always will be. In place of a price tag, there's a donation link to the
+          <a href="https://www.curefa.org" target="_blank" rel="noopener">Friedreich's Ataxia Research Alliance (FARA)</a>
+          — a nonprofit funding research into a progressive neurological condition that affects my family directly.
+          If Markedly saves you time, consider passing it forward.
+        </p>
+        <a href="https://www.curefa.org/donate?campaign=gpenston" target="_blank" rel="noopener" class="fara-link">
+          Donate to FARA
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M5 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M8 2h4m0 0v4m0-4L6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Support -->
+    <section class="support" id="support">
+      <p class="section-label">Support</p>
+      <div class="support-links">
+        <a href="https://github.com/gpenston/Markedly/issues" target="_blank" rel="noopener" class="support-link-item">
+          <div>
+            <div class="support-link-label">Report an issue</div>
+            <div class="support-link-sub">GitHub Issues — file a bug or request a feature</div>
+          </div>
+          <svg class="support-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="https://github.com/gpenston/Markedly" target="_blank" rel="noopener" class="support-link-item">
+          <div>
+            <div class="support-link-label">View source</div>
+            <div class="support-link-sub">Markedly is open source on GitHub</div>
+          </div>
+          <svg class="support-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Privacy Policy -->
+    <section class="privacy" id="privacy">
+      <div class="privacy-content">
+        <h2>Privacy Policy</h2>
+        <p class="privacy-updated">Last updated: March 15, 2026</p>
+
+        <h3>Overview</h3>
+        <p>
+          Markedly is a file conversion tool for macOS that operates entirely on your local device.
+        </p>
+
+        <h3>Data Collection</h3>
+        <p>Markedly does <strong>not</strong>:</p>
+        <ul>
+          <li>Collect any personal information</li>
+          <li>Upload files to remote servers</li>
+          <li>Track usage or analytics</li>
+          <li>Require user accounts or sign-in</li>
+          <li>Share data with third parties</li>
+        </ul>
+        <p style="margin-top: 12px;">All file conversions happen locally on your Mac. Nothing leaves your machine.</p>
+
+        <h3>External Links</h3>
+        <p>
+          Markedly includes a menu item linking to the
+          <a href="https://www.curefa.org" target="_blank" rel="noopener">Friedreich's Ataxia Research Alliance (FARA)</a>
+          donation page. This is an external website with its own privacy policy.
+        </p>
+
+        <h3>Contact</h3>
+        <p>
+          Questions about this privacy policy? Open an issue on
+          <a href="https://github.com/gpenston/Markedly/issues" target="_blank" rel="noopener">GitHub</a>.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <span class="footer-copy">© 2026 George Penston · <a href="/">penston.studio</a></span>
+        <ul class="footer-links">
+          <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/gpenston" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
