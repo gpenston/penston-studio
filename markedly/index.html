@@ -476,6 +476,51 @@
 
     .privacy a:hover { color: var(--accent); }
 
+    /* ===== Works With ===== */
+    .works-with {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .works-with-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .works-with-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--bg-primary);
+    }
+
+    .works-with-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .works-with-name {
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--text-primary);
+    }
+
+    .works-with-type {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 1px;
+    }
+
     /* ===== Responsive ===== */
     @media (max-width: 600px) {
       .feature-grid {
@@ -489,6 +534,10 @@
 
       .format-group-label {
         width: auto;
+      }
+
+      .works-with-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -614,6 +663,62 @@
             <span class="format-tag">BMP</span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Works With -->
+    <section class="works-with">
+      <p class="section-label">Works with</p>
+      <div class="works-with-grid">
+
+        <div class="works-with-item">
+          <img class="works-with-icon" src="/assets/app-icon-claude.jpg" alt="Claude">
+          <div>
+            <div class="works-with-name">Claude</div>
+            <div class="works-with-type">AI Assistant</div>
+          </div>
+        </div>
+
+        <div class="works-with-item">
+          <img class="works-with-icon" src="/assets/app-icon-chatgpt.jpg" alt="ChatGPT">
+          <div>
+            <div class="works-with-name">ChatGPT</div>
+            <div class="works-with-type">AI Assistant</div>
+          </div>
+        </div>
+
+        <div class="works-with-item">
+          <img class="works-with-icon" src="/assets/app-icon-gemini.jpg" alt="Gemini">
+          <div>
+            <div class="works-with-name">Gemini</div>
+            <div class="works-with-type">AI Assistant</div>
+          </div>
+        </div>
+
+        <div class="works-with-item">
+          <img class="works-with-icon" src="/assets/app-icon-obsidian.jpg" alt="Obsidian">
+          <div>
+            <div class="works-with-name">Obsidian</div>
+            <div class="works-with-type">Note-taking</div>
+          </div>
+        </div>
+
+        <div class="works-with-item">
+          <img class="works-with-icon" src="/assets/app-icon-bear.jpg" alt="Bear">
+          <div>
+            <div class="works-with-name">Bear</div>
+            <div class="works-with-type">Note-taking</div>
+          </div>
+        </div>
+
+        <div class="works-with-item">
+          <img class="works-with-icon" src="/assets/app-icon-notion.jpg" alt="Notion">
+          <div>
+            <div class="works-with-name">Notion</div>
+            <div class="works-with-type">Workspace</div>
+          </div>
+        </div>
+
       </div>
     </section>
 
