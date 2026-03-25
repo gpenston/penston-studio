@@ -267,6 +267,64 @@
       margin-top: 1px;
     }
 
+    /* ===== FARA ===== */
+    .fara {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .fara-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .fara-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 12px;
+    }
+
+    .fara-heading {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .fara-body {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .fara-body a {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .fara-body a:hover {
+      color: var(--accent);
+      text-decoration-color: var(--accent);
+    }
+
+    .fara-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .fara-link:hover { color: var(--accent-hover); }
+
     /* ===== Support ===== */
     .support {
       padding: 56px 0;
@@ -469,6 +527,26 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- FARA -->
+    <section class="fara">
+      <div class="fara-card">
+        <div class="fara-label">Built with purpose</div>
+        <h2 class="fara-heading">Supporting Friedreich's Ataxia research</h2>
+        <p class="fara-body">
+          Pour Over is free, and always will be. In place of a price tag, there's a donation link to the
+          <a href="https://www.curefa.org" target="_blank" rel="noopener">Friedreich's Ataxia Research Alliance (FARA)</a>,
+          a nonprofit funding research into a progressive neurological condition with no known cure that both of my children have.
+          If this project saves you time, consider passing it forward.
+        </p>
+        <a href="https://www.curefa.org/donate?campaign=gpenston" target="_blank" rel="noopener" class="fara-link">
+          Donate to FARA
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M5 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M8 2h4m0 0v4m0-4L6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
     </section>
 
