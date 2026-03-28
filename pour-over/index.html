@@ -16,6 +16,7 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon-pour-over.png">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
+  <script defer src="/assets/animations.js"></script>
   <style>
     /* ===== Pour Over-specific styles ===== */
     .page-header {
@@ -409,7 +410,7 @@
         All projects
       </a>
 
-      <div class="app-identity">
+      <div class="app-identity" data-stagger="0">
         <div class="app-icon">
           <img src="/assets/pour-over-icon.png" alt="Pour Over for Raindrop">
         </div>
@@ -419,12 +420,12 @@
         </div>
       </div>
 
-      <h1 class="hero-headline">Your read-later list,<br>brewed <em>fresh daily</em>.</h1>
-      <p class="hero-sub">
+      <h1 class="hero-headline" data-stagger="1">Your read-later list,<br>brewed <em>fresh daily</em>.</h1>
+      <p class="hero-sub" data-stagger="2">
         Connect your <a href="https://raindrop.io" target="_blank" rel="noopener">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. No dashboard, no app. Just your inbox.
       </p>
 
-      <div class="cta-group">
+      <div class="cta-group" data-stagger="3">
         <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="btn-primary">
           <i class="ri-github-line"></i>
           View on GitHub
@@ -440,8 +441,8 @@
 
     <!-- Why -->
     <section class="why">
-      <p class="section-label">The idea</p>
-      <div class="why-body">
+      <p class="section-label" data-reveal>The idea</p>
+      <div class="why-body" data-reveal>
         <p>The read-later queue is a graveyard. You save things with the best intentions, then never go back. Pour Over fixes the loop by surfacing your most recent saves in a clean editorial email, delivered at a time you choose, formatted the way a newsletter should look.</p>
         <p>It runs entirely in your own GitHub account. Fork it, add your Raindrop token and SMTP credentials as repository secrets, and your first digest arrives on schedule. <strong>Nothing touches any server you don't control.</strong></p>
       </div>
@@ -449,24 +450,24 @@
 
     <!-- Features -->
     <section class="features">
-      <p class="section-label">What it does</p>
+      <p class="section-label" data-reveal>What it does</p>
       <div class="feature-grid">
-        <div class="feature-item">
+        <div class="feature-item" data-reveal>
           <div class="feature-icon"><i class="ri-bookmark-line"></i></div>
           <div class="feature-name">Recent bookmarks</div>
           <div class="feature-desc">Pulls your latest saves from Raindrop's Read Later collection, with cover images, tags, and source metadata.</div>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" data-reveal>
           <div class="feature-icon"><i class="ri-sparkling-2-line"></i></div>
           <div class="feature-name">Smart recommendations</div>
           <div class="feature-desc">Analyzes your archive tags and surfaces related articles via NewsAPI — optional, but worth enabling.</div>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" data-reveal>
           <div class="feature-icon"><i class="ri-mail-open-line"></i></div>
           <div class="feature-name">Beautiful emails</div>
           <div class="feature-desc">Responsive design that feels like a real editorial newsletter. Native dark and light mode support for macOS and iOS Mail.</div>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" data-reveal>
           <div class="feature-icon"><i class="ri-loop-right-line"></i></div>
           <div class="feature-name">Fully automated</div>
           <div class="feature-desc">Runs on a configurable schedule via GitHub Actions. Daily, weekly, or specific days — no server, no babysitting.</div>
@@ -476,7 +477,7 @@
 
     <!-- Works With -->
     <section class="works-with">
-      <p class="section-label">Works with</p>
+      <p class="section-label" data-reveal>Works with</p>
       <div class="works-with-grid">
 
         <div class="works-with-item">
@@ -552,7 +553,7 @@
 
     <!-- Support -->
     <section class="support" id="support">
-      <p class="section-label">Support</p>
+      <p class="section-label" data-reveal>Support</p>
       <div class="support-links">
         <a href="https://github.com/gpenston/pour-over-for-raindrop/issues/new" target="_blank" rel="noopener" class="support-link-item">
           <div>
