@@ -166,3 +166,30 @@ footer {
 
 .back-link svg { transition: transform 0.2s; }
 .back-link:hover svg { transform: translateX(-3px); }
+
+/* ===== Scroll-reveal & entrance animations ===== */
+[data-reveal],
+[data-stagger] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-stagger] {
+  transition-delay: calc(var(--stagger-index, 0) * 0.15s);
+}
+
+[data-reveal].is-revealed,
+[data-stagger].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-stagger] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
