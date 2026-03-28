@@ -22,6 +22,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon-gp.png">
   <link rel="stylesheet" href="/assets/style.css">
+  <script defer src="/assets/animations.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -93,14 +94,14 @@
       background: var(--bg-secondary);
       text-decoration: none;
       color: var(--text-primary);
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
       margin-bottom: 16px;
     }
 
     .project-card:hover {
       border-color: var(--accent);
       box-shadow: var(--shadow-lg);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       color: var(--text-primary);
     }
 
@@ -209,17 +210,17 @@
 
     <main>
     <section class="hero">
-      <span class="hero-label">Product Design Leader &amp; Maker</span>
-      <h1 class="hero-name">George<br>Penston</h1>
-      <p class="hero-bio">
+      <span class="hero-label" data-stagger="0">Product Design Leader &amp; Maker</span>
+      <h1 class="hero-name" data-stagger="1">George<br>Penston</h1>
+      <p class="hero-bio" data-stagger="2">
         I turn big ideas into real products and build teams that bring them to life. This is where the side projects live.
       </p>
     </section>
 
     <section class="projects">
-      <p class="section-label">Projects</p>
+      <p class="section-label" data-reveal>Projects</p>
 
-      <a href="/markedly/" class="project-card">
+      <a href="/markedly/" class="project-card" data-reveal>
         <div class="project-icon">
           <img src="/assets/markedly-icon.png" alt="Markedly">
         </div>
@@ -237,7 +238,7 @@
         </div>
       </a>
 
-      <a href="/pour-over/" class="project-card">
+      <a href="/pour-over/" class="project-card" data-reveal>
         <div class="project-icon">
           <img src="/assets/pour-over-icon.png" alt="Pour Over for Raindrop">
         </div>
