@@ -23,20 +23,24 @@ CSS classes own all animation state. JS only toggles classes and sets CSS custom
 Two animation states added as attribute selectors:
 
 ```css
-[data-reveal] {
+[data-reveal], [data-stagger] {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-stagger] {
   transition-delay: calc(var(--stagger-index, 0) * 0.15s);
 }
 
-[data-reveal].is-revealed {
+[data-reveal].is-revealed,
+[data-stagger].is-revealed {
   opacity: 1;
   transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
+  [data-reveal], [data-stagger] {
     opacity: 1;
     transform: none;
     transition: none;
@@ -44,7 +48,11 @@ Two animation states added as attribute selectors:
 }
 ```
 
-The `--stagger-index` custom property drives per-element delay for hero stagger. Scroll-reveal elements leave it unset (defaults to `0`, no delay).
+`data-reveal` and `data-stagger` are separate attributes with separate purposes:
+- `data-reveal` — scroll-triggered, watched by IntersectionObserver
+- `data-stagger="N"` — hero load, JS sets `--stagger-index: N` and fires on DOMContentLoaded
+
+Both share the same hidden initial state and `.is-revealed` visible state.
 
 ### Hover refinement
 
