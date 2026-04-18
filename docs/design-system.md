@@ -9,7 +9,6 @@
 - **Confident, not marketing-fluffy.** "A one-person practice in product design and development." Not "I'm passionate about crafting delightful experiences."
 - **Maker-first.** Written by the person who builds the things.
 - **Editorial cadence.** Numbered chapters (`01 —`, `02 —`), pullquotes, system labels. Reads like a trade journal, not a SaaS page.
-- **Technical monitor diction for system chrome.** `SESSION 0xA7F2`, `LAT: 37.77° N · LON: 122.42° W`, `STUDIO.ENGINE V.1.2`. Real-sounding but obviously typographic.
 - **Smart quotes.** `'` `"` — never straight `' "`.
 - **Em dashes** — not hyphens — for parentheticals.
 
@@ -26,10 +25,12 @@
 --text-primary:   #e8e2cf;   /* bone / cream */
 --text-secondary: #9c9687;   /* muted */
 --text-tertiary:  #5a5547;   /* labels, system chrome */
---border:         #2a2620;
 --border-light:   #1f1c14;
+--border-medium:  #2a2620;
+--border-rule:    #e8e2cf;
 --accent:         #eb5a00;   /* signal orange */
---accent-cool:    #7aa9a3;   /* faded teal — used for emphasis, never primary */
+--accent-cool:    #7aa9a3;   /* faded teal — used for <em> emphasis only */
+--highlight:      rgba(64,220,228,0.52);  /* pullquote .hl — bright cyan wash */
 ```
 
 ### Light mode
@@ -41,18 +42,25 @@
 --text-primary:   #1a1810;   /* warm near-black */
 --text-secondary: #5a5547;
 --text-tertiary:  #8a8371;
---border:         #c8c0ac;
 --border-light:   #dcd5c2;
+--border-medium:  #c8c0ac;
+--border-rule:    #1a1810;
 --accent:         #d94f00;   /* slightly deeper for contrast on paper */
 --accent-cool:    #3d6b68;
+--highlight:      rgba(0,175,190,0.30);  /* pullquote .hl — muted teal wash */
 ```
+
+### Per-page accent overrides
+
+- **Pour Over** (`[data-page="pourover"]`): `--accent: #f0a830` (warm amber), `--accent-hover: #f7c060`. The orange global accent is too murky for the coffee theme.
 
 ### Rules
 
-- **One accent at a time.** `--accent` is the only saturated color on the page. Don't introduce magenta, blue, green alongside.
-- **`--accent-cool` is a whisper.** Use it for one word in a headline (`considered`, `fresh daily`, `Markdown`) and nowhere else.
-- **Background grid is default.** Every page has a faint mono grid backdrop (`background-size: 48px 48px`, ~4% opacity lines). It reads as graph paper, not as decoration.
-- **No gradients except the disc-mark.** The only gradient allowed is the sun/disc motif behind the home hero. Everything else is flat color.
+- **One accent at a time.** `--accent` is the only saturated color on the page.
+- **`--accent-cool` is a whisper.** Use it for one word in a headline and nowhere else.
+- **Background grid is default.** Every page has a faint mono grid backdrop (`background-size: 48px 48px`, ~7% opacity lines in dark, ~4% in light). It reads as graph paper.
+- **Paper grain is always on.** A `body::before` fixed pseudo-element adds a ~3% feTurbulence SVG grain for organic texture. Dark: 3% opacity, Light: 2%. Never remove it.
+- **No gradients except the disc-mark.** The only gradient allowed is the sun/disc motif behind the home hero.
 - **Light mode is not dark-mode-inverted.** It's a distinct paper aesthetic. Recalibrate, don't swap.
 
 ---
@@ -91,8 +99,8 @@ Loaded via Google Fonts preconnect. No other families.
   ```
 - **Mono is for system, not body.** Never use JetBrains Mono for paragraphs.
 - **Mono labels are always uppercase, tracked, with tabular numbers.** `font-variant-numeric: tabular-nums`.
-- **Section labels carry a chapter number.** `data-num="02 —"` renders before the label text via CSS `::before`.
-- **text-wrap: pretty** on all paragraphs and headlines by default.
+- **Section labels carry a chapter number.** `data-num="02"` renders as `02 —` before the label text via CSS `::before`.
+- **`text-wrap: pretty`** on all paragraphs and headlines by default.
 
 ---
 
@@ -109,13 +117,14 @@ Loaded via Google Fonts preconnect. No other families.
 ### Vertical rhythm
 
 - Section padding: `48px 0 24px` standard, `80px 0 32px` for major breaks.
+- The Catalogue section on the home page uses `24px 0 24px` — tighter because the hero leads directly into it.
 - Between paragraphs: 1.2em.
 - Never use `<br>` for spacing — use margins.
 
 ### Grid
 
-- CSS Grid for anything with structural alignment (spec-rows, plate-grid, system-rail).
-- Flex for inline clusters (nav, app-identity, cta-group).
+- CSS Grid for anything with structural alignment (spec-rows, plate-grid).
+- Flex for inline clusters (nav, app-identity, cta-group, works-with-row).
 - Don't use Bootstrap-style 12-column grids.
 
 ### Responsive
@@ -128,25 +137,60 @@ Loaded via Google Fonts preconnect. No other families.
 
 ## 5. Components
 
-### System Rail (top of every page)
+### Nav
 
-Fixed-position strip at the very top of the viewport. Three slots: session/online indicator · coordinates/chapter ID · location/status. Mono uppercase, tabular nums, border-bottom. Sets the instrument tone before anything else.
+Wordmark on left (`penston.studio` in mono, `<a>` on product pages, `<span>` on home), mode toggle on far right. No external links in nav — the nav has one job.
 
 ```html
-<div class="system-rail">
-  <div class="sys-item"><span class="sys-led"></span>ONLINE</div>
-  <div class="sys-item">LAT: 37.77° N · LON: 122.42° W</div>
-  <div class="sys-item">SFO / USA</div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../" class="nav-wordmark">penston<span>.</span>studio</a>
+    <ul class="nav-links">
+      <li><!-- mode toggle --></li>
+    </ul>
+  </div>
+</nav>
+```
+
+### Product bar
+
+On product pages only. Sits immediately below the nav. Back-link on the left, page anchor links on the right. This keeps the nav clean and gives the product page its own utility row.
+
+```html
+<div class="product-bar">
+  <a href="../" class="back-link">
+    <svg><!-- left chevron --></svg>
+    All projects
+  </a>
+  <ul class="product-bar-links">
+    <li><a href="#support">Support</a></li>
+    <li><a href="#privacy">Privacy</a></li>
+  </ul>
 </div>
 ```
 
-### Nav
+### Mode toggle — Dieter Rams I/O switch
 
-Wordmark on left (`penston.studio` in mono), links on right, mode toggle pill on far right. No logo — the wordmark IS the logo.
+A physical sliding pill toggle. CSS-driven entirely from `[data-mode]` on `<html>`. No JS class manipulation needed. The thumb slides 24px right in dark mode. Icons (sun left, moon right) slide slightly with the thumb — 4px in the direction of travel — for a physically coupled feel. A tooltip appears after a 0.6s hover delay.
 
-### Mode toggle
+```html
+<button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
+  <span class="mode-toggle-track">
+    <span class="mode-toggle-i" aria-hidden="true"><!-- sun SVG --></span>
+    <span class="mode-toggle-thumb"></span>
+    <span class="mode-toggle-o" aria-hidden="true"><!-- moon SVG --></span>
+  </span>
+</button>
+```
 
-A single pill with two segments (DARK · LIGHT). The active segment fills with `--accent`. Persists to `localStorage['ps_mode']`. Both the user's OS preference AND the stored value are respected; stored wins.
+- **Dark mode active:** track fills with `--accent`, thumb at `translateX(24px)`, sun visible, moon hidden and pushed right.
+- **Light mode active:** track is `--bg-tertiary`, thumb at `translateX(0)`, moon visible, sun hidden and pushed left.
+- **Tooltip:** CSS `::after` on `.mode-toggle` — content set via `:root[data-mode]` attribute selector. Mono font, right-aligned, fades in after 0.6s, fades out immediately on mouse-out.
+- **First-load FOUC prevention:** Inline `<script>` in `<head>` (before stylesheets) reads `localStorage['ps_mode']` and falls back to `prefers-color-scheme`. Sets `data-mode` synchronously so the correct theme is applied before any paint.
+
+### Portfolio link (home only)
+
+A styled call-to-action link below the hero bio, pointing to `gpenston.com`. Uses `.portfolio-link` class with external arrow SVG. This is the primary contextual "who is this person" link.
 
 ### Project card (home)
 
@@ -168,13 +212,20 @@ Space Grotesk, weight 500, `clamp(36px, 6vw, 58px)`. Usually has one `<em>` word
 
 Four-column grid: number · icon · body · (flex spacer). Thin divider between rows. Used for "What it does" feature lists.
 
+### Inline links
+
+Links in body copy (`.hero-sub`, `.spec-row .body`, `.why`, `.fara-body`, `.privacy-content`) use a consistent treatment:
+- Default: `--accent` color, no underline
+- Hover: `--accent-hover` with underline
+- Active: slight opacity drop
+
 ### Plate / device frame
 
-Every product screenshot sits in a `.plate` with a caption label (`PL. 01 / MAIN WINDOW`) above and an optional role label below (`Drag & drop`). Plates come in two sizes: `.plate-hero` (full-width) and `.plate-small` (grid cell). Inside, a `.device-macbook` or `.device-iphone` wrapper provides the bezel.
+Every product screenshot sits in a `.plate` with a caption label (`PL. 01 / MAIN WINDOW`) above and an optional role label below (`Drag & drop`). Plates come in two sizes: `.plate-hero` (full-width) and `.plate-small` (grid cell). Inside, a `.device-macbook` wrapper provides the bezel.
 
 ### Pullquote
 
-Editorial quote block with a `.hl` span highlighting the key phrase. Used sparingly — once per page max.
+Editorial quote block with a `.hl` span highlighting the key phrase. Used sparingly — once per page max. The `.hl` background is a semi-transparent cyan wash (not the accent orange) so it reads as highlighter pen, not brand colour.
 
 ```html
 <p class="pullquote">
@@ -183,20 +234,32 @@ Editorial quote block with a `.hl` span highlighting the key phrase. Used sparin
 </p>
 ```
 
+### Works With row
+
+Logo clusters in a flex-wrap row. No grid, no table. Each `.ww-item` is a rounded icon + label. Icons are real app icons from `assets/app-icon-<name>.jpg`.
+
+```html
+<div class="works-with-row">
+  <div class="ww-item"><img class="ww-icon" src="..."><span class="ww-name">Obsidian</span></div>
+  <!-- ... -->
+</div>
+```
+
 ### FARA card
 
-Signature block near the footer of product pages, communicating the donation-link commitment. Always present on product pages.
+Signature block near the footer of product pages, communicating the donation-link commitment. Always present on product pages. Never removed, never shortened.
 
 ---
 
 ## 6. Motion
 
 - **Scroll-reveal on `[data-reveal]`.** Elements start at `opacity: 0; transform: translateY(16px)`. Class `.is-revealed` adds via IntersectionObserver when entering viewport. 600ms ease-out. Safety-net timer reveals all after 2.5s regardless.
-- **Stagger via `[data-stagger="N"]`.** Increments transition-delay by 120ms per step.
+- **Stagger via `[data-stagger="N"]`.** Increments transition-delay by 120ms per step. Used on hero elements only.
 - **No scroll-jacking, parallax, or scroll-tied animation.** The page scrolls like a document.
 - **Hover transitions are 150–200ms.** Anything longer feels slow.
 - **`prefers-reduced-motion: reduce` kills all transitions and reveals immediately.** Non-negotiable.
 - **The atmosphere / disc-mark is the ONLY ambient animation.** It drifts slowly on the home hero. Don't add floating particles, gradient sweeps, or breathing elements elsewhere.
+- **Mode toggle transition is 200ms `cubic-bezier(0.4, 0, 0.2, 1)`.** Applies to thumb translate, icon slide, and track background.
 
 ---
 
@@ -204,15 +267,16 @@ Signature block near the footer of product pages, communicating the donation-lin
 
 - **Remixicon via CDN** for feature icons. `<i class="ri-drag-drop-line"></i>`.
 - Icons always in icon cells with a subtle background tint — never floating unanchored.
-- **No emoji.** The mono-label style covers anywhere you'd be tempted (`SFO / USA`, `CH. 01`, `v.1.2`).
-- **Never draw proprietary logos in SVG.** Use Remixicon's brand glyphs (`ri-github-line`, `ri-apple-fill`) or real asset files.
+- **No emoji.** The mono-label style covers anywhere you'd be tempted.
+- **Never draw proprietary logos in SVG.** Use Remixicon's brand glyphs (`ri-github-line`) or real asset files.
 
 ---
 
 ## 8. Imagery
 
-- **Product shots live at `assets/<app>-shot-<role>.png`.** Naming convention: `markedly-shot-open`, `markedly-shot-drag`, `pour-over-shot-email`. Always inside a device frame.
-- **Icons live at `assets/<app>-icon.png`.** Rounded-square app icons, always 120×120 or larger source.
+- **Product shots live at `assets/<app>-shot-<role>.png`.** Naming convention: `markedly-shot-open`, `markedly-shot-drag`. Always inside a device frame.
+- **App icons live at `assets/<app>-icon.png`.** Rounded-square, always 120×120px or larger source.
+- **Works With icons live at `assets/app-icon-<name>.jpg`.** Real app icons, not drawn substitutes.
 - **Badges** (App Store, GitHub): keep vendor-provided SVGs in `assets/`. Don't redraw.
 - **If an image doesn't exist, use a dashed placeholder** with a caption `(PLACEHOLDER)`. Never ship a half-drawn SVG mockup.
 
@@ -221,7 +285,7 @@ Signature block near the footer of product pages, communicating the donation-lin
 ## 9. Code Hygiene
 
 - **No build step. No framework.** Plain HTML, one CSS file, one JS file.
-- **One `assets/style.css` with clear section banners** (`/* ----- Name ----------------------- */`) in declaration order: tokens, reset, typography, chrome, components, utilities, responsive, motion.
+- **One `assets/style.css` with clear section banners** in declaration order: tokens, reset, typography, chrome, components, utilities, responsive, motion.
 - **One `assets/site.js`** for mode toggle, scroll-reveal, and any small interactive bits. No modules, no imports.
 - **JS is defensive.** Every query wrapped in null checks. Feature-detect `IntersectionObserver`. Always provide a fallback.
 - **No `?v=N` cache-busters in committed code.** Those are dev-only.
@@ -261,6 +325,7 @@ Signature block near the footer of product pages, communicating the donation-lin
 
 ## 11. Don't do this
 
+- Don't add a system rail / status bar at the top of pages. We tried it — it added visual noise without earning its keep.
 - Don't add a gradient hero background.
 - Don't use Inter Tight, Satoshi, General Sans, or any "designer" substitute for Space Grotesk — they're all trying too hard.
 - Don't make the accent orange darker "to be tasteful." The orange is the signal.
@@ -268,7 +333,8 @@ Signature block near the footer of product pages, communicating the donation-lin
 - Don't put a newsletter signup anywhere.
 - Don't write copy in second-person marketing voice ("You'll love…"). First-person maker voice only ("I build…").
 - Don't add emoji, even in the README.
-- Don't ship pull-request copy like "Amazing new feature!" in commits — tone matches the site.
+- Don't put utility links (Support, Privacy, back-link) in the nav. Use the product-bar row instead.
+- Don't use the same accent colour for pullquote highlights as for links. The `.hl` is a cyan wash, not orange.
 
 ---
 
@@ -276,14 +342,14 @@ Signature block near the footer of product pages, communicating the donation-lin
 
 When adding a new product page or section:
 
-1. Start with the page chrome: system rail, nav, back-link.
-2. Hero: app-identity block, headline, sub, CTA group.
-3. Product showcase: plates with device frames.
-4. "What it does": section-label `01 —` + big-h2 + spec-rows.
-5. "Why": pullquote section.
-6. Optional: formats, works-with grid, compatibility.
+1. Start with the page chrome: nav (wordmark + toggle), product-bar (back-link + anchor links).
+2. Hero: app-identity block (icon + name + platform), headline, sub, CTA group.
+3. Product showcase: plates with device frames (skip if no screenshots yet).
+4. "The idea": pullquote section — one per page, `data-num="01"`.
+5. "What it does": section-label `02 —` + spec-rows.
+6. "Works with": `.works-with-row` logo clusters.
 7. FARA card.
-8. Support / privacy links.
+8. Support section (+ Privacy if App Store app).
 9. Footer.
 
-Not every section is required, but they should appear **in this order** when present. The narrative is: *what is it → show me → what does it do → why does it matter → how does it fit my world → who's behind it → where do I go next.*
+Not every section is required, but they should appear **in this order** when present. The narrative is: *what is it → show me → the idea → what does it do → how does it fit my world → who's behind it → where do I go next.*
