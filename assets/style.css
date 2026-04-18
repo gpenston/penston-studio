@@ -279,8 +279,26 @@ a:hover { color: var(--accent); }
   line-height: 1.6;
   color: var(--text-secondary);
   max-width: 540px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
+
+.portfolio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  margin-bottom: 40px;
+  transition: color var(--t-fast);
+}
+.portfolio-link:hover { color: var(--accent); }
+.portfolio-link svg { transition: transform var(--t-fast); }
+.portfolio-link:hover svg { transform: translate(2px, -2px); }
 
 /* ----- Atmosphere (hero disc + rays + horizon) ---------------------- */
 .atm-horizon {
