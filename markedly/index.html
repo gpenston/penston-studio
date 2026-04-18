@@ -37,10 +37,13 @@
           <li><a href="#support">Support</a></li>
           <li><a href="#privacy">Privacy</a></li>
           <li>
-            <span class="mode-toggle" role="group" aria-label="Color mode">
-              <button type="button" data-mode-set="dark">Dark</button>
-              <button type="button" data-mode-set="light">Light</button>
-            </span>
+            <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
+              <span class="mode-toggle-track">
+                <span class="mode-toggle-i" aria-hidden="true">|</span>
+                <span class="mode-toggle-thumb"></span>
+                <span class="mode-toggle-o" aria-hidden="true">○</span>
+              </span>
+            </button>
           </li>
         </ul>
       </div>
@@ -199,52 +202,12 @@
       </section>
 
       <!-- Works With -->
-      <section style="padding: 24px 0 16px;">
+      <section style="padding: 32px 0 16px;">
         <div class="section-label" data-num="04" data-reveal>Works with</div>
-        <div class="works-with-grid" data-reveal>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-claude.jpg" alt="Claude">
-            <div>
-              <div class="works-with-name">Claude</div>
-              <div class="works-with-type">AI Assistant</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-chatgpt.jpg" alt="ChatGPT">
-            <div>
-              <div class="works-with-name">ChatGPT</div>
-              <div class="works-with-type">AI Assistant</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-gemini.jpg" alt="Gemini">
-            <div>
-              <div class="works-with-name">Gemini</div>
-              <div class="works-with-type">AI Assistant</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-obsidian.jpg" alt="Obsidian">
-            <div>
-              <div class="works-with-name">Obsidian</div>
-              <div class="works-with-type">Note-taking</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-bear.jpg" alt="Bear">
-            <div>
-              <div class="works-with-name">Bear</div>
-              <div class="works-with-type">Note-taking</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-notion.jpg" alt="Notion">
-            <div>
-              <div class="works-with-name">Notion</div>
-              <div class="works-with-type">Workspace</div>
-            </div>
-          </div>
-        </div>
+        <p class="works-with-prose" data-reveal>
+          Made for <strong>Obsidian</strong>, <strong>Bear</strong>, and <strong>Notion</strong> —
+          and feeds cleanly into <strong>Claude</strong>, <strong>ChatGPT</strong>, and <strong>Gemini</strong>.
+        </p>
       </section>
 
       <!-- FARA -->

@@ -6,17 +6,35 @@
   var saved = stored || osPrefers;
   document.documentElement.setAttribute('data-mode', saved);
 
+  function playClick() {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var len = Math.floor(ctx.sampleRate * 0.018);
+      var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      var data = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 10);
+      }
+      var src = ctx.createBufferSource();
+      src.buffer = buf;
+      var gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.28, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.016);
+      src.connect(gain);
+      gain.connect(ctx.destination);
+      src.start();
+    } catch (e) {}
+  }
+
   function wire() {
     var root = document.documentElement;
-    document.querySelectorAll('[data-mode-set]').forEach(function (btn) {
-      btn.classList.toggle('is-active', btn.dataset.modeSet === root.dataset.mode);
+
+    document.querySelectorAll('[data-mode-toggle]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var mode = btn.dataset.modeSet;
-        root.setAttribute('data-mode', mode);
-        localStorage.setItem(KEY, mode);
-        document.querySelectorAll('[data-mode-set]').forEach(function (b) {
-          b.classList.toggle('is-active', b.dataset.modeSet === mode);
-        });
+        var next = root.dataset.mode === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-mode', next);
+        localStorage.setItem(KEY, next);
+        playClick();
       });
     });
 

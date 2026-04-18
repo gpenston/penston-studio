@@ -36,10 +36,13 @@
         <ul class="nav-links">
           <li><a href="#support">Support</a></li>
           <li>
-            <span class="mode-toggle" role="group" aria-label="Color mode">
-              <button type="button" data-mode-set="dark">Dark</button>
-              <button type="button" data-mode-set="light">Light</button>
-            </span>
+            <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
+              <span class="mode-toggle-track">
+                <span class="mode-toggle-i" aria-hidden="true">|</span>
+                <span class="mode-toggle-thumb"></span>
+                <span class="mode-toggle-o" aria-hidden="true">○</span>
+              </span>
+            </button>
           </li>
         </ul>
       </div>
@@ -180,52 +183,13 @@
       </section>
 
       <!-- Works With -->
-      <section style="padding: 48px 0 16px;">
+      <section style="padding: 32px 0 16px;">
         <div class="section-label" data-num="03" data-reveal>Works with</div>
-        <div class="works-with-grid" data-reveal>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-raindrop.jpg" alt="Raindrop.io">
-            <div>
-              <div class="works-with-name">Raindrop.io</div>
-              <div class="works-with-type">Bookmark Manager</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-github.jpg" alt="GitHub Actions">
-            <div>
-              <div class="works-with-name">GitHub Actions</div>
-              <div class="works-with-type">Automation</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-newsapi.jpg" alt="NewsAPI">
-            <div>
-              <div class="works-with-name">NewsAPI</div>
-              <div class="works-with-type">Recommendations</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-icloud-mail.jpg" alt="iCloud Mail">
-            <div>
-              <div class="works-with-name">iCloud Mail</div>
-              <div class="works-with-type">Email</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-gmail.jpg" alt="Gmail">
-            <div>
-              <div class="works-with-name">Gmail</div>
-              <div class="works-with-type">Email</div>
-            </div>
-          </div>
-          <div class="works-with-item">
-            <img class="works-with-icon" src="../assets/app-icon-outlook.jpg" alt="Outlook">
-            <div>
-              <div class="works-with-name">Outlook</div>
-              <div class="works-with-type">Email</div>
-            </div>
-          </div>
-        </div>
+        <p class="works-with-prose" data-reveal>
+          Reads from <strong>Raindrop.io</strong>, runs on <strong>GitHub Actions</strong>,
+          optionally pulls recommendations via <strong>NewsAPI</strong> —
+          and delivers to <strong>iCloud Mail</strong>, <strong>Gmail</strong>, or <strong>Outlook</strong>.
+        </p>
       </section>
 
       <!-- FARA -->
