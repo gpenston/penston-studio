@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="dark" data-page="pourover">
 <head>
   <meta charset="UTF-8">
+  <script>!function(){var s=localStorage.getItem('ps_mode')||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-mode',s)}();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pour Over for Raindrop — Your read-later list, delivered</title>
   <meta name="description" content="A GitHub Action that brews a daily digest from your Raindrop read-later list and delivers it to your inbox.">
@@ -16,597 +17,234 @@
   <meta name="twitter:description" content="A GitHub Action that brews a daily digest from your Raindrop read-later list and delivers it to your inbox.">
   <meta name="twitter:image" content="https://penston.studio/assets/pour-over-icon.png">
   <link rel="canonical" href="https://penston.studio/pour-over/">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon-pour-over.png">
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
-  <script defer src="/assets/animations.js"></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Pour Over for Raindrop",
-    "description": "A GitHub Action that brews a daily digest from your Raindrop read-later list and delivers it to your inbox.",
-    "url": "https://penston.studio/pour-over/",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "George Penston",
-      "url": "https://penston.studio"
-    }
-  }
-  </script>
-  <style>
-    /* ===== Pour Over-specific styles ===== */
-    .page-header {
-      padding: 48px 0 0;
-    }
-
-    /* ===== Hero ===== */
-    .hero {
-      padding: 36px 0 48px;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .app-identity {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .app-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 14px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .app-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 13px;
-    }
-
-    .app-icon-placeholder {
-      font-size: 28px;
-    }
-
-    .app-name-group { }
-
-    .app-name {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .app-platform {
-      font-size: 13px;
-      color: var(--text-tertiary);
-    }
-
-    .hero-headline {
-      font-size: clamp(28px, 5vw, 44px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
-
-    .hero-headline em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-size: 17px;
-      color: var(--text-secondary);
-      max-width: 500px;
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-
-    .hero-sub a {
-      color: var(--text-secondary);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      text-decoration-color: var(--border-medium);
-    }
-
-    .hero-sub a:hover { color: var(--accent); }
-
-    .cta-group {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: white;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      padding: 12px 24px;
-      border-radius: 8px;
-      transition: background 0.2s, transform 0.15s;
-      text-decoration: none;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      color: white;
-      transform: translateY(-1px);
-    }
-
-    .btn-primary:active {
-      transform: translateY(0);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 14px;
-      padding: 12px 0;
-      border-radius: 8px;
-      transition: color 0.2s;
-      text-decoration: none;
-    }
-
-    .btn-secondary:hover { color: var(--accent); }
-
-    /* ===== Why ===== */
-    .why {
-      padding: 40px 0;
-      border-bottom: 1px solid var(--border-light);
-      max-width: 640px;
-    }
-
-    .why-body p {
-      font-size: 17px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    .why-body p:last-child { margin-bottom: 0; }
-
-    .why-body strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    /* ===== Features ===== */
-    .features {
-      padding: 40px 0;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .section-label {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-      margin-bottom: 28px;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border-light);
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .feature-item {
-      background: var(--bg-primary);
-      padding: 24px;
-    }
-
-    .feature-icon {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .feature-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      margin-bottom: 6px;
-    }
-
-    .feature-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    /* ===== Works With ===== */
-    .works-with {
-      padding: 40px 0;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .works-with-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border-light);
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .works-with-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
-      background: var(--bg-primary);
-    }
-
-    .works-with-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .works-with-name {
-      font-size: 14px;
-      font-weight: 600;
-      font-family: 'Space Grotesk', sans-serif;
-      color: var(--text-primary);
-    }
-
-    .works-with-type {
-      font-size: 12px;
-      color: var(--text-tertiary);
-      margin-top: 1px;
-    }
-
-    /* ===== FARA ===== */
-    .fara {
-      padding: 40px 0;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .fara-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      padding: 32px;
-    }
-
-    .fara-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-      margin-bottom: 12px;
-    }
-
-    .fara-heading {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .fara-body {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .fara-body a {
-      color: var(--text-primary);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-
-    .fara-body a:hover {
-      color: var(--accent);
-      text-decoration-color: var(--accent);
-    }
-
-    .fara-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-      font-size: 14px;
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .fara-link:hover { color: var(--accent-hover); }
-
-    /* ===== Support ===== */
-    .support {
-      padding: 40px 0;
-    }
-
-    .support-links {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      background: var(--border-light);
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .support-link-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 24px;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: background 0.15s;
-    }
-
-    .support-link-item:hover {
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-    }
-
-    .support-link-label {
-      font-weight: 500;
-      font-size: 15px;
-    }
-
-    .support-link-sub {
-      font-size: 13px;
-      color: var(--text-tertiary);
-      margin-top: 2px;
-    }
-
-    .support-link-arrow {
-      color: var(--text-tertiary);
-      transition: transform 0.2s, color 0.2s;
-    }
-
-    .support-link-item:hover .support-link-arrow {
-      transform: translateX(3px);
-      color: var(--accent);
-    }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 600px) {
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .works-with-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <script defer src="../assets/site.js"></script>
 </head>
 <body>
   <div class="container">
-    <nav class="nav page-header">
+
+    <nav class="nav">
       <div class="nav-inner">
-        <a href="/" class="nav-wordmark">penston<span>.</span>studio</a>
+        <a href="../" class="nav-wordmark">penston<span>.</span>studio</a>
         <ul class="nav-links">
-          <li><a href="#support">Support</a></li>
+          <li>
+            <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
+              <span class="mode-toggle-track">
+                <span class="mode-toggle-i" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="1.8" stroke="currentColor" stroke-width="1.1"/><line x1="5" y1="0.5" x2="5" y2="2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="8" x2="5" y2="9.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="0.5" y1="5" x2="2" y2="5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="8" y1="5" x2="9.5" y2="5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="1.6" y1="1.6" x2="2.7" y2="2.7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="7.3" y1="7.3" x2="8.4" y2="8.4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="7.3" y1="2.7" x2="8.4" y2="1.6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="1.6" y1="8.4" x2="2.7" y2="7.3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></span>
+                <span class="mode-toggle-thumb"></span>
+                <span class="mode-toggle-o" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M7.5 6A3.5 3.5 0 1 1 4 2a2.5 2.5 0 1 0 3.5 4z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg></span>
+              </span>
+            </button>
+          </li>
         </ul>
       </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-      <a href="/" class="back-link">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        All projects
-      </a>
-
-      <div class="app-identity" data-stagger="0">
-        <div class="app-icon">
-          <img src="/assets/pour-over-icon.png" alt="Pour Over for Raindrop">
-        </div>
-        <div class="app-name-group">
-          <div class="app-name">Pour Over for Raindrop</div>
-          <div class="app-platform">GitHub Action · Free &amp; open source</div>
-        </div>
-      </div>
-
-      <h1 class="hero-headline" data-stagger="1">Your read-later list,<br>brewed <em>fresh daily</em>.</h1>
-      <p class="hero-sub" data-stagger="2">
-        Connect your <a href="https://raindrop.io" target="_blank" rel="noopener">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. No dashboard, no app. Just your inbox.
-      </p>
-
-      <div class="cta-group" data-stagger="3">
-        <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="btn-primary">
-          <i class="ri-github-line"></i>
-          View on GitHub
-        </a>
-        <a href="https://github.com/gpenston/pour-over-for-raindrop/fork" target="_blank" rel="noopener" class="btn-secondary">
-          Fork and set up
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M3 1.5H2A.5.5 0 001.5 2v8a.5.5 0 00.5.5h8a.5.5 0 00.5-.5V9M7 1.5h3.5m0 0V5m0-3.5L5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </section>
-
-    <!-- Why -->
-    <section class="why">
-      <p class="section-label" data-reveal>The idea</p>
-      <div class="why-body" data-reveal>
-        <p>The read-later queue is a graveyard. You save things with the best intentions, then never go back. Pour Over fixes the loop by surfacing your most recent saves in a clean editorial email, delivered at a time you choose, formatted the way a newsletter should look.</p>
-        <p>It runs entirely in your own GitHub account. Fork it, add your Raindrop token and SMTP credentials as repository secrets, and your first digest arrives on schedule. <strong>Nothing touches any server you don't control.</strong></p>
-      </div>
-    </section>
-
-    <!-- Features -->
-    <section class="features">
-      <p class="section-label" data-reveal>What it does</p>
-      <div class="feature-grid">
-        <div class="feature-item" data-reveal>
-          <div class="feature-icon"><i class="ri-bookmark-line"></i></div>
-          <div class="feature-name">Recent bookmarks</div>
-          <div class="feature-desc">Pulls your latest saves from Raindrop's Read Later collection, with cover images, tags, and source metadata.</div>
-        </div>
-        <div class="feature-item" data-reveal>
-          <div class="feature-icon"><i class="ri-sparkling-2-line"></i></div>
-          <div class="feature-name">Smart recommendations</div>
-          <div class="feature-desc">Analyzes your archive tags and surfaces related articles via NewsAPI — optional, but worth enabling.</div>
-        </div>
-        <div class="feature-item" data-reveal>
-          <div class="feature-icon"><i class="ri-mail-open-line"></i></div>
-          <div class="feature-name">Beautiful emails</div>
-          <div class="feature-desc">Responsive design that feels like a real editorial newsletter. Native dark and light mode support for macOS and iOS Mail.</div>
-        </div>
-        <div class="feature-item" data-reveal>
-          <div class="feature-icon"><i class="ri-loop-right-line"></i></div>
-          <div class="feature-name">Fully automated</div>
-          <div class="feature-desc">Runs on a configurable schedule via GitHub Actions. Daily, weekly, or specific days — no server, no babysitting.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Works With -->
-    <section class="works-with">
-      <p class="section-label" data-reveal>Works with</p>
-      <div class="works-with-grid">
-
-        <div class="works-with-item">
-          <img class="works-with-icon" src="/assets/app-icon-raindrop.jpg" alt="Raindrop.io">
-          <div>
-            <div class="works-with-name">Raindrop.io</div>
-            <div class="works-with-type">Bookmark Manager</div>
-          </div>
-        </div>
-
-        <div class="works-with-item">
-          <img class="works-with-icon" src="/assets/app-icon-github.jpg" alt="GitHub Actions">
-          <div>
-            <div class="works-with-name">GitHub Actions</div>
-            <div class="works-with-type">Automation</div>
-          </div>
-        </div>
-
-        <div class="works-with-item">
-          <img class="works-with-icon" src="/assets/app-icon-newsapi.jpg" alt="NewsAPI">
-          <div>
-            <div class="works-with-name">NewsAPI</div>
-            <div class="works-with-type">Recommendations</div>
-          </div>
-        </div>
-
-        <div class="works-with-item">
-          <img class="works-with-icon" src="/assets/app-icon-icloud-mail.jpg" alt="iCloud Mail">
-          <div>
-            <div class="works-with-name">iCloud Mail</div>
-            <div class="works-with-type">Email</div>
-          </div>
-        </div>
-
-        <div class="works-with-item">
-          <img class="works-with-icon" src="/assets/app-icon-gmail.jpg" alt="Gmail">
-          <div>
-            <div class="works-with-name">Gmail</div>
-            <div class="works-with-type">Email</div>
-          </div>
-        </div>
-
-        <div class="works-with-item">
-          <img class="works-with-icon" src="/assets/app-icon-outlook.jpg" alt="Outlook">
-          <div>
-            <div class="works-with-name">Outlook</div>
-            <div class="works-with-type">Email</div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- FARA -->
-    <section class="fara">
-      <div class="fara-card">
-        <div class="fara-label">Built with purpose</div>
-        <h2 class="fara-heading">Supporting Friedreich's Ataxia research</h2>
-        <p class="fara-body">
-          Pour Over is free, and always will be. In place of a price tag, there's a donation link to the
-          <a href="https://www.curefa.org" target="_blank" rel="noopener">Friedreich's Ataxia Research Alliance (FARA)</a>,
-          a nonprofit funding research into a progressive neurological condition with no known cure that directly impacts my family.
-          If this project saves you time, consider passing it forward.
-        </p>
-        <a href="https://www.curefa.org/donate?campaign=gpenston" target="_blank" rel="noopener" class="fara-link">
-          Donate to FARA
+    <main>
+      <div class="product-bar">
+        <a href="../" class="back-link">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M5 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M8 2h4m0 0v4m0-4L6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
+          All projects
         </a>
+        <ul class="product-bar-links">
+          <li><a href="#support">Support</a></li>
+        </ul>
       </div>
-    </section>
 
-    <!-- Support -->
-    <section class="support" id="support">
-      <p class="section-label" data-reveal>Support</p>
-      <div class="support-links">
-        <a href="https://github.com/gpenston/pour-over-for-raindrop/issues/new" target="_blank" rel="noopener" class="support-link-item">
+      <!-- Hero -->
+      <section>
+        <div class="app-identity" data-stagger="0">
+          <div class="app-icon"><img src="../assets/pour-over-icon.png" alt="Pour Over for Raindrop"></div>
           <div>
-            <div class="support-link-label">Report an issue</div>
-            <div class="support-link-sub">GitHub Issues — file a bug or request a feature</div>
+            <div class="app-name">Pour Over for Raindrop</div>
+            <div class="app-platform">GitHub Action · Free</div>
           </div>
-          <svg class="support-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-        <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="support-link-item">
-          <div>
-            <div class="support-link-label">View source</div>
-            <div class="support-link-sub">MIT licensed — fork it, modify it, make it yours</div>
+        </div>
+
+        <h1 class="hero-headline" data-stagger="1">Your read-later list,<br>brewed <em>fresh daily</em>.</h1>
+        <p class="hero-sub" data-stagger="2">
+          Connect your <a href="https://raindrop.io" target="_blank" rel="noopener">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. No dashboard, no app. Just your inbox.
+        </p>
+
+        <div class="cta-group" data-stagger="3">
+          <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="btn-primary">
+            <i class="ri-github-line"></i>
+            View on GitHub
+            <span class="mono-arrow">→</span>
+          </a>
+          <a href="https://github.com/gpenston/pour-over-for-raindrop/fork" target="_blank" rel="noopener" class="btn-secondary">
+            Fork and set up
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M4 2H2v8h8V8M7 2h3m0 0v3m0-3L5 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- Plates / product shots — commented out until real email screenshots are ready
+      <section class="product-showcase" data-reveal>
+        <div class="plates">
+          <div class="plate">
+            <div class="plate-num">PL. 01 / iOS MAIL</div>
+            <div class="plate-body">
+              <div class="device-iphone">
+                <div class="screen">
+                  <div class="mock-pour">Daily digest<br>preview<br>(placeholder)</div>
+                </div>
+              </div>
+            </div>
+            <div class="plate-cap">On iPhone</div>
           </div>
-          <svg class="support-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </section>
+
+          <div class="plate">
+            <div class="plate-num">PL. 02 / macOS MAIL</div>
+            <div class="plate-body">
+              <div class="device-mac-window">
+                <div class="window-chrome"><span></span><span></span><span></span></div>
+                <div class="window-screen">
+                  <div class="mock-pour">Editorial email layout<br>(placeholder)</div>
+                </div>
+              </div>
+            </div>
+            <div class="plate-cap">In Mail.app</div>
+          </div>
+
+          <div class="plate">
+            <div class="plate-num">PL. 03 / iPAD</div>
+            <div class="plate-body">
+              <div class="device-ipad">
+                <div class="screen">
+                  <div class="mock-pour">Reading view<br>(placeholder)</div>
+                </div>
+              </div>
+            </div>
+            <div class="plate-cap">On iPad</div>
+          </div>
+        </div>
+      </section>
+      -->
+
+      <!-- The idea (pullquote) -->
+      <section style="padding: 48px 0 16px;" data-reveal>
+        <div class="section-label" data-num="01">The idea</div>
+        <p class="pullquote">
+          The read-later queue is a
+          <span class="hl">graveyard</span>.
+          You save things with the best intentions, then never go back. Pour Over fixes the loop by surfacing your most recent saves in
+          <span class="hl">a clean editorial email</span>,
+          delivered on your schedule.
+        </p>
+      </section>
+
+      <!-- Features (spec rows) -->
+      <section style="padding: 32px 0 8px;">
+        <div class="section-label" data-num="02" data-reveal>What it does</div>
+
+        <div class="spec-row" data-reveal>
+          <div class="n">01</div>
+          <div class="icon-cell"><i class="ri-bookmark-line"></i></div>
+          <div class="body">
+            <h3>Recent bookmarks</h3>
+            <p>Pulls your latest saves from Raindrop’s Read Later collection, with cover images, tags, and source metadata.</p>
+          </div>
+        </div>
+
+        <div class="spec-row" data-reveal>
+          <div class="n">02</div>
+          <div class="icon-cell"><i class="ri-sparkling-2-line"></i></div>
+          <div class="body">
+            <h3>Smart recommendations</h3>
+            <p>Analyzes your archive tags and surfaces related articles via NewsAPI — optional, but worth enabling.</p>
+          </div>
+        </div>
+
+        <div class="spec-row" data-reveal>
+          <div class="n">03</div>
+          <div class="icon-cell"><i class="ri-mail-open-line"></i></div>
+          <div class="body">
+            <h3>Beautiful emails</h3>
+            <p>Responsive design that feels like a real editorial newsletter. Native dark and light mode support for macOS and iOS Mail.</p>
+          </div>
+        </div>
+
+        <div class="spec-row" data-reveal>
+          <div class="n">04</div>
+          <div class="icon-cell"><i class="ri-loop-right-line"></i></div>
+          <div class="body">
+            <h3>Fully automated</h3>
+            <p>Runs on a configurable schedule via GitHub Actions. Daily, weekly, or specific days — no server, no babysitting.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Works With -->
+      <section style="padding: 32px 0 16px;">
+        <div class="section-label" data-num="03" data-reveal>Works with</div>
+        <div class="works-with-row" data-reveal>
+          <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-raindrop.jpg" alt=""><span class="ww-name">Raindrop.io</span></div>
+          <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-github.jpg" alt=""><span class="ww-name">GitHub Actions</span></div>
+          <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-newsapi.jpg" alt=""><span class="ww-name">NewsAPI</span></div>
+          <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-icloud-mail.jpg" alt=""><span class="ww-name">iCloud Mail</span></div>
+          <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-gmail.jpg" alt=""><span class="ww-name">Gmail</span></div>
+          <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-outlook.jpg" alt=""><span class="ww-name">Outlook</span></div>
+        </div>
+      </section>
+
+      <!-- FARA -->
+      <section style="padding: 40px 0 16px;" data-reveal>
+        <div class="fara-card">
+          <div class="fara-label">Built with purpose</div>
+          <h2 class="fara-heading">Supporting Friedreich’s Ataxia research</h2>
+          <p class="fara-body">
+            Pour Over is free, and always will be. In place of a price tag, there’s a donation link to the
+            <a href="https://www.curefa.org" target="_blank" rel="noopener">Friedreich’s Ataxia Research Alliance (FARA)</a>,
+            a nonprofit funding research into a progressive neurological condition with no known cure that directly impacts my family.
+            If this project saves you time, consider passing it forward.
+          </p>
+          <a href="https://www.curefa.org/donate?campaign=gpenston" target="_blank" rel="noopener" class="fara-link">
+            Donate to FARA
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M5 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M8 2h4m0 0v4m0-4L6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- Support -->
+      <section style="padding: 40px 0 16px;" id="support">
+        <div class="section-label" data-num="04" data-reveal>Support</div>
+        <div class="support-links" data-reveal>
+          <a href="https://github.com/gpenston/pour-over-for-raindrop/issues/new" target="_blank" rel="noopener" class="support-link-item">
+            <div>
+              <div class="support-link-label">Report an issue</div>
+              <div class="support-link-sub">GitHub Issues — file a bug or request a feature</div>
+            </div>
+            <svg class="support-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="support-link-item">
+            <div>
+              <div class="support-link-label">View source</div>
+              <div class="support-link-sub">MIT licensed — fork it, modify it, make it yours</div>
+            </div>
+            <svg class="support-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+    </main>
 
     <footer>
       <div class="footer-inner">
-        <span class="footer-copy">© 2026 George Penston · <a href="/">penston.studio</a></span>
+        <span class="footer-copy">© 2026 George Penston</span>
         <ul class="footer-links">
+          <li><a href="https://gpenston.com" target="_blank" rel="noopener">Portfolio</a></li>
           <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://github.com/gpenston" target="_blank" rel="noopener">GitHub</a></li>
         </ul>
