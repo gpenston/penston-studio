@@ -1,7 +1,9 @@
-// Mode toggle: dark (default) / light. Persisted in localStorage.
+// Mode toggle: persisted in localStorage; falls back to OS preference, then dark.
 (function () {
   var KEY = 'ps_mode';
-  var saved = localStorage.getItem(KEY) || 'dark';
+  var stored = localStorage.getItem(KEY);
+  var osPrefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  var saved = stored || osPrefers;
   document.documentElement.setAttribute('data-mode', saved);
 
   function wire() {

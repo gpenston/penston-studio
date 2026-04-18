@@ -9,59 +9,72 @@
 /* ----- Tokens: DARK (default) ---------------------------------------- */
 :root {
   --bg-primary:    #0c0b08;
-  --bg-secondary:  #141210;
-  --bg-tertiary:   #1c1a16;
+  --bg-secondary:  #17150f;
+  --bg-tertiary:   #1f1c14;
   --bg-deep:       #080706;
-  --text-primary:  #efe9d5;
-  --text-secondary:#a8a290;
-  --text-tertiary: #6a6454;
-  --border-light:  #24221d;
-  --border-medium: #3d3a32;
-  --border-rule:   #efe9d5;
-  --accent:        #ff7a2e;
-  --accent-hover:  #ffa05a;
-  --accent-cool:   #65b3c2;
-  --accent-cool-hover: #95d4e0;
+  --text-primary:  #e8e2cf;
+  --text-secondary:#9c9687;
+  --text-tertiary: #5a5547;
+  --border-light:  #1f1c14;
+  --border-medium: #2a2620;
+  --border-rule:   #e8e2cf;
+  --accent:        #eb5a00;
+  --accent-hover:  #ff7a2e;
+  --accent-cool:   #7aa9a3;
+  --accent-cool-hover: #9ac4be;
   --on-accent:     #0c0b08;
-  --grid-line:     rgba(239, 233, 213, 0.04);
-  --highlight:     rgba(150, 235, 238, 0.45);
+  --grid-line:     rgba(232, 226, 207, 0.04);
+  --highlight:     rgba(122, 169, 163, 0.35);
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
   --shadow-md: 0 12px 24px rgba(0,0,0,0.6);
   --shadow-lg: 0 40px 80px rgba(0,0,0,0.8), 0 12px 20px rgba(0,0,0,0.5);
 
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --container-max: 880px;
+  --container-pad: 32px;
+  --section-y:     48px;
+  --section-y-lg:  80px;
+
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+
+  --t-fast: 150ms ease-out;
+  --t-med:  300ms ease-out;
+  --t-slow: 600ms ease-out;
 }
 
 /* ----- Tokens: LIGHT (bone paper) ------------------------------------ */
 :root[data-mode="light"] {
   --bg-primary:    #efece4;
-  --bg-secondary:  #e6e2d6;
-  --bg-tertiary:   #d8d2c2;
+  --bg-secondary:  #e5e1d4;
+  --bg-tertiary:   #d9d3c2;
   --bg-deep:       #1d1a14;
   --text-primary:  #1a1810;
-  --text-secondary:#4a463a;
-  --text-tertiary: #8a8472;
-  --border-light:  #c9c2ad;
-  --border-medium: #8a836d;
+  --text-secondary:#5a5547;
+  --text-tertiary: #8a8371;
+  --border-light:  #dcd5c2;
+  --border-medium: #c8c0ac;
   --border-rule:   #1a1810;
   --accent:        #d94f00;
   --accent-hover:  #a53600;
-  --accent-cool:   #1c4a55;
+  --accent-cool:   #3d6b68;
   --accent-cool-hover: #2a6070;
   --on-accent:     #efece4;
   --grid-line:     rgba(26, 24, 16, 0.08);
-  --highlight:     rgba(150, 235, 238, 0.75);
+  --highlight:     rgba(61, 107, 104, 0.18);
 
   --shadow-sm: 0 1px 2px rgba(20,10,0,0.10);
   --shadow-md: 0 10px 20px rgba(20,10,0,0.12);
   --shadow-lg: 0 24px 48px rgba(20,10,0,0.18), 0 6px 12px rgba(20,10,0,0.06);
 }
 
-/* Per-page accent override (quiet — orange still does most of the work) */
-:root[data-page="markedly"]  { --accent: #ff7a2e; --accent-hover: #ffa05a; }
+/* Per-page accent override */
 :root[data-page="pourover"]  { --accent: #e5b54a; --accent-hover: #f4c870; }
-:root[data-mode="light"][data-page="markedly"]  { --accent: #d94f00; --accent-hover: #a53600; }
 :root[data-mode="light"][data-page="pourover"]  { --accent: #c88a1e; --accent-hover: #a06510; }
 
 /* ----- Reset & base -------------------------------------------------- */
@@ -75,10 +88,11 @@ html {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
   min-height: 100vh;
+  text-wrap: pretty;
   background-image:
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
@@ -87,10 +101,11 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 500;
   line-height: 1.1;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 a { color: var(--text-primary); text-decoration: none; transition: color 0.2s ease; }
@@ -101,9 +116,9 @@ a:hover { color: var(--accent); }
 
 /* ----- Layout -------------------------------------------------------- */
 .container {
-  max-width: 720px;
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 var(--container-pad);
 }
 
 /* ----- System rail (top chrome) ------------------------------------- */
@@ -230,9 +245,9 @@ a:hover { color: var(--accent); }
 }
 
 .hero-name {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(56px, 10vw, 108px);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(56px, 9vw, 128px);
+  font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 0.9;
   color: var(--text-primary);
@@ -358,9 +373,9 @@ a:hover { color: var(--accent); }
 
 /* ----- Big H2 — poster headline ------------------------------------- */
 .big-h2 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(36px, 6vw, 58px);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 0.98;
   margin-bottom: 20px;
@@ -510,9 +525,9 @@ a:hover { color: var(--accent); }
 }
 
 .hero-headline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(40px, 7.5vw, 72px);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 0.94;
   color: var(--text-primary);
@@ -839,11 +854,6 @@ a:hover { color: var(--accent); }
   border-top: 1px solid var(--border-medium);
   border-bottom: 1px solid var(--border-medium);
   overflow: hidden;
-}
-:root[data-mode="dark"] .product-showcase {
-  background: linear-gradient(180deg,
-    color-mix(in srgb, var(--accent) 6%, var(--bg-primary)) 0%,
-    var(--bg-secondary) 100%);
 }
 
 .plates,
@@ -1224,7 +1234,7 @@ footer {
     gap: 14px;
   }
   .plates-row { grid-template-columns: 1fr; }
-  .product-showcase { margin-left: -24px; margin-right: -24px; padding: 32px 24px 24px; }
+  .product-showcase { margin-left: -32px; margin-right: -32px; padding: 32px 32px 24px; }
   .plates { gap: 20px; }
   .plates .plate:nth-child(1),
   .plates .plate:nth-child(2),
