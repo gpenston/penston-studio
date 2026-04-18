@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="dark" data-page="home">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,187 +16,19 @@
   <meta name="twitter:description" content="George Penston is a Product Design Leader and maker. Penston Studio is home to his side projects, including Markedly and Pour Over for Raindrop.">
   <meta name="twitter:image" content="https://penston.studio/assets/markedly-icon.png">
   <link rel="canonical" href="https://penston.studio/">
-  <meta name="google-site-verification" content="mEwr0PEgXbCW3Zjlk4vpA9xTCqKCGtuqw6GUaN_VWl4">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon-gp.png">
-  <link rel="stylesheet" href="/assets/style.css">
-  <script defer src="/assets/animations.js"></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "George Penston",
-    "url": "https://penston.studio",
-    "jobTitle": "Product Design Leader",
-    "description": "Designer and maker. Building side projects at Penston Studio.",
-    "sameAs": [
-      "https://linkedin.com/in/gpenston",
-      "https://github.com/gpenston",
-      "https://gpenston.com"
-    ]
-  }
-  </script>
-  <style>
-    /* ===== Home-specific styles ===== */
-    .hero {
-      padding: 64px 0 52px;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .hero-label {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .hero-name {
-      font-size: clamp(40px, 6vw, 60px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      margin-bottom: 20px;
-    }
-
-    .hero-bio {
-      font-size: 18px;
-      color: var(--text-secondary);
-      max-width: 520px;
-      line-height: 1.6;
-    }
-
-    /* ===== Projects ===== */
-    .projects {
-      padding: 44px 0;
-    }
-
-    .section-label {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-      margin-bottom: 32px;
-    }
-
-    .project-card {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 24px;
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      background: var(--bg-secondary);
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
-      margin-bottom: 16px;
-    }
-
-    .project-card:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-3px);
-      color: var(--text-primary);
-    }
-
-    .project-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 11px;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      overflow: hidden;
-    }
-
-    .project-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .project-icon-placeholder {
-      font-size: 22px;
-    }
-
-    .project-body {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .project-info { flex: 1; min-width: 0; }
-
-    .project-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .project-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-
-    }
-
-    .project-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .project-badge {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      padding: 3px 8px;
-      border-radius: 20px;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-light);
-      color: var(--text-tertiary);
-    }
-
-    .project-arrow {
-      color: var(--text-tertiary);
-      transition: transform 0.2s, color 0.2s;
-    }
-
-    .project-card:hover .project-arrow {
-      transform: translateX(3px);
-      color: var(--accent);
-    }
-
-    @media (max-width: 600px) {
-      .project-card {
-        align-items: flex-start;
-      }
-      .project-icon {
-        margin-top: 2px;
-      }
-      .project-body {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-    }
-  </style>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/site.js"></script>
 </head>
 <body>
   <div class="container">
+
+    <div class="system-rail">
+      <span class="sys-item"><span class="sys-led"></span><span>ONLINE</span></span>
+      <span class="sys-item">LAT: 37.77° N · LON: 122.42° W</span>
+      <span class="sys-item sys-accent">SFO / USA</span>
+    </div>
+
     <nav class="nav">
       <div class="nav-inner">
         <span class="nav-wordmark">penston<span>.</span>studio</span>
@@ -204,27 +36,57 @@
           <li><a href="https://gpenston.com" target="_blank" rel="noopener">Portfolio</a></li>
           <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://github.com/gpenston" target="_blank" rel="noopener">GitHub</a></li>
+          <li>
+            <span class="mode-toggle" role="group" aria-label="Color mode">
+              <button type="button" data-mode-set="dark">Dark</button>
+              <button type="button" data-mode-set="light">Light</button>
+            </span>
+          </li>
         </ul>
       </div>
     </nav>
 
     <main>
-    <section class="hero">
-      <span class="hero-label" data-stagger="0">Product Design Leader &amp; Maker</span>
-      <h1 class="hero-name" data-stagger="1">George<br>Penston</h1>
-      <p class="hero-bio" data-stagger="2">
-        I turn big ideas into real products and build teams that bring them to life. This is where the side projects live.
-      </p>
-    </section>
+      <section class="instr-hero">
+        <!-- Atmosphere -->
+        <svg class="atm-rays" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+          <g stroke="var(--accent)" stroke-width="0.6" opacity="0.7">
+            <line x1="100" y1="100" x2="100" y2="0"/>
+            <line x1="100" y1="100" x2="170" y2="30"/>
+            <line x1="100" y1="100" x2="200" y2="100"/>
+            <line x1="100" y1="100" x2="170" y2="170"/>
+            <line x1="100" y1="100" x2="100" y2="200"/>
+            <line x1="100" y1="100" x2="30" y2="170"/>
+            <line x1="100" y1="100" x2="0" y2="100"/>
+            <line x1="100" y1="100" x2="30" y2="30"/>
+            <line x1="100" y1="100" x2="140" y2="10"/>
+            <line x1="100" y1="100" x2="190" y2="60"/>
+            <line x1="100" y1="100" x2="190" y2="140"/>
+            <line x1="100" y1="100" x2="140" y2="190"/>
+            <line x1="100" y1="100" x2="60" y2="190"/>
+            <line x1="100" y1="100" x2="10" y2="140"/>
+            <line x1="100" y1="100" x2="10" y2="60"/>
+            <line x1="100" y1="100" x2="60" y2="10"/>
+          </g>
+        </svg>
+        <div class="disc-ring"></div>
+        <div class="disc-mark"></div>
 
-    <section class="projects">
-      <p class="section-label" data-reveal>Projects</p>
+        <span class="instr-kicker" data-stagger="0">Bureau / CH. 00 / Penston Studio</span>
+        <h1 class="hero-name" data-stagger="1">George <em>Penston</em></h1>
+        <p class="hero-bio" data-stagger="2">
+          Product design leader and maker. I turn big ideas into real products and build teams that bring them to life.
+          This is where the side projects live.
+        </p>
 
-      <a href="/markedly/" class="project-card" data-reveal>
-        <div class="project-icon">
-          <img src="/assets/markedly-icon.png" alt="Markedly">
-        </div>
-        <div class="project-body">
+        <div class="atm-horizon"></div>
+      </section>
+
+      <section style="padding: 48px 0 24px;">
+        <div class="section-label" data-num="01">Catalogue</div>
+
+        <a href="markedly/" class="project-card" data-color="markedly" data-reveal>
+          <div class="project-icon"><img src="assets/markedly-icon.png" alt="Markedly"></div>
           <div class="project-info">
             <div class="project-name">Markedly</div>
             <div class="project-desc">Convert documents and images to Markdown — locally, instantly, for free.</div>
@@ -235,14 +97,10 @@
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-        </div>
-      </a>
+        </a>
 
-      <a href="/pour-over/" class="project-card" data-reveal>
-        <div class="project-icon">
-          <img src="/assets/pour-over-icon.png" alt="Pour Over for Raindrop">
-        </div>
-        <div class="project-body">
+        <a href="pour-over/" class="project-card" data-color="pourover" data-reveal>
+          <div class="project-icon"><img src="assets/pour-over-icon.png" alt="Pour Over for Raindrop"></div>
           <div class="project-info">
             <div class="project-name">Pour Over for Raindrop</div>
             <div class="project-desc">Daily digest of your Raindrop read-later list, delivered to your inbox.</div>
@@ -253,9 +111,16 @@
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-        </div>
-      </a>
-    </section>
+        </a>
+      </section>
+
+      <section style="padding: 48px 0 24px;">
+        <div class="section-label" data-num="02" data-reveal>The Studio</div>
+        <h2 class="big-h2" data-reveal>Purpose-built.<br>Small and <em>considered</em>.</h2>
+        <p class="studio-body" data-reveal>
+          Penston Studio is a one-person practice in product design and development. I build the apps I want for myself and make them available to others. Simple, considered, and always evolving.
+        </p>
+      </section>
     </main>
 
     <footer>
