@@ -611,6 +611,25 @@ a:hover { color: var(--accent); }
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* Inline prose link states — hover + click across all body contexts */
+.hero-sub a:hover,
+.spec-row .body a:hover,
+.why a:hover,
+.fara-body a:hover,
+.privacy-content a:hover {
+  color: var(--accent-hover);
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1.5px;
+}
+.hero-sub a:active,
+.spec-row .body a:active,
+.why a:active,
+.fara-body a:active,
+.privacy-content a:active {
+  opacity: 0.65;
 }
 
 .cta-group {
