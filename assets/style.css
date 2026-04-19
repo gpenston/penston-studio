@@ -884,7 +884,7 @@ a.nav-kicker:active { opacity: 0.5; }
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   min-width: 110px;
   padding-top: 3px;
   flex-shrink: 0;
@@ -915,8 +915,8 @@ a.nav-kicker:active { opacity: 0.5; }
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
-  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  border: 1px solid var(--text-tertiary);
   border-radius: 3px;
   padding: 3px 7px;
 }
