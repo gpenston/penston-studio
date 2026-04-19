@@ -639,6 +639,10 @@ a.nav-kicker:active { opacity: 0.5; }
   padding-top: env(safe-area-inset-top);
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-medium);
+  /* Force GPU compositing layer — prevents iOS Safari content bleed-through */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .unified-bar {
