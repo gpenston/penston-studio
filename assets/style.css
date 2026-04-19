@@ -9,14 +9,6 @@
 /* ----- MPA View Transitions ------------------------------------------ */
 @view-transition { navigation: auto; }
 
-/* Sequenced: old exits fully before new enters — no overlap.
-   80ms hard exit, then new fades in starting at 70ms (10ms before old
-   is fully gone so there's no perceptible blank frame). */
-@keyframes glyph-out { to   { opacity: 0; } }
-@keyframes glyph-in  { from { opacity: 0; } }
-::view-transition-old(nav-glyph) { animation: 80ms  ease-in        glyph-out; }
-::view-transition-new(nav-glyph) { animation: 180ms ease-out  70ms glyph-in;  }
-
 /* Text stays perfectly anchored — same content, same position on all pages */
 ::view-transition-old(nav-text),
 ::view-transition-new(nav-text) {
@@ -330,9 +322,8 @@ main { position: relative; overflow-x: clip; }
 a.nav-kicker:hover { color: var(--text-primary); background-size: 100% 1px; }
 a.nav-kicker:active { opacity: 0.5; }
 
-/* Glyph — SVG mark, animates independently on navigation */
+/* Glyph — part of root transition; no separate snapshot layer */
 .nav-glyph {
-  view-transition-name: nav-glyph;
   display: inline-block;
   opacity: 0.55;
   flex-shrink: 0;
