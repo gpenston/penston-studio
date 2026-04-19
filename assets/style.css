@@ -575,6 +575,7 @@ a.nav-kicker:active { opacity: 0.5; }
   padding-top: 0;
   margin-bottom: 0;
 }
+.back-link-label { display: none; }
 .product-bar-links {
   display: flex;
   align-items: center;
@@ -1594,8 +1595,7 @@ footer {
   .product-switcher-item > span { gap: 0; padding: 4px 5px; }
   .product-switcher-label { display: none; }
 
-  /* Back-link: drop "All projects" text, keep arrow only */
-  .back-link-label { display: none; }
+  /* Back-link: arrow only on mobile */
   .back-link { gap: 4px; }
 }
 
