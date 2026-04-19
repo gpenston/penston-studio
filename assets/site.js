@@ -87,33 +87,66 @@
       reveals.forEach(function (el) { el.classList.add('is-revealed'); });
     }, 2500);
 
-    // Smooth animated scroll for anchor links (e.g. Support, Privacy).
+    // Smooth animated scroll for anchor links (e.g. Support, Privacy, # top).
     // easeOutExpo: fast start, physical settle — matches the site's motion language.
     function easeOutExpo(t) {
       return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
     }
+    function animateScroll(dest, duration) {
+      var start = window.pageYOffset;
+      var t0 = null;
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / duration, 1);
+        window.scrollTo(0, start + (dest - start) * easeOutExpo(p));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
       anchor.addEventListener('click', function (e) {
         var id = this.getAttribute('href');
+        // bare '#' = scroll to top
+        if (id === '#') {
+          e.preventDefault();
+          if (window.pageYOffset > 0) animateScroll(0, 550);
+          return;
+        }
         var target = document.querySelector(id);
         if (!target) return;
         e.preventDefault();
-        // Measure sticky chrome height so the section clears the bar.
         var chrome = document.querySelector('.sticky-chrome');
         var offset = (chrome ? chrome.offsetHeight : 0) + 20;
-        var start = window.pageYOffset;
-        var dest = target.getBoundingClientRect().top + start - offset;
-        var duration = 650;
-        var t0 = null;
-        function step(ts) {
-          if (!t0) t0 = ts;
-          var p = Math.min((ts - t0) / duration, 1);
-          window.scrollTo(0, start + (dest - start) * easeOutExpo(p));
-          if (p < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
+        var dest = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        animateScroll(dest, 650);
       });
     });
+
+    // Character scramble on the nav glyph — runs on every page load.
+    // Cycles through mono characters before resolving to the real glyph.
+    var glyphEl = document.querySelector('.nav-glyph');
+    if (glyphEl) {
+      var glyphTarget = glyphEl.textContent;
+      var glyphPool = '/<>|\\-=+#.;:~_^';
+      var glyphCycles = 8;
+      var glyphStep = 0;
+      // Small delay so the view-transition screenshot clears first.
+      setTimeout(function () {
+        var id = setInterval(function () {
+          if (glyphStep >= glyphCycles) {
+            clearInterval(id);
+            glyphEl.textContent = glyphTarget;
+            return;
+          }
+          var s = '';
+          for (var i = 0; i < glyphTarget.length; i++) {
+            s += glyphPool[Math.floor(Math.random() * glyphPool.length)];
+          }
+          glyphEl.textContent = s;
+          glyphStep++;
+        }, 42);
+      }, 120);
+    }
   }
 
   if (document.readyState === 'loading') {

@@ -6,23 +6,31 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-/* ----- MPA View Transitions — nav mark morphs between // and < ------- */
+/* ----- MPA View Transitions ------------------------------------------ */
 @view-transition { navigation: auto; }
 
-/* Symbol exits left, new symbol enters from the left — feels intentional */
-@keyframes nav-mark-out {
-  from { opacity: 1; transform: translateX(0); }
-  to   { opacity: 0; transform: translateX(-6px); }
+/* Glyph blurs out like a CRT going to static, resolves in sharp.
+   The character change (// → <) happens during the blur — terminal feel. */
+@keyframes glyph-blur-out {
+  from { opacity: 1; filter: blur(0px);  transform: scale(1); }
+  to   { opacity: 0; filter: blur(4px);  transform: scale(1.15); }
 }
-@keyframes nav-mark-in {
-  from { opacity: 0; transform: translateX(-6px); }
-  to   { opacity: 1; transform: translateX(0); }
+@keyframes glyph-blur-in {
+  from { opacity: 0; filter: blur(4px);  transform: scale(0.88); }
+  to   { opacity: 1; filter: blur(0px);  transform: scale(1); }
 }
-::view-transition-old(nav-mark) {
-  animation: 180ms cubic-bezier(0.4, 0, 1, 1) nav-mark-out;
+::view-transition-old(nav-glyph) {
+  animation: 140ms ease-in glyph-blur-out;
 }
-::view-transition-new(nav-mark) {
-  animation: 300ms cubic-bezier(0.16, 1, 0.3, 1) nav-mark-in;
+::view-transition-new(nav-glyph) {
+  animation: 260ms cubic-bezier(0.16, 1, 0.3, 1) glyph-blur-in;
+  animation-delay: 60ms;
+}
+
+/* Text stays perfectly anchored — same content, same position on all pages */
+::view-transition-old(nav-text),
+::view-transition-new(nav-text) {
+  animation: none;
 }
 
 /* ----- Tokens: DARK (default) ---------------------------------------- */
@@ -320,19 +328,21 @@ main { position: relative; overflow-x: clip; }
 a.nav-kicker:hover { color: var(--text-primary); background-size: 100% 1px; }
 a.nav-kicker:active { opacity: 0.5; }
 
-/* // prefix on home nav — Bureau notation */
-.nav-symbol {
+/* Glyph — the // or < character, animates independently on navigation */
+.nav-glyph {
+  view-transition-name: nav-glyph;
   display: inline-block;
-  opacity: 0.45;
-  letter-spacing: -0.04em; /* tighten the slash pair */
+  opacity: 0.55;
+  letter-spacing: -0.04em; /* tighten // pair */
+  font-variant-numeric: tabular-nums;
 }
 
-/* Shared view-transition name */
-.nav-mark { view-transition-name: nav-mark; }
+/* Text — anchored, never moves during transitions */
+.nav-text {
+  view-transition-name: nav-text;
+}
 
-/* Authoritative box model for the nav mark on ALL pages — home span and
-   product back-link are normalised to identical dimensions here so the
-   view transition has nothing to shift between. */
+/* Authoritative box model — identical on home (span/a) and product (a.back-link) */
 .unified-bar .nav-mark {
   display: inline-flex;
   align-items: center;
@@ -346,11 +356,12 @@ a.nav-kicker:active { opacity: 0.5; }
   text-decoration: none;
   padding: 0;
   margin: 0;
+  cursor: pointer;
+  user-select: none;
   transition: color 150ms ease-out, opacity 100ms;
 }
-.unified-bar .nav-mark:hover { color: var(--accent-cool-hover); opacity: 1; }
-.unified-bar .nav-mark svg { transition: transform 0.2s; }
-.unified-bar .nav-mark:hover svg { transform: translateX(-3px); }
+.unified-bar .nav-mark:hover { color: var(--accent-cool-hover); }
+.unified-bar .nav-mark:hover .nav-glyph { opacity: 0.8; }
 
 .hero-name {
   font-family: var(--font-display);
