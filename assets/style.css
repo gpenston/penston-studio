@@ -454,14 +454,14 @@ a.nav-kicker:active { opacity: 0.5; }
   display: block;
 }
 :root[data-mode="light"] .atm-rays {
-  opacity: 0.28;
+  opacity: 0.15;
   mix-blend-mode: multiply;
 }
 
 .disc-mark {
   position: absolute;
   right: 0; top: 32px;
-  width: 110px; height: 110px;
+  width: 92px; height: 92px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 40%,
     var(--accent-hover) 0%,
@@ -482,8 +482,8 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .disc-ring {
   position: absolute;
-  right: -22px; top: 10px;
-  width: 155px; height: 155px;
+  right: -18px; top: 14px;
+  width: 130px; height: 130px;
   border-radius: 50%;
   border: 1px solid var(--border-medium);
   z-index: 0;
