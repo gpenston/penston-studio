@@ -1461,7 +1461,33 @@ footer {
   .product-showcase {
     margin-left: calc(-1 * var(--container-pad));
     margin-right: calc(-1 * var(--container-pad));
-    padding: 28px var(--container-pad) 24px;
+    padding: 24px 0 20px;
+  }
+  /* Labels get their own indent to stay flush with page content */
+  .product-showcase .plate-num,
+  .product-showcase .plate-cap {
+    padding-left: var(--container-pad);
+    padding-right: var(--container-pad);
+  }
+  /* MacBook device-frame fills the full strip width */
+  .product-showcase .device-frame { max-width: 100%; width: 100%; }
+  /* Square off MacBook corners so the frame sits flush */
+  .product-showcase .device-macbook {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  .product-showcase .device-macbook-base {
+    width: 100%;
+    margin-left: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  /* iPhone: constrained width, centered, keeps its rounded pill shape */
+  .product-showcase .device-iphone {
+    width: min(260px, 72vw);
+    margin: 0 auto;
   }
   .plates { gap: 20px; }
   .plates .plate:nth-child(1),
