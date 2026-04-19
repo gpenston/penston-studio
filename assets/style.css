@@ -1737,8 +1737,8 @@ footer {
   /* Back-link: glyph only on mobile — text too wide at narrow widths */
   .unified-bar .back-link-text { display: none; }
 
-  /* Coffee ring: hide on mobile — too subtle to matter and causes overflow */
-  .coffee-ring { display: none; }
+  /* Coffee ring: pull flush on mobile to prevent overflow */
+  .coffee-ring { right: 0; width: 220px; }
 
   /* Page util links: hidden on mobile — accessible by scrolling to sections */
   .page-util-links { display: none; }
