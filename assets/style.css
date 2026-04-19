@@ -289,13 +289,6 @@ main { position: relative; }
   color: var(--accent-cool);
   margin-bottom: 32px;
 }
-.instr-kicker::before {
-  content: "";
-  width: 28px;
-  height: 1px;
-  background: currentColor;
-  flex-shrink: 0;
-}
 
 .hero-name {
   font-family: var(--font-display);
