@@ -9,17 +9,12 @@
 /* ----- MPA View Transitions ------------------------------------------ */
 @view-transition { navigation: auto; }
 
-/* Outgoing glyph recedes (fades + scales down); incoming arrives with a
-   spring settle (scales up from 80%). Symmetric — works in both directions.
-   No transform-origin needed; default center is correct for both shapes. */
-@keyframes glyph-out { to   { opacity: 0; transform: scale(0.8); } }
-@keyframes glyph-in  { from { opacity: 0; transform: scale(0.8); } }
-::view-transition-old(nav-glyph) {
-  animation: 130ms ease-in glyph-out;
-}
-::view-transition-new(nav-glyph) {
-  animation: 300ms cubic-bezier(0.16, 1, 0.3, 1) glyph-in;
-}
+/* Pure opacity crossfade — no transform, no layout shift.
+   Old fades out quickly; new fades in with a gentle ease. */
+@keyframes glyph-out { to   { opacity: 0; } }
+@keyframes glyph-in  { from { opacity: 0; } }
+::view-transition-old(nav-glyph) { animation: 120ms ease-in  glyph-out; }
+::view-transition-new(nav-glyph) { animation: 200ms ease-out glyph-in;  }
 
 /* Text stays perfectly anchored — same content, same position on all pages */
 ::view-transition-old(nav-text),
