@@ -1471,22 +1471,22 @@ footer {
   }
   /* MacBook device-frame fills the full strip width */
   .product-showcase .device-frame { max-width: 100%; width: 100%; }
-  /* Square off MacBook corners so the frame sits flush */
+  /* Mobile MacBook: strip the chrome entirely — clean full-bleed screenshot */
   .product-showcase .device-macbook {
+    padding: 0;
+    border: none;
     border-radius: 0;
-    border-left: none;
-    border-right: none;
+    background: transparent;
   }
-  .product-showcase .device-macbook-base {
-    width: 100%;
-    margin-left: 0;
+  .product-showcase .device-macbook::before { display: none; } /* hide camera dot */
+  .product-showcase .device-macbook .screen {
     border-radius: 0;
-    border-left: none;
-    border-right: none;
+    border: none;
   }
-  /* iPhone: constrained width, centered, keeps its rounded pill shape */
+  .product-showcase .device-macbook-base { display: none; }
+  /* iPhone: right-sized pill, centered with breathing room */
   .product-showcase .device-iphone {
-    width: min(260px, 72vw);
+    width: min(220px, 64vw);
     margin: 0 auto;
   }
   .plates { gap: 20px; }
