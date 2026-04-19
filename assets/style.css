@@ -1036,7 +1036,7 @@ a.nav-kicker:active { opacity: 0.5; }
 .product-showcase {
   position: relative;
   margin: 16px calc(-1 * var(--container-pad)) 16px;
-  padding: 40px 32px 32px;
+  padding: 40px 48px 36px;
   background: var(--bg-tertiary);
   border-top: 1px solid var(--border-medium);
   border-bottom: 1px solid var(--border-medium);
@@ -1121,11 +1121,15 @@ a.nav-kicker:active { opacity: 0.5; }
   background: var(--bg-primary);
   overflow: hidden;
   border: 1px solid var(--border-light);
+  position: relative;
 }
 .device-macbook .screen img {
-  width: 100%; height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  display: block;
+  object-position: top center;
 }
 .device-macbook-base {
   width: 108%;
@@ -1457,7 +1461,7 @@ footer {
   .product-showcase {
     margin-left: calc(-1 * var(--container-pad));
     margin-right: calc(-1 * var(--container-pad));
-    padding: 28px 20px 24px;
+    padding: 28px var(--container-pad) 24px;
   }
   .plates { gap: 20px; }
   .plates .plate:nth-child(1),
