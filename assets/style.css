@@ -95,11 +95,8 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   text-wrap: pretty;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--grid-line) 1.5px, transparent 1.5px);
   background-size: 48px 48px;
-  background-position: -1px -1px;
 }
 
 body::before {
@@ -305,7 +302,7 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(56px, 9vw, 128px);
+  font-size: clamp(44px, 6.5vw, 88px);
   font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 0.9;
