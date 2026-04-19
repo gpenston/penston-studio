@@ -135,7 +135,7 @@ a:hover { color: var(--accent); }
   margin: 0 auto;
   padding: 0 var(--container-pad);
 }
-main { position: relative; }
+main { position: relative; overflow-x: clip; }
 
 /* ----- Nav ----------------------------------------------------------- */
 .nav { padding: 20px 0 0; }
@@ -1310,10 +1310,7 @@ footer {
   margin-bottom: 8px;
 }
 .privacy-updated {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--text-tertiary);
   margin-bottom: 24px;
 }
