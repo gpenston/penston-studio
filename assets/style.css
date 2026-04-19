@@ -546,7 +546,7 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .project-card:hover .project-arrow { transform: translateX(4px); }
 
-/* ----- Sticky chrome (nav + product-bar wrapper on product pages) --- */
+/* ----- Sticky chrome — single-row unified nav on product pages ------- */
 .sticky-chrome {
   position: sticky;
   top: 0;
@@ -560,27 +560,37 @@ a.nav-kicker:active { opacity: 0.5; }
   border-bottom: 1px solid var(--border-medium);
 }
 
-/* ----- Product bar (back-link + project switcher + page utilities) -- */
-.product-bar {
+.unified-bar {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 10px 0 12px;
+  padding: 12px 0;
   gap: 12px;
 }
-.product-bar .back-link {
+
+.unified-bar .back-link {
   padding-top: 0;
   margin-bottom: 0;
+  color: var(--accent);
 }
-.back-link-label { display: none; }
-.product-bar-links {
+.unified-bar .back-link:hover { color: var(--accent-hover); }
+.unified-bar .back-link svg { transition: transform 0.2s; }
+.unified-bar .back-link:hover svg { transform: translateX(-3px); }
+
+.unified-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+/* ----- Page utility links (support, privacy — live in the hero) ----- */
+.page-util-links {
+  display: flex;
+  align-items: center;
   gap: 20px;
   list-style: none;
 }
-.product-bar-links a {
+.page-util-links a {
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
@@ -594,8 +604,22 @@ a.nav-kicker:active { opacity: 0.5; }
   background-size: 0% 1px;
   transition: color 150ms ease-out, background-size 220ms ease, opacity 100ms;
 }
-.product-bar-links a:hover { color: var(--text-primary); background-size: 100% 1px; }
-.product-bar-links a:active { opacity: 0.5; }
+.page-util-links a:hover { color: var(--text-primary); background-size: 100% 1px; }
+.page-util-links a:active { opacity: 0.5; }
+
+/* ----- Hero header row (app identity + page util links) ------------- */
+.hero-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+  margin-top: 12px;
+}
+.hero-header .app-identity {
+  margin-bottom: 0;
+  margin-top: 0;
+}
 
 /* ----- Project switcher (centred in product-bar) ------------------- */
 .product-switcher {
@@ -666,7 +690,6 @@ a.nav-kicker:active { opacity: 0.5; }
 .app-icon {
   width: 64px; height: 64px;
   border-radius: 12px;
-  border: 1px solid var(--border-medium);
   overflow: hidden;
   box-shadow: var(--shadow-md);
   background: var(--bg-secondary);
@@ -1584,16 +1607,18 @@ footer {
   .nav-links { gap: 14px; }
 
   /* Sticky chrome tightens on mobile */
-  .sticky-chrome .nav { padding-top: 14px; }
-  .product-bar { padding: 8px 0 10px; gap: 8px; grid-template-columns: auto 1fr auto; }
+  .unified-bar { padding: 10px 0; gap: 8px; }
 
   /* Project switcher: icons only on mobile — hide labels, tighten padding */
   .product-switcher-item > a,
   .product-switcher-item > span { gap: 0; padding: 4px 5px; }
   .product-switcher-label { display: none; }
 
-  /* Back-link: arrow only on mobile */
-  .back-link { gap: 4px; }
+  /* Back-link: arrow only on mobile — hide studio name text */
+  .unified-bar .back-link-text { display: none; }
+
+  /* Page util links: hidden on mobile — accessible by scrolling to sections */
+  .page-util-links { display: none; }
 }
 
 /* ----- Coffee ring (home page ambient detail) ----------------------- */
