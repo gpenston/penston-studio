@@ -1750,12 +1750,12 @@ footer {
   width: 260px;
   height: auto;
   right: -20px;
-  bottom: -60px;
+  bottom: -118px;
   opacity: 0.18;
   pointer-events: none;
   user-select: none;
   mix-blend-mode: multiply;
-  transform: rotate(8deg);
+  transform: rotate(3deg);
   z-index: 0;
 }
 :root[data-mode="dark"] .coffee-ring {
