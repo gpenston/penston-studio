@@ -293,7 +293,15 @@ main { position: relative; }
 .nav-kicker {
   margin-bottom: 0;
   padding-left: 0;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: color 150ms ease-out, background-size 220ms ease, opacity 100ms;
 }
+a.nav-kicker:hover { color: var(--text-primary); background-size: 100% 1px; }
+a.nav-kicker:active { opacity: 0.5; }
 
 .hero-name {
   font-family: var(--font-display);
@@ -319,6 +327,10 @@ main { position: relative; }
   align-items: center;
   gap: 7px;
   font-family: var(--mono);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -326,9 +338,10 @@ main { position: relative; }
   color: var(--text-tertiary);
   text-decoration: none;
   margin-bottom: 40px;
-  transition: color var(--t-fast);
+  transition: color var(--t-fast), background-size 220ms ease, opacity 100ms;
 }
-.portfolio-link:hover { color: var(--accent); }
+.portfolio-link:hover { color: var(--accent); background-size: 100% 1px; }
+.portfolio-link:active { opacity: 0.5; }
 .portfolio-link svg { transition: transform var(--t-fast); }
 .portfolio-link:hover svg { transform: translate(2px, -2px); }
 
@@ -560,8 +573,15 @@ main { position: relative; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-secondary);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: color 150ms ease-out, background-size 220ms ease, opacity 100ms;
 }
-.product-bar-links a:hover { color: var(--accent); }
+.product-bar-links a:hover { color: var(--text-primary); background-size: 100% 1px; }
+.product-bar-links a:active { opacity: 0.5; }
 
 /* ----- Product page hero ------------------------------------------- */
 .back-link {
@@ -1195,12 +1215,24 @@ footer {
   gap: 20px;
   list-style: none;
 }
-.footer-links a:hover { color: var(--accent); }
+.footer-links a,
 .footer-copy a {
-  color: var(--text-secondary);
   text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 220ms ease, color 150ms ease-out, opacity 100ms;
 }
-.footer-copy a:hover { color: var(--accent); }
+.footer-links a:hover,
+.footer-copy a:hover {
+  color: var(--text-primary);
+  background-size: 100% 1px;
+}
+.footer-links a:active,
+.footer-copy a:active { opacity: 0.5; }
+
+.footer-copy a { color: var(--text-secondary); }
 
 /* ----- Privacy (Markedly inline) ----------------------------------- */
 .privacy-content {
