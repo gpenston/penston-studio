@@ -86,6 +86,34 @@
     setTimeout(function () {
       reveals.forEach(function (el) { el.classList.add('is-revealed'); });
     }, 2500);
+
+    // Smooth animated scroll for anchor links (e.g. Support, Privacy).
+    // easeOutExpo: fast start, physical settle — matches the site's motion language.
+    function easeOutExpo(t) {
+      return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var id = this.getAttribute('href');
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        // Measure sticky chrome height so the section clears the bar.
+        var chrome = document.querySelector('.sticky-chrome');
+        var offset = (chrome ? chrome.offsetHeight : 0) + 20;
+        var start = window.pageYOffset;
+        var dest = target.getBoundingClientRect().top + start - offset;
+        var duration = 650;
+        var t0 = null;
+        function step(ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min((ts - t0) / duration, 1);
+          window.scrollTo(0, start + (dest - start) * easeOutExpo(p));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
   }
 
   if (document.readyState === 'loading') {

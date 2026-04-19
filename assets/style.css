@@ -85,6 +85,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: 64px; /* clear sticky chrome on anchor jumps */
 }
 
 body {
@@ -299,6 +300,14 @@ main { position: relative; overflow-x: clip; }
 }
 a.nav-kicker:hover { color: var(--text-primary); background-size: 100% 1px; }
 a.nav-kicker:active { opacity: 0.5; }
+
+/* // prefix on home nav — Bureau notation, visually balances the product-page back arrow */
+.nav-symbol {
+  display: inline-block;
+  opacity: 0.45;
+  margin-right: 2px;
+  letter-spacing: -0.04em; /* tighten the slash pair */
+}
 
 .hero-name {
   font-family: var(--font-display);
