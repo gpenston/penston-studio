@@ -1727,8 +1727,8 @@ footer {
   .product-switcher-item > a,
   .product-switcher-item > span { gap: 6px; padding: 4px 6px; }
 
-  /* Back-link: show studio name on mobile */
-  .unified-bar .back-link-text { display: inline; }
+  /* Back-link: glyph only on mobile — text too wide at narrow widths */
+  .unified-bar .back-link-text { display: none; }
 
   /* Page util links: hidden on mobile — accessible by scrolling to sections */
   .page-util-links { display: none; }
