@@ -10,7 +10,7 @@
 - **Maker-first.** Written by the person who builds the things.
 - **Editorial cadence.** Numbered chapters (`01 —`, `02 —`), pullquotes, system labels. Reads like a trade journal, not a SaaS page.
 - **Smart quotes.** `'` `"` — never straight `' "`.
-- **Em dashes** — not hyphens — for parentheticals.
+- **Em dashes** — not hyphens — for parentheticals. Use sparingly; don't stack two in one sentence.
 
 ---
 
@@ -29,6 +29,7 @@
 --border-medium:  #2a2620;
 --border-rule:    #e8e2cf;
 --accent:         #eb5a00;   /* signal orange */
+--accent-hover:   #ff7a2e;
 --accent-cool:    #7aa9a3;   /* faded teal — used for <em> emphasis only */
 --highlight:      rgba(64,220,228,0.52);  /* pullquote .hl — bright cyan wash */
 ```
@@ -46,6 +47,7 @@
 --border-medium:  #c8c0ac;
 --border-rule:    #1a1810;
 --accent:         #d94f00;   /* slightly deeper for contrast on paper */
+--accent-hover:   #a53600;
 --accent-cool:    #3d6b68;
 --highlight:      rgba(0,175,190,0.30);  /* pullquote .hl — muted teal wash */
 ```
@@ -58,7 +60,7 @@
 
 - **One accent at a time.** `--accent` is the only saturated color on the page.
 - **`--accent-cool` is a whisper.** Use it for one word in a headline and nowhere else.
-- **Background grid is default.** Every page has a faint mono grid backdrop (`background-size: 48px 48px`, ~7% opacity lines in dark, ~4% in light). It reads as graph paper.
+- **Background grid is default.** Every page has a faint mono grid backdrop (`background-size: 48px 48px`, ~11% opacity lines in dark, ~6% in light). It reads as graph paper.
 - **Paper grain is always on.** A `body::before` fixed pseudo-element adds a ~3% feTurbulence SVG grain for organic texture. Dark: 3% opacity, Light: 2%. Never remove it.
 - **No gradients except the disc-mark.** The only gradient allowed is the sun/disc motif behind the home hero.
 - **Light mode is not dark-mode-inverted.** It's a distinct paper aesthetic. Recalibrate, don't swap.
@@ -75,7 +77,7 @@
 --mono:         'JetBrains Mono', ui-monospace, monospace; /* system chrome, numerics, labels */
 ```
 
-Loaded via Google Fonts preconnect. No other families.
+Loaded via Google Fonts. No other families.
 
 ### Scale
 
@@ -123,55 +125,78 @@ Loaded via Google Fonts preconnect. No other families.
 
 ### Grid
 
-- CSS Grid for anything with structural alignment (spec-rows, plate-grid).
-- Flex for inline clusters (nav, app-identity, cta-group, works-with-row).
+- CSS Grid for anything with structural alignment (spec-rows, plate-grid, unified-bar).
+- Flex for inline clusters (unified-actions, app-identity, cta-group, works-with-prose).
 - Don't use Bootstrap-style 12-column grids.
 
-### Responsive
+### Responsive (max-width: 600px)
 
-- Mobile breakpoint: `@media (max-width: 600px)`.
-- Plates collapse to single column. Nav wraps. Spec-row icon cell stays but shrinks.
-- No hamburger menu — nav is always visible, wraps if it must.
+- Plates collapse to single column.
+- **Sticky chrome back-link:** text hidden on mobile — glyph (`//` or `<`) only. Product switcher labels remain visible. This prevents the "PENSTON STUDIO" label from wrapping to two lines.
+- **Coffee ring:** pulls flush to `right: 0` and scales to 220px — keeps it on screen without causing horizontal overflow.
+- No hamburger menu — nav is always visible.
+- `main { overflow-x: visible }` on mobile allows product-showcase full-bleed. The `.instr-hero` has its own `overflow: hidden` to contain the disc ornament.
+
+### iOS Safari / safe area
+
+All pages include `viewport-fit=cover` in the viewport meta and `theme-color` meta tags (dark + light variants). The `.sticky-chrome` uses `padding-top: env(safe-area-inset-top)` to extend behind the status bar on notched devices.
+
+Note: iOS 26 Safari uses a "liquid glass" translucent browser chrome by design. Page content showing through Apple's own toolbar is an OS-level behaviour — no CSS workaround exists.
 
 ---
 
 ## 5. Components
 
-### Nav
+### Unified bar (sticky nav — all pages)
 
-Wordmark on left (`penston.studio` in mono, `<a>` on product pages, `<span>` on home), mode toggle on far right. No external links in nav — the nav has one job.
+A single `position: sticky` chrome row shared across all pages. CSS Grid `1fr auto 1fr` keeps the centre content anchored while the left and right slots adapt per page.
 
 ```html
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="../" class="nav-wordmark">penston<span>.</span>studio</a>
-    <ul class="nav-links">
-      <li><!-- mode toggle --></li>
-    </ul>
+<div class="sticky-chrome">
+  <div class="unified-bar">
+    <!-- Left: home = scroll-to-top anchor; product pages = back-link -->
+    <a href="#" class="instr-kicker nav-kicker nav-mark" aria-label="Scroll to top">
+      <svg class="nav-glyph"><!-- // glyph --></svg>
+      <span class="nav-text">Penston Studio</span>
+    </a>
+    <!-- Centre: home = empty div; product pages = .product-switcher -->
+    <div aria-hidden="true"></div>
+    <!-- Right: mode toggle -->
+    <div class="unified-actions"><!-- mode-toggle button --></div>
   </div>
-</nav>
-```
-
-### Product bar
-
-On product pages only. Sits immediately below the nav. Back-link on the left, page anchor links on the right. This keeps the nav clean and gives the product page its own utility row.
-
-```html
-<div class="product-bar">
-  <a href="../" class="back-link">
-    <svg><!-- left chevron --></svg>
-    All projects
-  </a>
-  <ul class="product-bar-links">
-    <li><a href="#support">Support</a></li>
-    <li><a href="#privacy">Privacy</a></li>
-  </ul>
 </div>
 ```
 
+**On product pages** the left slot is a back-link (`<a class="... nav-mark back-link">`) with a `<` glyph SVG and `<span class="back-link-text nav-text">Penston Studio</span>`. The centre slot holds the `.product-switcher` — icon pills for each product.
+
+**`nav-text`** carries `view-transition-name: nav-text` so the wordmark is perfectly anchored across MPA page transitions — it never moves or fades between pages.
+
+**Mobile:** `.back-link-text` is `display: none` at ≤600px. Only the glyph shows. Product switcher labels remain visible.
+
+### Product switcher (product pages only)
+
+```html
+<ul class="product-switcher">
+  <li class="product-switcher-item is-active">
+    <span>
+      <img class="product-switcher-icon" src="...">
+      <span class="product-switcher-label">Markedly</span>
+    </span>
+  </li>
+  <li class="product-switcher-item">
+    <a href="../pour-over/">
+      <img class="product-switcher-icon" src="...">
+      <span class="product-switcher-label">Pour Over</span>
+    </a>
+  </li>
+</ul>
+```
+
+Active item is a `<span>` (not a link), dimmed, non-interactive. Inactive items are `<a>` links.
+
 ### Mode toggle — Dieter Rams I/O switch
 
-A physical sliding pill toggle. CSS-driven entirely from `[data-mode]` on `<html>`. No JS class manipulation needed. The thumb slides 24px right in dark mode. Icons (sun left, moon right) slide slightly with the thumb — 4px in the direction of travel — for a physically coupled feel. A tooltip appears after a 0.6s hover delay.
+A physical sliding pill toggle. CSS-driven entirely from `[data-mode]` on `<html>`. No JS class manipulation needed. The thumb slides 24px right in dark mode. Icons (sun left, moon right) slide slightly with the thumb for a physically coupled feel. A tooltip appears after a 0.6s hover delay.
 
 ```html
 <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
@@ -183,18 +208,46 @@ A physical sliding pill toggle. CSS-driven entirely from `[data-mode]` on `<html
 </button>
 ```
 
-- **Dark mode active:** track fills with `--accent`, thumb at `translateX(24px)`, sun visible, moon hidden and pushed right.
-- **Light mode active:** track is `--bg-tertiary`, thumb at `translateX(0)`, moon visible, sun hidden and pushed left.
-- **Tooltip:** CSS `::after` on `.mode-toggle` — content set via `:root[data-mode]` attribute selector. Mono font, right-aligned, fades in after 0.6s, fades out immediately on mouse-out.
-- **First-load FOUC prevention:** Inline `<script>` in `<head>` (before stylesheets) reads `localStorage['ps_mode']` and falls back to `prefers-color-scheme`. Sets `data-mode` synchronously so the correct theme is applied before any paint.
+- **Dark mode active:** track fills with `--accent`, thumb at `translateX(24px)`, sun visible, moon hidden.
+- **Light mode active:** track is `--bg-tertiary`, thumb at `translateX(0)`, moon visible, sun hidden.
+- **Tooltip:** CSS `::after` on `.mode-toggle` — content set via `:root[data-mode]` attribute selector. Mono font, right-aligned, fades in after 0.6s.
+- **FOUC prevention:** Inline `<script>` in `<head>` reads `localStorage['ps_mode']`, falls back to `prefers-color-scheme`, sets `data-mode` synchronously before any paint.
+
+### Hero atmosphere (home only)
+
+Three layered decorative elements — all `position: absolute`, `pointer-events: none`, `z-index: 0` — inside `.instr-hero` which has `overflow: hidden` to contain them.
+
+- **`.disc-mark`** — 92×92px radial-gradient sphere (orange/accent). Sits top-right.
+- **`.disc-ring`** — 130×130px thin border circle. Slightly offset from disc-mark.
+- **`.atm-rays`** — 260×260px SVG star-burst of thin lines (accent stroke). Top-right, extends slightly beyond.
+
+All three animate when `prefers-reduced-motion: no-preference` — see §6 Motion.
+
+### Coffee ring (home only)
+
+A `position: absolute` decorative PNG at the bottom of `<main>`, positioned to straddle the section/footer seam:
+
+```css
+.coffee-ring {
+  right: -20px; bottom: -118px;   /* desktop: bleeds slightly right, bridges footer */
+  width: 260px;
+  transform: rotate(3deg);
+  mix-blend-mode: multiply;       /* screen in dark mode */
+  opacity: 0.18;                  /* 0.06 in dark */
+}
+/* Mobile: pull flush so it doesn't cause horizontal overflow */
+@media (max-width: 600px) {
+  .coffee-ring { right: 0; width: 220px; }
+}
+```
 
 ### Portfolio link (home only)
 
-A styled call-to-action link below the hero bio, pointing to `gpenston.com`. Uses `.portfolio-link` class with external arrow SVG. This is the primary contextual "who is this person" link.
+A styled call-to-action link below the hero bio, pointing to `gpenston.com`. Uses `.portfolio-link` class with external arrow SVG.
 
 ### Project card (home)
 
-Row-based card with icon tile, name + description, platform badge, arrow. Hover lifts 2px and shifts border toward accent. **No shadow on rest state** — only border. This is the single most important component on the home page.
+Row-based card with icon tile, name + description, platform badge, arrow. Hover lifts 2px and shifts border toward accent. **No shadow on rest state** — only border.
 
 ### Section label
 
@@ -202,7 +255,7 @@ Row-based card with icon tile, name + description, platform badge, arrow. Hover 
 <div class="section-label" data-num="02">The Studio</div>
 ```
 
-Mono, uppercase, tracked. The `data-num` renders as `02 —` in `--text-tertiary` before the label.
+Mono, uppercase, tracked. The `data-num` renders as `02 —` in `--text-tertiary` before the label text. An `::after` pseudo-element draws a horizontal rule that animates in on scroll-reveal.
 
 ### Big H2 (section headline)
 
@@ -214,18 +267,18 @@ Four-column grid: number · icon · body · (flex spacer). Thin divider between 
 
 ### Inline links
 
-Links in body copy (`.hero-sub`, `.spec-row .body`, `.why`, `.fara-body`, `.privacy-content`) use a consistent treatment:
+Links in body copy use a consistent treatment:
 - Default: `--accent` color, no underline
 - Hover: `--accent-hover` with underline
 - Active: slight opacity drop
 
 ### Plate / device frame
 
-Every product screenshot sits in a `.plate` with a caption label (`PL. 01 / MAIN WINDOW`) above and an optional role label below (`Drag & drop`). Plates come in two sizes: `.plate-hero` (full-width) and `.plate-small` (grid cell). Inside, a `.device-macbook` wrapper provides the bezel.
+Every product screenshot sits in a `.plate` with a caption label (`PL. 01 / MAIN WINDOW`) above. Plates come in two sizes: `.plate-hero` (full-width) and `.plate-small` (grid cell). Inside, a `.device-macbook` wrapper provides the bezel. On mobile the bezel strips away to a clean full-bleed screenshot.
 
 ### Pullquote
 
-Editorial quote block with a `.hl` span highlighting the key phrase. Used sparingly — once per page max. The `.hl` background is a semi-transparent cyan wash (not the accent orange) so it reads as highlighter pen, not brand colour.
+Editorial quote block with `.hl` spans highlighting key phrases. Used once per page max. The `.hl` background is a semi-transparent cyan wash — it draws in from left to right on scroll-reveal (background-size animation), with a staggered delay for the second span.
 
 ```html
 <p class="pullquote">
@@ -234,31 +287,75 @@ Editorial quote block with a `.hl` span highlighting the key phrase. Used sparin
 </p>
 ```
 
-### Works With row
+### Works With (prose)
 
-Logo clusters in a flex-wrap row. No grid, no table. Each `.ww-item` is a rounded icon + label. Icons are real app icons from `assets/app-icon-<name>.jpg`.
+A single sentence naming tools, rendered as body copy. Not a grid or icon row.
 
 ```html
-<div class="works-with-row">
-  <div class="ww-item"><img class="ww-icon" src="..."><span class="ww-name">Obsidian</span></div>
-  <!-- ... -->
-</div>
+<section style="padding: 32px 0 16px;">
+  <div class="section-label" data-num="04" data-reveal>Works with</div>
+  <p class="works-with-prose" data-reveal>
+    Made for <strong>Obsidian</strong>, <strong>Bear</strong>, and <strong>Notion</strong> —
+    and feeds cleanly into <strong>Claude</strong>, <strong>ChatGPT</strong>, and <strong>Gemini</strong>.
+  </p>
+</section>
 ```
+
+`.works-with-prose`: 17px Inter, `--text-secondary`, max-width 580px, line-height 1.7. `strong` in `--text-primary`.
 
 ### FARA card
 
-Signature block near the footer of product pages, communicating the donation-link commitment. Always present on product pages. Never removed, never shortened.
+Signature block near the footer of Markedly only. Communicates the donation-link commitment. Never removed, never shortened.
 
 ---
 
 ## 6. Motion
 
-- **Scroll-reveal on `[data-reveal]`.** Elements start at `opacity: 0; transform: translateY(16px)`. Class `.is-revealed` adds via IntersectionObserver when entering viewport. 600ms ease-out. Safety-net timer reveals all after 2.5s regardless.
-- **Stagger via `[data-stagger="N"]`.** Increments transition-delay by 120ms per step. Used on hero elements only.
-- **No scroll-jacking, parallax, or scroll-tied animation.** The page scrolls like a document.
+### Scroll-reveal
+
+Elements with `[data-reveal]` start at `opacity: 0; transform: translateY(16px)`. Class `.is-revealed` is added via IntersectionObserver when entering viewport (600ms ease-out). Safety-net timer reveals all after 2.5s.
+
+### Stagger
+
+`[data-stagger="N"]` increments `transition-delay` by 120ms per step. Used on hero elements only.
+
+### Section label line draw
+
+`.section-label::after` (the horizontal rule) scales from `scaleX(0)` to `scaleX(1)` on `.is-revealed`. 600ms `cubic-bezier(0.16, 1, 0.3, 1)`, 200ms delay.
+
+### Pullquote highlight draw
+
+`.pullquote .hl` animates `background-size` from `0% 72%` to `100% 72%` on `.is-revealed`. 800ms `cubic-bezier(0.16, 1, 0.3, 1)`, 300ms delay. Second span delays an extra 250ms.
+
+### Hero atmosphere (home only)
+
+Three ambient animations, all gated on `prefers-reduced-motion: no-preference`:
+
+- **`.disc-ring`** — `ring-orbit`: rotates 360° over 70s linear, infinite.
+- **`.disc-mark`** — `disc-breath`: opacity pulses 0.70 → 0.84 over 7s ease-in-out, infinite.
+- **`.atm-rays`** — `rays-drift`: counter-rotates 360° over 90s linear, infinite.
+
+### Closing CTA icon float (product pages)
+
+`.closing-cta .app-icon` floats `translateY(0)` → `translateY(-6px)` → back, 4s ease-in-out infinite. Gated on `prefers-reduced-motion: no-preference`.
+
+### MPA page transitions (View Transitions API)
+
+```css
+@view-transition { navigation: auto; }
+```
+
+- **`nav-text`** (`view-transition-name: nav-text`) is anchored — `animation: none` on both old and new snapshots. The wordmark never moves or fades during navigation.
+- **Root** fades up on arrival: `opacity: 0; transform: translateY(8px)` → normal over 360ms `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **The nav glyph (`//` ↔ `<`) has no `view-transition-name`** — it's part of the root transition. Giving it its own name caused simultaneous old+new bitmap snapshots to appear (overlap bug). Let the root crossfade handle it.
+- All transitions killed under `prefers-reduced-motion: reduce`.
+
+### General rules
+
 - **Hover transitions are 150–200ms.** Anything longer feels slow.
+- **No scroll-jacking, parallax, or scroll-tied animation.** The page scrolls like a document.
 - **`prefers-reduced-motion: reduce` kills all transitions and reveals immediately.** Non-negotiable.
-- **The atmosphere / disc-mark is the ONLY ambient animation.** It drifts slowly on the home hero. Don't add floating particles, gradient sweeps, or breathing elements elsewhere.
+- **The atmosphere (disc + rays) is the only ambient animation on home.** Don't add floating particles, gradient sweeps, or breathing elements elsewhere.
 - **Mode toggle transition is 200ms `cubic-bezier(0.4, 0, 0.2, 1)`.** Applies to thumb translate, icon slide, and track background.
 
 ---
@@ -288,9 +385,10 @@ Signature block near the footer of product pages, communicating the donation-lin
 - **One `assets/style.css` with clear section banners** in declaration order: tokens, reset, typography, chrome, components, utilities, responsive, motion.
 - **One `assets/site.js`** for mode toggle, scroll-reveal, and any small interactive bits. No modules, no imports.
 - **JS is defensive.** Every query wrapped in null checks. Feature-detect `IntersectionObserver`. Always provide a fallback.
-- **No `?v=N` cache-busters in committed code.** Those are dev-only.
+- **`?v=N` cache-busters on CSS/JS links** are incremented in committed code on every change to force fresh loads on Vercel's CDN edge. When making changes, bump the version in all three HTML files.
 - **CSS custom properties for all theme-able values.** No hardcoded hex in components.
 - **Avoid `!important`.** If you need it, your selector order is wrong.
+- **All three pages get the same `<head>` meta additions** — viewport-fit, theme-color, etc. Don't update one and forget the others.
 
 ---
 
@@ -333,8 +431,10 @@ Signature block near the footer of product pages, communicating the donation-lin
 - Don't put a newsletter signup anywhere.
 - Don't write copy in second-person marketing voice ("You'll love…"). First-person maker voice only ("I build…").
 - Don't add emoji, even in the README.
-- Don't put utility links (Support, Privacy, back-link) in the nav. Use the product-bar row instead.
+- Don't put utility links (Support, Privacy, back-link) in the nav. They live in the unified bar / product-switcher.
 - Don't use the same accent colour for pullquote highlights as for links. The `.hl` is a cyan wash, not orange.
+- Don't give the nav glyph a `view-transition-name`. The simultaneous old+new snapshots cause an overlap bug. Let it ride with the root crossfade.
+- Don't try to fix iOS 26 Safari's liquid glass browser chrome with CSS. Content showing through Apple's own translucent toolbar is an OS-level design choice. `backdrop-filter`, `translateZ(0)`, and `will-change` don't help. `theme-color` meta and `env(safe-area-inset-top)` are the right signals — beyond that, let it go.
 
 ---
 
@@ -342,14 +442,14 @@ Signature block near the footer of product pages, communicating the donation-lin
 
 When adding a new product page or section:
 
-1. Start with the page chrome: nav (wordmark + toggle), product-bar (back-link + anchor links).
+1. Start with the page chrome: sticky-chrome with unified-bar (back-link glyph + nav-text + product-switcher + mode toggle).
 2. Hero: app-identity block (icon + name + platform), headline, sub, CTA group.
 3. Product showcase: plates with device frames (skip if no screenshots yet).
 4. "The idea": pullquote section — one per page, `data-num="01"`.
 5. "What it does": section-label `02 —` + spec-rows.
-6. "Works with": `.works-with-row` logo clusters.
-7. FARA card.
-8. Support section (+ Privacy if App Store app).
+6. "Works with": prose sentence (`works-with-prose`), `data-num="03"` or `"04"`.
+7. FARA card (Markedly only).
+8. Support section (+ Privacy if App Store app — Privacy before Support in both nav and page order).
 9. Footer.
 
 Not every section is required, but they should appear **in this order** when present. The narrative is: *what is it → show me → the idea → what does it do → how does it fit my world → who's behind it → where do I go next.*
