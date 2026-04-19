@@ -639,10 +639,11 @@ a.nav-kicker:active { opacity: 0.5; }
   padding-top: env(safe-area-inset-top);
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-medium);
-  /* Force GPU compositing layer — prevents iOS Safari content bleed-through */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform;
+  /* Force GPU compositing layer — prevents iOS Safari content bleed-through.
+     backdrop-filter is the most reliable compositing hint on WebKit; translateZ
+     alone isn't sufficient. The 0.1px blur is visually imperceptible. */
+  -webkit-backdrop-filter: blur(0.1px);
+  backdrop-filter: blur(0.1px);
 }
 
 .unified-bar {
