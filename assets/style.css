@@ -290,6 +290,10 @@ main { position: relative; }
   margin-bottom: 32px;
   padding-left: 2px;
 }
+.nav-kicker {
+  margin-bottom: 0;
+  padding-left: 0;
+}
 
 .hero-name {
   font-family: var(--font-display);
