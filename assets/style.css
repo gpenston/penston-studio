@@ -8,10 +8,21 @@
 
 /* ----- MPA View Transitions — nav mark morphs between // and < ------- */
 @view-transition { navigation: auto; }
-::view-transition-old(nav-mark),
+
+/* Symbol exits left, new symbol enters from the left — feels intentional */
+@keyframes nav-mark-out {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-6px); }
+}
+@keyframes nav-mark-in {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+::view-transition-old(nav-mark) {
+  animation: 180ms cubic-bezier(0.4, 0, 1, 1) nav-mark-out;
+}
 ::view-transition-new(nav-mark) {
-  animation-duration: 280ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation: 300ms cubic-bezier(0.16, 1, 0.3, 1) nav-mark-in;
 }
 
 /* ----- Tokens: DARK (default) ---------------------------------------- */
@@ -309,16 +320,37 @@ main { position: relative; overflow-x: clip; }
 a.nav-kicker:hover { color: var(--text-primary); background-size: 100% 1px; }
 a.nav-kicker:active { opacity: 0.5; }
 
-/* // prefix on home nav — Bureau notation, visually balances the product-page back arrow */
+/* // prefix on home nav — Bureau notation */
 .nav-symbol {
   display: inline-block;
   opacity: 0.45;
-  margin-right: 2px;
   letter-spacing: -0.04em; /* tighten the slash pair */
 }
 
-/* Shared view-transition name so browser morphs the mark on page nav */
+/* Shared view-transition name */
 .nav-mark { view-transition-name: nav-mark; }
+
+/* Authoritative box model for the nav mark on ALL pages — home span and
+   product back-link are normalised to identical dimensions here so the
+   view transition has nothing to shift between. */
+.unified-bar .nav-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  transition: color 150ms ease-out, opacity 100ms;
+}
+.unified-bar .nav-mark:hover { color: var(--accent-cool-hover); opacity: 1; }
+.unified-bar .nav-mark svg { transition: transform 0.2s; }
+.unified-bar .nav-mark:hover svg { transform: translateX(-3px); }
 
 .hero-name {
   font-family: var(--font-display);
@@ -588,14 +620,6 @@ a.nav-kicker:active { opacity: 0.5; }
   gap: 12px;
 }
 
-.unified-bar .back-link {
-  padding-top: 0;
-  margin-bottom: 0;
-  color: var(--accent);
-}
-.unified-bar .back-link:hover { color: var(--accent-hover); }
-.unified-bar .back-link svg { transition: transform 0.2s; }
-.unified-bar .back-link:hover svg { transform: translateX(-3px); }
 
 .unified-actions {
   display: flex;
