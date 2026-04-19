@@ -1723,13 +1723,12 @@ footer {
   /* Sticky chrome tightens on mobile */
   .unified-bar { padding: 10px 0; gap: 8px; }
 
-  /* Project switcher: icons only on mobile — hide labels, tighten padding */
+  /* Product switcher: restore gap for labels, keep padding tight */
   .product-switcher-item > a,
-  .product-switcher-item > span { gap: 0; padding: 4px 5px; }
-  .product-switcher-label { display: none; }
+  .product-switcher-item > span { gap: 6px; padding: 4px 6px; }
 
-  /* Back-link: arrow only on mobile — hide studio name text */
-  .unified-bar .back-link-text { display: none; }
+  /* Back-link: show studio name on mobile */
+  .unified-bar .back-link-text { display: inline; }
 
   /* Page util links: hidden on mobile — accessible by scrolling to sections */
   .page-util-links { display: none; }
