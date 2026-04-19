@@ -549,13 +549,27 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .project-card:hover .project-arrow { transform: translateX(4px); }
 
-/* ----- Product bar (back-link + page utilities row) ----------------- */
+/* ----- Sticky chrome (nav + product-bar wrapper on product pages) --- */
+.sticky-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Full-width bg so full-bleed sections don't show through on scroll */
+  margin-left: calc(-1 * var(--container-pad));
+  margin-right: calc(-1 * var(--container-pad));
+  padding-left: var(--container-pad);
+  padding-right: var(--container-pad);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-medium);
+}
+
+/* ----- Product bar (back-link + project switcher + page utilities) -- */
 .product-bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 0 0;
-  gap: 16px;
+  padding: 10px 0 12px;
+  gap: 12px;
 }
 .product-bar .back-link {
   padding-top: 0;
@@ -564,6 +578,7 @@ a.nav-kicker:active { opacity: 0.5; }
 .product-bar-links {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 20px;
   list-style: none;
 }
@@ -583,6 +598,47 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .product-bar-links a:hover { color: var(--text-primary); background-size: 100% 1px; }
 .product-bar-links a:active { opacity: 0.5; }
+
+/* ----- Project switcher (centred in product-bar) ------------------- */
+.product-switcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  list-style: none;
+}
+.product-switcher-item > a,
+.product-switcher-item > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: 5px 8px;
+  border-radius: var(--r-sm);
+  white-space: nowrap;
+  transition: color var(--t-fast), background var(--t-fast);
+}
+.product-switcher-item > a:hover {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+.product-switcher-item.is-active > span {
+  color: var(--text-tertiary);
+  opacity: 0.45;
+  cursor: default;
+}
+.product-switcher-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
 
 /* ----- Product page hero ------------------------------------------- */
 .back-link {
@@ -1528,6 +1584,19 @@ footer {
   .plates .plate:nth-child(3) { width: 100%; max-width: 100%; }
   .nav-inner { flex-wrap: wrap; }
   .nav-links { gap: 14px; }
+
+  /* Sticky chrome tightens on mobile */
+  .sticky-chrome .nav { padding-top: 14px; }
+  .product-bar { padding: 8px 0 10px; gap: 8px; grid-template-columns: auto 1fr auto; }
+
+  /* Project switcher: icons only on mobile — hide labels, tighten padding */
+  .product-switcher-item > a,
+  .product-switcher-item > span { gap: 0; padding: 4px 5px; }
+  .product-switcher-label { display: none; }
+
+  /* Back-link: drop "All projects" text, keep arrow only */
+  .back-link-label { display: none; }
+  .back-link { gap: 4px; }
 }
 
 /* ----- Coffee ring (home page ambient detail) ----------------------- */
