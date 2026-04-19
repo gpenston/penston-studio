@@ -865,6 +865,67 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .why a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
+/* ----- Format grid (Markedly supported formats) --------------------- */
+.format-grid {
+  padding: 8px 0 24px;
+  max-width: 640px;
+}
+.format-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.format-row:first-child { border-top: 1px solid var(--border-light); }
+.format-cat {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  min-width: 110px;
+  padding-top: 3px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.format-ocr {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  border: 1px solid var(--accent-cool);
+  border-radius: 2px;
+  padding: 1px 4px;
+  opacity: 0.8;
+}
+.format-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.format-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-medium);
+  border-radius: 3px;
+  padding: 3px 7px;
+}
+.format-tag--hi {
+  color: var(--accent);
+  border-color: var(--accent);
+  opacity: 0.85;
+}
+
 /* ----- Works with --------------------------------------------------- */
 .works-with-row {
   display: flex;
