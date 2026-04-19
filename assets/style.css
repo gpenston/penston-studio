@@ -9,12 +9,13 @@
 /* ----- MPA View Transitions ------------------------------------------ */
 @view-transition { navigation: auto; }
 
-/* Pure opacity crossfade — no transform, no layout shift.
-   Old fades out quickly; new fades in with a gentle ease. */
+/* Sequenced: old exits fully before new enters — no overlap.
+   80ms hard exit, then new fades in starting at 70ms (10ms before old
+   is fully gone so there's no perceptible blank frame). */
 @keyframes glyph-out { to   { opacity: 0; } }
 @keyframes glyph-in  { from { opacity: 0; } }
-::view-transition-old(nav-glyph) { animation: 120ms ease-in  glyph-out; }
-::view-transition-new(nav-glyph) { animation: 200ms ease-out glyph-in;  }
+::view-transition-old(nav-glyph) { animation: 80ms  ease-in        glyph-out; }
+::view-transition-new(nav-glyph) { animation: 180ms ease-out  70ms glyph-in;  }
 
 /* Text stays perfectly anchored — same content, same position on all pages */
 ::view-transition-old(nav-text),
