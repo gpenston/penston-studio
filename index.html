@@ -2,7 +2,7 @@
 <html lang="en" data-mode="dark" data-page="home">
 <head>
   <meta charset="UTF-8">
-  <script>!function(){var s=localStorage.getItem('ps_mode')||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-mode',s)}();</script>
+  <script>!function(){var s=localStorage.getItem('ps_mode');if(s===null)s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-mode',s)}();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Penston Studio</title>
   <meta name="description" content="George Penston is a Product Design Leader and maker. Penston Studio is home to his side projects, including Markedly and Pour Over for Raindrop.">
@@ -19,7 +19,7 @@
   <link rel="canonical" href="https://penston.studio/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css?v=2">
-  <script defer src="assets/site.js"></script>
+  <script defer src="assets/site.js?v=2"></script>
 </head>
 <body>
   <div class="container">

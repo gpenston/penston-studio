@@ -1,10 +1,16 @@
-// Mode toggle: persisted in localStorage; falls back to OS preference, then dark.
+// Mode toggle: persisted in localStorage; falls back to OS preference.
 (function () {
   var KEY = 'ps_mode';
+
+  function getOSMode() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  // Apply persisted preference, or fall back to OS. (FOUC already handled by
+  // the inline <head> script — this ensures deferred load stays in sync.)
   var stored = localStorage.getItem(KEY);
-  var osPrefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  var saved = stored || osPrefers;
-  document.documentElement.setAttribute('data-mode', saved);
+  var mode = stored !== null ? stored : getOSMode();
+  document.documentElement.setAttribute('data-mode', mode);
 
   function playClick() {
     try {
@@ -37,6 +43,22 @@
         playClick();
       });
     });
+
+    // Follow OS preference changes in real-time (e.g. macOS auto dark/light
+    // schedule, or user switching system theme). Updates localStorage so the
+    // next page load also reflects the new OS preference.
+    if (window.matchMedia) {
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      function onOSChange(e) {
+        root.setAttribute('data-mode', e.matches ? 'dark' : 'light');
+        localStorage.setItem(KEY, e.matches ? 'dark' : 'light');
+      }
+      if (mq.addEventListener) {
+        mq.addEventListener('change', onOSChange);
+      } else if (mq.addListener) { // Safari < 14
+        mq.addListener(onOSChange);
+      }
+    }
 
     // Scroll-reveal — IntersectionObserver with a full-reveal fallback after 2.5s
     var reveals = document.querySelectorAll('[data-reveal]');

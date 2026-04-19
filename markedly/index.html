@@ -2,7 +2,7 @@
 <html lang="en" data-mode="dark" data-page="markedly">
 <head>
   <meta charset="UTF-8">
-  <script>!function(){var s=localStorage.getItem('ps_mode')||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-mode',s)}();</script>
+  <script>!function(){var s=localStorage.getItem('ps_mode');if(s===null)s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-mode',s)}();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Markedly — Convert files to Markdown</title>
   <meta name="description" content="A free macOS app that converts documents, PDFs, spreadsheets, and images to Markdown. Everything stays on your Mac.">
@@ -20,7 +20,7 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/style.css?v=2">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
-  <script defer src="../assets/site.js"></script>
+  <script defer src="../assets/site.js?v=2"></script>
 </head>
 <body>
   <div class="container">
