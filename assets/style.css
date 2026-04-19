@@ -9,22 +9,23 @@
 /* ----- MPA View Transitions ------------------------------------------ */
 @view-transition { navigation: auto; }
 
-/* Glyph blurs out like a CRT going to static, resolves in sharp.
-   The character change (// → <) happens during the blur — terminal feel. */
-@keyframes glyph-blur-out {
-  from { opacity: 1; filter: blur(0px);  transform: scale(1); }
-  to   { opacity: 0; filter: blur(4px);  transform: scale(1.15); }
+/* < opens outward from its tip as it exits; // compresses in then settles.
+   The overlapping SVG strokes during the crossfade create the tween effect. */
+@keyframes glyph-open-out {
+  from { opacity: 1; transform: scaleX(1); }
+  to   { opacity: 0; transform: scaleX(1.3); }
 }
-@keyframes glyph-blur-in {
-  from { opacity: 0; filter: blur(4px);  transform: scale(0.88); }
-  to   { opacity: 1; filter: blur(0px);  transform: scale(1); }
+@keyframes glyph-open-in {
+  from { opacity: 0; transform: scaleX(0.75); }
+  to   { opacity: 1; transform: scaleX(1); }
 }
 ::view-transition-old(nav-glyph) {
-  animation: 140ms ease-in glyph-blur-out;
+  animation: 200ms ease-in glyph-open-out;
+  transform-origin: left center;
 }
 ::view-transition-new(nav-glyph) {
-  animation: 260ms cubic-bezier(0.16, 1, 0.3, 1) glyph-blur-in;
-  animation-delay: 60ms;
+  animation: 280ms cubic-bezier(0.16, 1, 0.3, 1) glyph-open-in;
+  transform-origin: left center;
 }
 
 /* Text stays perfectly anchored — same content, same position on all pages */
@@ -328,13 +329,12 @@ main { position: relative; overflow-x: clip; }
 a.nav-kicker:hover { color: var(--text-primary); background-size: 100% 1px; }
 a.nav-kicker:active { opacity: 0.5; }
 
-/* Glyph — the // or < character, animates independently on navigation */
+/* Glyph — SVG mark, animates independently on navigation */
 .nav-glyph {
   view-transition-name: nav-glyph;
   display: inline-block;
   opacity: 0.55;
-  letter-spacing: -0.04em; /* tighten // pair */
-  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
 }
 
 /* Text — anchored, never moves during transitions */
@@ -342,11 +342,13 @@ a.nav-kicker:active { opacity: 0.5; }
   view-transition-name: nav-text;
 }
 
-/* Authoritative box model — identical on home (span/a) and product (a.back-link) */
+/* Authoritative box model — identical on home (a) and product (a.back-link) */
 .unified-bar .nav-mark {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  justify-self: start;      /* prevent 1fr column stretching the element */
+  background-image: none;   /* suppress nav-kicker underline animation */
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
@@ -609,11 +611,12 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .project-card:hover .project-arrow { transform: translateX(4px); }
 
-/* ----- Sticky chrome — single-row unified nav on product pages ------- */
+/* ----- Sticky chrome — single-row unified nav on all pages ----------- */
 .sticky-chrome {
   position: sticky;
   top: 0;
   z-index: 100;
+  user-select: none; /* nothing in the nav should be selectable */
   /* Full-width bg so full-bleed sections don't show through on scroll */
   margin-left: calc(-1 * var(--container-pad));
   margin-right: calc(-1 * var(--container-pad));

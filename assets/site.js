@@ -122,31 +122,6 @@
       });
     });
 
-    // Character scramble on the nav glyph — runs on every page load.
-    // Cycles through mono characters before resolving to the real glyph.
-    var glyphEl = document.querySelector('.nav-glyph');
-    if (glyphEl) {
-      var glyphTarget = glyphEl.textContent;
-      var glyphPool = '/<>|\\-=+#.;:~_^';
-      var glyphCycles = 8;
-      var glyphStep = 0;
-      // Small delay so the view-transition screenshot clears first.
-      setTimeout(function () {
-        var id = setInterval(function () {
-          if (glyphStep >= glyphCycles) {
-            clearInterval(id);
-            glyphEl.textContent = glyphTarget;
-            return;
-          }
-          var s = '';
-          for (var i = 0; i < glyphTarget.length; i++) {
-            s += glyphPool[Math.floor(Math.random() * glyphPool.length)];
-          }
-          glyphEl.textContent = s;
-          glyphStep++;
-        }, 42);
-      }, 120);
-    }
   }
 
   if (document.readyState === 'loading') {
