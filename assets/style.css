@@ -376,6 +376,7 @@ a.nav-kicker:active { opacity: 0.5; }
     color-mix(in srgb, var(--accent) 10%, transparent) 0%,
     transparent 70%);
 }
+.atm-horizon--product { opacity: 0.65; }
 
 .atm-rays {
   position: absolute;
