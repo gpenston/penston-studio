@@ -137,18 +137,10 @@
 
   }
 
-  // Sync fixed nav height to CSS variable so the spacer div matches exactly.
-  function syncNavHeight() {
-    var nav = document.querySelector('.sticky-chrome');
-    if (nav) document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { wire(); syncNavHeight(); syncThemeColor(); });
+    document.addEventListener('DOMContentLoaded', function () { wire(); syncThemeColor(); });
   } else {
     wire();
-    syncNavHeight();
     syncThemeColor();
   }
-  window.addEventListener('resize', syncNavHeight);
 })();

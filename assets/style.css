@@ -626,27 +626,32 @@ a.nav-kicker:active { opacity: 0.5; }
 
 /* ----- Sticky chrome — single-row unified nav on all pages ----------- */
 .sticky-chrome {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  z-index: 9999;
   user-select: none;
-  /* Align content to match the container width/padding on any viewport */
-  padding-left: max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
-  padding-right: max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
-  /* Extend behind iOS status bar / Dynamic Island */
-  padding-top: env(safe-area-inset-top);
-  /* Fully solid — no backdrop-filter (WebKit can create transparency artefacts
-     with backdrop-filter even on opaque backgrounds; fixed + solid is cleanest) */
+  /* Full-width bg so full-bleed sections don't show through on scroll */
+  margin-left: calc(-1 * var(--container-pad));
+  margin-right: calc(-1 * var(--container-pad));
+  padding-left: var(--container-pad);
+  padding-right: var(--container-pad);
+  /* Paint the safe-area region (notch/Dynamic Island) as part of this element's
+     own box — critical for iOS 26 Safari to treat the status-bar zone as covered */
+  padding-top: env(safe-area-inset-top, 0px);
   background: var(--bg-primary);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border-medium);
 }
-/* Spacer holds the space the fixed nav occupies in the document flow.
-   JS in site.js measures .sticky-chrome and sets --nav-height. */
-.sticky-chrome-spacer {
-  height: var(--nav-height, 56px);
-  flex-shrink: 0;
+/* Absolute fill ensures the painted background covers the full box including
+   the padding-top safe-area strip — the pattern Perplexity/community found
+   works with iOS 26 Safari's sticky compositing */
+.sticky-chrome::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  z-index: -1;
 }
 
 .unified-bar {
