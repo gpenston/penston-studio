@@ -643,6 +643,21 @@ a.nav-kicker:active { opacity: 0.5; }
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border-medium);
 }
+/* Safari 26 toolbar tint bar — position:fixed so Safari's tint-reading
+   mechanism picks it up. Height = safe area inset so it sits exactly in the
+   status-bar zone. background-color is set (and updated on toggle) via JS
+   syncThemeColor() as a concrete hex, bypassing CSS variable resolution.
+   Purely visual — pointer-events none, aria-hidden in HTML. */
+#safari-toolbar-tint {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10000;
+  pointer-events: none;
+}
+
 /* Absolute fill ensures the painted background covers the full box including
    the padding-top safe-area strip — the pattern Perplexity/community found
    works with iOS 26 Safari's sticky compositing */

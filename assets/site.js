@@ -49,7 +49,13 @@
     document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
       m.setAttribute('content', color);
     });
-    // Force Safari 26 to re-read the toolbar tint with a concrete hex value.
+    // Safari 26 reads toolbar tint from position:fixed elements. We keep a
+    // dedicated #safari-toolbar-tint div (fixed, height = safe-area-inset-top)
+    // and stamp a concrete hex value on it so Safari picks up the change
+    // without needing to resolve CSS custom properties.
+    var tintBar = document.getElementById('safari-toolbar-tint');
+    if (tintBar) tintBar.style.backgroundColor = color;
+    // Also update the sticky chrome directly as belt-and-suspenders.
     document.querySelectorAll('.sticky-chrome').forEach(function (el) {
       el.style.backgroundColor = color;
     });
