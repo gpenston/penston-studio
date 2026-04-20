@@ -14,27 +14,21 @@
 
   function playClick() {
     try {
-      // Fresh context per click — a cached/reused context can drift into a
-      // suspended state that resume() can't reliably unblock on Safari desktop.
-      // Creating a new one each time matches the original working behaviour.
       var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      // Bake amplitude decay into the buffer so there's no AudioParam scheduling
-      // relative to ctx.currentTime (which can be stale by the time start fires).
-      var len = Math.floor(ctx.sampleRate * 0.02);
+      var len = Math.floor(ctx.sampleRate * 0.018);
       var buf = ctx.createBuffer(1, len, ctx.sampleRate);
       var data = buf.getChannelData(0);
       for (var i = 0; i < len; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 8) * 0.3;
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 10);
       }
       var src = ctx.createBufferSource();
       src.buffer = buf;
-      src.connect(ctx.destination);
-      // resume() as a hint — fire-and-forget, not awaited. src.start() runs
-      // immediately; if the context is suspended the source queues and plays
-      // as soon as the context becomes running (Safari auto-resumes on gesture).
-      ctx.resume();
+      var gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.28, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.016);
+      src.connect(gain);
+      gain.connect(ctx.destination);
       src.start();
-      src.onended = function () { try { ctx.close(); } catch (e) {} };
     } catch (e) {}
   }
 
