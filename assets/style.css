@@ -637,16 +637,13 @@ a.nav-kicker:active { opacity: 0.5; }
   padding-right: var(--container-pad);
   /* Extend behind the iOS status bar when viewport-fit=cover is set */
   padding-top: env(safe-area-inset-top);
-  /* Real backdrop-filter (Apple's technique) forces genuine GPU compositing
-     on iOS Safari, preventing content bleed-through. Slight alpha lets the
-     blur activate; visually indistinguishable from opaque. */
-  background: rgba(12, 11, 8, 0.92);
+  /* Fully opaque background prevents any content bleed-through if
+     backdrop-filter doesn't composite correctly on a given device.
+     backdrop-filter retained as a GPU compositing hint. */
+  background: var(--bg-primary);
   -webkit-backdrop-filter: saturate(180%) blur(16px);
   backdrop-filter: saturate(180%) blur(16px);
   border-bottom: 1px solid var(--border-medium);
-}
-:root[data-mode="light"] .sticky-chrome {
-  background: rgba(239, 236, 228, 0.92);
 }
 
 .unified-bar {
