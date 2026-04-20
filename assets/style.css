@@ -626,24 +626,27 @@ a.nav-kicker:active { opacity: 0.5; }
 
 /* ----- Sticky chrome — single-row unified nav on all pages ----------- */
 .sticky-chrome {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  user-select: none; /* nothing in the nav should be selectable */
-  /* Full-width bg so full-bleed sections don't show through on scroll */
-  margin-left: calc(-1 * var(--container-pad));
-  margin-right: calc(-1 * var(--container-pad));
-  padding-left: var(--container-pad);
-  padding-right: var(--container-pad);
-  /* Extend behind the iOS status bar when viewport-fit=cover is set */
+  user-select: none;
+  /* Align content to match the container width/padding on any viewport */
+  padding-left: max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
+  padding-right: max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
+  /* Extend behind iOS status bar / Dynamic Island */
   padding-top: env(safe-area-inset-top);
-  /* Fully opaque background prevents any content bleed-through if
-     backdrop-filter doesn't composite correctly on a given device.
-     backdrop-filter retained as a GPU compositing hint. */
+  /* Fully solid — no backdrop-filter (WebKit can create transparency artefacts
+     with backdrop-filter even on opaque backgrounds; fixed + solid is cleanest) */
   background: var(--bg-primary);
-  -webkit-backdrop-filter: saturate(180%) blur(16px);
-  backdrop-filter: saturate(180%) blur(16px);
   border-bottom: 1px solid var(--border-medium);
+}
+/* Spacer holds the space the fixed nav occupies in the document flow.
+   JS in site.js measures .sticky-chrome and sets --nav-height. */
+.sticky-chrome-spacer {
+  height: var(--nav-height, 56px);
+  flex-shrink: 0;
 }
 
 .unified-bar {
