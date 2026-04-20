@@ -28,7 +28,9 @@
       gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.016);
       src.connect(gain);
       gain.connect(ctx.destination);
-      src.start();
+      // Safari creates AudioContext in a suspended state even inside a user
+      // gesture — resume() is required before any audio will play.
+      ctx.resume().then(function () { src.start(); });
     } catch (e) {}
   }
 
