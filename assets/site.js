@@ -12,45 +12,29 @@
   var mode = stored !== null ? stored : getOSMode();
   document.documentElement.setAttribute('data-mode', mode);
 
-  // Single reusable AudioContext — avoids browser limits on concurrent contexts.
-  var _audioCtx = null;
-
   function playClick() {
     try {
-      if (!_audioCtx) {
-        _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      // Fresh context per click — a cached/reused context can drift into a
+      // suspended state that resume() can't reliably unblock on Safari desktop.
+      // Creating a new one each time matches the original working behaviour.
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      // Bake amplitude decay into the buffer so there's no AudioParam scheduling
+      // relative to ctx.currentTime (which can be stale by the time start fires).
+      var len = Math.floor(ctx.sampleRate * 0.02);
+      var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      var data = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 8) * 0.3;
       }
-      var ctx = _audioCtx;
-
-      function fire() {
-        // Bake the amplitude decay directly into the buffer — no gain automation,
-        // no time-sensitive scheduling. Previous versions used setValueAtTime /
-        // exponentialRampToValueAtTime scheduled relative to ctx.currentTime
-        // captured before the buffer was built. On Safari (especially after an
-        // async resume().then() call) enough time could pass during construction
-        // that the ramp had already completed to near-zero before src.start()
-        // fired, making the sound inaudible. Removing AudioParam automation
-        // entirely sidesteps the timing hazard.
-        var len = Math.floor(ctx.sampleRate * 0.02);
-        var buf = ctx.createBuffer(1, len, ctx.sampleRate);
-        var data = buf.getChannelData(0);
-        for (var i = 0; i < len; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 8) * 0.3;
-        }
-        var src = ctx.createBufferSource();
-        src.buffer = buf;
-        src.connect(ctx.destination);
-        src.start(); // no args = start immediately, no scheduling required
-      }
-
-      // Desktop Safari creates AudioContext in 'running' state inside a click
-      // handler — calling fire() synchronously works. Mobile Safari creates it
-      // 'suspended' even inside a gesture and requires an async resume() first.
-      if (ctx.state === 'running') {
-        fire();
-      } else {
-        ctx.resume().then(fire);
-      }
+      var src = ctx.createBufferSource();
+      src.buffer = buf;
+      src.connect(ctx.destination);
+      // resume() as a hint — fire-and-forget, not awaited. src.start() runs
+      // immediately; if the context is suspended the source queues and plays
+      // as soon as the context becomes running (Safari auto-resumes on gesture).
+      ctx.resume();
+      src.start();
+      src.onended = function () { try { ctx.close(); } catch (e) {} };
     } catch (e) {}
   }
 
