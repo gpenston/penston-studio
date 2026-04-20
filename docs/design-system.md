@@ -141,7 +141,7 @@ Loaded via Google Fonts. No other families.
 
 All pages include `viewport-fit=cover` in the viewport meta and `theme-color` meta tags (dark + light variants). The `.sticky-chrome` uses `padding-top: env(safe-area-inset-top)` to extend behind the status bar on notched devices.
 
-**iOS 26 Safari — sticky chrome fix.** Safari 26 introduced a "liquid glass" translucent browser chrome that composites *over* page content. Without a fix, page content peeks through the browser toolbar. The confirmed workaround is a `::before` pseudo-element on `.sticky-chrome` that forces Safari to paint the safe-area strip as part of the element's own box:
+**iOS 26 Safari — sticky chrome fix (confirmed working).** Safari 26 introduced a "liquid glass" translucent browser chrome that composites *over* page content. Without a fix, page content peeks through the browser toolbar. The confirmed workaround is a `::before` pseudo-element on `.sticky-chrome` that forces Safari to paint the safe-area strip as part of the element's own box:
 
 ```css
 .sticky-chrome {
@@ -159,15 +159,26 @@ All pages include `viewport-fit=cover` in the viewport meta and `theme-color` me
   inset: 0;
   background: inherit;
   z-index: -1;
+  pointer-events: none;                   /* CRITICAL — without this, the overlay
+                                             eats clicks to buttons on desktop */
 }
 ```
 
 Key points:
-- `position: sticky` is correct. `position: fixed` does **not** help with this Safari 26 bug — both are affected, but `sticky` is more reliable for the `::before` trick.
+- `position: sticky` is correct. `position: fixed` does **not** help with this Safari 26 bug.
 - The `::before` with `background: inherit` forces Safari to repaint the padding-top region as part of the element's own box, closing the compositor gap that lets content bleed through.
-- `z-index: 9999` (not 100) ensures the chrome always sits above product showcase frames and other high-stacking elements.
-- `backdrop-filter` is kept for the frosted-glass effect on supporting browsers — it doesn't conflict with the `::before` fix.
-- **`theme-color` meta tag is ignored by Safari 26.** Safari 26 dropped `theme-color` support and instead reads `background-color` from 100%-wide fixed elements for toolbar tinting. Keep the `theme-color` metas for other browsers (Chrome, Firefox), but don't rely on them for iOS 26 Safari. The inline `<head>` script that keeps `theme-color` in sync with `[data-mode]` changes is still worth keeping for cross-browser correctness.
+- `z-index: 9999` (not 100) ensures the chrome always sits above product showcase frames.
+- `pointer-events: none` on `::before` is non-negotiable. The pseudo-element is `position: absolute; inset: 0` — without it, it covers the entire chrome area and silently eats clicks to the mode toggle button on desktop browsers.
+- `backdrop-filter` is kept for the frosted-glass effect — it doesn't conflict with the `::before` fix.
+
+**iOS 26 Safari — toolbar tint on mode toggle (unresolvable).** The toolbar tint color (the status-bar zone above the sticky chrome) is correct on initial page load but does **not** update when the user manually toggles light/dark mode via the site's toggle. This is a confirmed hard Safari 26 limitation. We exhausted every known approach: inline `style.backgroundColor` overrides on fixed elements, CSS `[data-mode]` cascade, `color-scheme` property, `theme-color` meta updates, micro-scroll triggers. None cause Safari to re-composite the toolbar tint dynamically. It only updates on page navigation. Accepted as a known limitation — do not spend more time on this.
+
+The following are in place as belt-and-suspenders for other browsers and to be ready if Apple ever exposes a dynamic tint API:
+- `#safari-toolbar-tint` div in each page `<body>` — `position: fixed`, `height: env(safe-area-inset-top)`, colored via `[data-mode]` CSS selectors, `pointer-events: none`.
+- `color-scheme: dark/light` on `:root` via `[data-mode]` CSS selectors.
+- `theme-color` meta tags kept in sync via the inline `<head>` script and `syncThemeColor()` in `site.js`.
+
+**`theme-color` meta tag is ignored by Safari 26.** Keep the metas for Chrome/Firefox correctness.
 
 ---
 
@@ -460,8 +471,11 @@ Three ambient animations, all gated on `prefers-reduced-motion: no-preference`:
 - Don't put utility links (Support, Privacy, back-link) in the nav. They live in the unified bar / product-switcher.
 - Don't use the same accent colour for pullquote highlights as for links. The `.hl` is a cyan wash, not orange.
 - Don't give the nav glyph a `view-transition-name`. The simultaneous old+new snapshots cause an overlap bug. Let it ride with the root crossfade.
-- Don't use `position: fixed` for `.sticky-chrome` thinking it'll solve the iOS 26 Safari bleed-through. It won't — both `fixed` and `sticky` are affected by Safari 26's compositor bug. The fix is `position: sticky` + `z-index: 9999` + a `::before { position: absolute; inset: 0; background: inherit; z-index: -1 }` pseudo-element. See §4 iOS Safari for the full pattern.
-- Don't assume `theme-color` meta controls toolbar colour on iOS 26 Safari — Apple dropped that support in Safari 26. Keep the metas for other browsers but don't depend on them for iOS.
+- Don't use `position: fixed` for `.sticky-chrome` — the iOS 26 Safari bleed-through fix requires `position: sticky`. See §4 for the full pattern.
+- Don't remove `pointer-events: none` from `.sticky-chrome::before` — the pseudo-element covers the entire chrome area and will silently eat button clicks without it.
+- Don't assume `theme-color` meta controls toolbar colour on iOS 26 Safari — Apple dropped that support. Keep the metas for other browsers.
+- Don't try to fix the toolbar tint not updating on mode toggle — we exhausted every known approach. It's a confirmed iOS 26 Safari hard limit. See §4.
+- Don't wrap `playClick()`'s `src.start()` in `ctx.resume().then()` — the original synchronous pattern is what works across all browsers. Any "fix" that adds async resume breaks Safari desktop audio.
 
 ---
 
