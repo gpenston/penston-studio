@@ -637,8 +637,16 @@ a.nav-kicker:active { opacity: 0.5; }
   padding-right: var(--container-pad);
   /* Extend behind the iOS status bar when viewport-fit=cover is set */
   padding-top: env(safe-area-inset-top);
-  background: var(--bg-primary);
+  /* Real backdrop-filter (Apple's technique) forces genuine GPU compositing
+     on iOS Safari, preventing content bleed-through. Slight alpha lets the
+     blur activate; visually indistinguishable from opaque. */
+  background: rgba(12, 11, 8, 0.92);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
   border-bottom: 1px solid var(--border-medium);
+}
+:root[data-mode="light"] .sticky-chrome {
+  background: rgba(239, 236, 228, 0.92);
 }
 
 .unified-bar {
@@ -1731,6 +1739,9 @@ footer {
 
   /* Back-link: glyph only on mobile — text too wide at narrow widths */
   .unified-bar .back-link-text { display: none; }
+
+  /* Atmosphere rays: re-center convergence point on disc-mark at mobile widths */
+  .atm-rays { right: -84px; top: -52px; }
 
   /* Coffee ring: pull flush on mobile to prevent overflow */
   .coffee-ring { right: 0; width: 220px; }
