@@ -652,6 +652,7 @@ a.nav-kicker:active { opacity: 0.5; }
   inset: 0;
   background: inherit;
   z-index: -1;
+  pointer-events: none;
 }
 
 .unified-bar {
