@@ -32,14 +32,24 @@
     } catch (e) {}
   }
 
-  // Keep <meta name="theme-color"> in sync with our custom [data-mode] toggle.
-  // The static meta tags use prefers-color-scheme, which doesn't update when
-  // the user manually toggles our site's mode — iOS reads the stale OS value
-  // and renders the status bar glass rather than our solid background color.
+  // Keep toolbar tint and theme-color in sync with our custom [data-mode] toggle.
+  //
+  // Safari 26 dropped <meta name="theme-color"> support. Instead it reads the
+  // computed background-color of 100%-wide elements near the top of the page.
+  // CSS custom properties (var(--bg-primary)) aren't always re-resolved by
+  // Safari in real-time when [data-mode] changes, so we also set an inline
+  // style.backgroundColor with a concrete hex value — that Safari can read
+  // immediately without resolving a variable chain.
+  //
+  // The meta tags are kept for other browsers (Chrome, Firefox).
   function syncThemeColor() {
     var color = document.documentElement.dataset.mode === 'dark' ? '#0c0b08' : '#efece4';
     document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
       m.setAttribute('content', color);
+    });
+    // Force Safari 26 to re-read the toolbar tint with a concrete hex value.
+    document.querySelectorAll('.sticky-chrome').forEach(function (el) {
+      el.style.backgroundColor = color;
     });
   }
 
