@@ -23,21 +23,24 @@
       var ctx = _audioCtx;
 
       function fire() {
-        var t = ctx.currentTime;
-        var len = Math.floor(ctx.sampleRate * 0.018);
+        // Bake the amplitude decay directly into the buffer — no gain automation,
+        // no time-sensitive scheduling. Previous versions used setValueAtTime /
+        // exponentialRampToValueAtTime scheduled relative to ctx.currentTime
+        // captured before the buffer was built. On Safari (especially after an
+        // async resume().then() call) enough time could pass during construction
+        // that the ramp had already completed to near-zero before src.start()
+        // fired, making the sound inaudible. Removing AudioParam automation
+        // entirely sidesteps the timing hazard.
+        var len = Math.floor(ctx.sampleRate * 0.02);
         var buf = ctx.createBuffer(1, len, ctx.sampleRate);
         var data = buf.getChannelData(0);
         for (var i = 0; i < len; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 10);
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 8) * 0.3;
         }
         var src = ctx.createBufferSource();
         src.buffer = buf;
-        var gain = ctx.createGain();
-        gain.gain.setValueAtTime(0.28, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.016);
-        src.connect(gain);
-        gain.connect(ctx.destination);
-        src.start(t);
+        src.connect(ctx.destination);
+        src.start(); // no args = start immediately, no scheduling required
       }
 
       // Desktop Safari creates AudioContext in 'running' state inside a click
@@ -51,30 +54,13 @@
     } catch (e) {}
   }
 
-  // Keep toolbar tint and theme-color in sync with our custom [data-mode] toggle.
-  //
-  // Safari 26 dropped <meta name="theme-color"> support. The #safari-toolbar-tint
-  // div (position:fixed, height = safe-area-inset-top) is styled via CSS using
-  // [data-mode] selectors so its background-color changes through the same
-  // cascade mechanism that updates the rest of the page — more reliable than
-  // inline style updates for Safari's tint-reading pipeline.
-  //
-  // After the color change, a micro-scroll (1px down, 1px back) nudges Safari
-  // into re-compositing the toolbar tint. Scroll events are the most reliable
-  // trigger for Safari to re-sample page content under its chrome.
-  //
-  // The meta tags are kept for other browsers (Chrome, Firefox).
+  // Keep theme-color meta in sync for Chrome / Firefox.
+  // Safari 26 toolbar tint is handled entirely in CSS via color-scheme
+  // on [data-mode] selectors — no JS intervention needed.
   function syncThemeColor() {
     var color = document.documentElement.dataset.mode === 'dark' ? '#0c0b08' : '#efece4';
     document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
       m.setAttribute('content', color);
-    });
-    // Micro-scroll to nudge Safari into re-reading the toolbar tint color.
-    // Imperceptible to the user (1px, immediately reversed next frame).
-    var scrolled = window.pageYOffset;
-    window.scrollTo(0, scrolled + 1);
-    requestAnimationFrame(function () {
-      window.scrollTo(0, scrolled);
     });
   }
 

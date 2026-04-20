@@ -28,6 +28,13 @@
 }
 
 /* ----- Tokens: DARK (default) ---------------------------------------- */
+/* color-scheme tells Safari (and other browsers) which color scheme is active.
+   This is the standards-based signal for browser UI chrome — scrollbars, form
+   controls, and in iOS 26 Safari, the toolbar tint. Driven by [data-mode] so
+   it changes atomically with the rest of the page on toggle. */
+:root { color-scheme: dark; }
+:root[data-mode="light"] { color-scheme: light; }
+
 :root {
   --bg-primary:    #0c0b08;
   --bg-secondary:  #17150f;
