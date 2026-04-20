@@ -643,11 +643,13 @@ a.nav-kicker:active { opacity: 0.5; }
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border-medium);
 }
-/* Safari 26 toolbar tint bar — position:fixed so Safari's tint-reading
-   mechanism picks it up. Height = safe area inset so it sits exactly in the
-   status-bar zone. background-color is set (and updated on toggle) via JS
-   syncThemeColor() as a concrete hex, bypassing CSS variable resolution.
-   Purely visual — pointer-events none, aria-hidden in HTML. */
+/* Safari 26 toolbar tint bar — position:fixed, full-width, exactly as tall as
+   the safe-area inset. Sits in the status-bar zone so Safari's tint-reading
+   mechanism picks up its background-color.
+   Color is driven by CSS [data-mode] selectors (not JS inline styles) so it
+   changes through the same cascade mechanism as the rest of the page — snaps
+   immediately, no transition delay. Purely decorative: pointer-events none,
+   aria-hidden in HTML. */
 #safari-toolbar-tint {
   position: fixed;
   top: 0;
@@ -656,6 +658,11 @@ a.nav-kicker:active { opacity: 0.5; }
   height: env(safe-area-inset-top, 0px);
   z-index: 10000;
   pointer-events: none;
+  background-color: #0c0b08; /* dark mode default */
+  transition: none;           /* must snap — no delay for Safari to see stale color */
+}
+[data-mode="light"] #safari-toolbar-tint {
+  background-color: #efece4;
 }
 
 /* Absolute fill ensures the painted background covers the full box including

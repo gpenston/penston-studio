@@ -12,13 +12,18 @@
   var mode = stored !== null ? stored : getOSMode();
   document.documentElement.setAttribute('data-mode', mode);
 
+  // Single reusable AudioContext — avoids browser limits on concurrent contexts.
+  var _audioCtx = null;
+
   function playClick() {
     try {
-      var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      // Safari (desktop + iOS) creates AudioContext in a suspended state even
-      // inside a user gesture. Build and schedule the sound only after resume()
-      // resolves, so currentTime is valid and the context is actually running.
-      ctx.resume().then(function () {
+      if (!_audioCtx) {
+        _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      var ctx = _audioCtx;
+
+      function fire() {
+        var t = ctx.currentTime;
         var len = Math.floor(ctx.sampleRate * 0.018);
         var buf = ctx.createBuffer(1, len, ctx.sampleRate);
         var data = buf.getChannelData(0);
@@ -28,23 +33,35 @@
         var src = ctx.createBufferSource();
         src.buffer = buf;
         var gain = ctx.createGain();
-        gain.gain.setValueAtTime(0.28, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.016);
+        gain.gain.setValueAtTime(0.28, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.016);
         src.connect(gain);
         gain.connect(ctx.destination);
-        src.start();
-      });
+        src.start(t);
+      }
+
+      // Desktop Safari creates AudioContext in 'running' state inside a click
+      // handler — calling fire() synchronously works. Mobile Safari creates it
+      // 'suspended' even inside a gesture and requires an async resume() first.
+      if (ctx.state === 'running') {
+        fire();
+      } else {
+        ctx.resume().then(fire);
+      }
     } catch (e) {}
   }
 
   // Keep toolbar tint and theme-color in sync with our custom [data-mode] toggle.
   //
-  // Safari 26 dropped <meta name="theme-color"> support. Instead it reads the
-  // computed background-color of 100%-wide elements near the top of the page.
-  // CSS custom properties (var(--bg-primary)) aren't always re-resolved by
-  // Safari in real-time when [data-mode] changes, so we also set an inline
-  // style.backgroundColor with a concrete hex value — that Safari can read
-  // immediately without resolving a variable chain.
+  // Safari 26 dropped <meta name="theme-color"> support. The #safari-toolbar-tint
+  // div (position:fixed, height = safe-area-inset-top) is styled via CSS using
+  // [data-mode] selectors so its background-color changes through the same
+  // cascade mechanism that updates the rest of the page — more reliable than
+  // inline style updates for Safari's tint-reading pipeline.
+  //
+  // After the color change, a micro-scroll (1px down, 1px back) nudges Safari
+  // into re-compositing the toolbar tint. Scroll events are the most reliable
+  // trigger for Safari to re-sample page content under its chrome.
   //
   // The meta tags are kept for other browsers (Chrome, Firefox).
   function syncThemeColor() {
@@ -52,15 +69,12 @@
     document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
       m.setAttribute('content', color);
     });
-    // Safari 26 reads toolbar tint from position:fixed elements. We keep a
-    // dedicated #safari-toolbar-tint div (fixed, height = safe-area-inset-top)
-    // and stamp a concrete hex value on it so Safari picks up the change
-    // without needing to resolve CSS custom properties.
-    var tintBar = document.getElementById('safari-toolbar-tint');
-    if (tintBar) tintBar.style.backgroundColor = color;
-    // Also update the sticky chrome directly as belt-and-suspenders.
-    document.querySelectorAll('.sticky-chrome').forEach(function (el) {
-      el.style.backgroundColor = color;
+    // Micro-scroll to nudge Safari into re-reading the toolbar tint color.
+    // Imperceptible to the user (1px, immediately reversed next frame).
+    var scrolled = window.pageYOffset;
+    window.scrollTo(0, scrolled + 1);
+    requestAnimationFrame(function () {
+      window.scrollTo(0, scrolled);
     });
   }
 
