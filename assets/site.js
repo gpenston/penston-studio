@@ -32,6 +32,17 @@
     } catch (e) {}
   }
 
+  // Keep <meta name="theme-color"> in sync with our custom [data-mode] toggle.
+  // The static meta tags use prefers-color-scheme, which doesn't update when
+  // the user manually toggles our site's mode — iOS reads the stale OS value
+  // and renders the status bar glass rather than our solid background color.
+  function syncThemeColor() {
+    var color = document.documentElement.dataset.mode === 'dark' ? '#0c0b08' : '#efece4';
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
+      m.setAttribute('content', color);
+    });
+  }
+
   function wire() {
     var root = document.documentElement;
 
@@ -40,6 +51,7 @@
         var next = root.dataset.mode === 'dark' ? 'light' : 'dark';
         root.setAttribute('data-mode', next);
         localStorage.setItem(KEY, next);
+        syncThemeColor();
         playClick();
       });
     });
@@ -52,6 +64,7 @@
       function onOSChange(e) {
         root.setAttribute('data-mode', e.matches ? 'dark' : 'light');
         localStorage.setItem(KEY, e.matches ? 'dark' : 'light');
+        syncThemeColor();
       }
       if (mq.addEventListener) {
         mq.addEventListener('change', onOSChange);
@@ -131,10 +144,11 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { wire(); syncNavHeight(); });
+    document.addEventListener('DOMContentLoaded', function () { wire(); syncNavHeight(); syncThemeColor(); });
   } else {
     wire();
     syncNavHeight();
+    syncThemeColor();
   }
   window.addEventListener('resize', syncNavHeight);
 })();
