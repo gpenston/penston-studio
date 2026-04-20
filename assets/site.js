@@ -15,22 +15,25 @@
   function playClick() {
     try {
       var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      var len = Math.floor(ctx.sampleRate * 0.018);
-      var buf = ctx.createBuffer(1, len, ctx.sampleRate);
-      var data = buf.getChannelData(0);
-      for (var i = 0; i < len; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 10);
-      }
-      var src = ctx.createBufferSource();
-      src.buffer = buf;
-      var gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.28, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.016);
-      src.connect(gain);
-      gain.connect(ctx.destination);
-      // Safari creates AudioContext in a suspended state even inside a user
-      // gesture — resume() is required before any audio will play.
-      ctx.resume().then(function () { src.start(); });
+      // Safari (desktop + iOS) creates AudioContext in a suspended state even
+      // inside a user gesture. Build and schedule the sound only after resume()
+      // resolves, so currentTime is valid and the context is actually running.
+      ctx.resume().then(function () {
+        var len = Math.floor(ctx.sampleRate * 0.018);
+        var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        var data = buf.getChannelData(0);
+        for (var i = 0; i < len; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 10);
+        }
+        var src = ctx.createBufferSource();
+        src.buffer = buf;
+        var gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.28, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.016);
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start();
+      });
     } catch (e) {}
   }
 
