@@ -441,8 +441,8 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .atm-rays {
   position: absolute;
-  right: -40px;
-  top: -30px;
+  right: -84px;
+  top: -52px;
   width: 260px;
   height: 260px;
   z-index: 0;
@@ -1775,8 +1775,7 @@ footer {
   /* Back-link: glyph only on mobile — text too wide at narrow widths */
   .unified-bar .back-link-text { display: none; }
 
-  /* Atmosphere rays: re-center convergence point on disc-mark at mobile widths */
-  .atm-rays { right: -84px; top: -52px; }
+  /* Atmosphere: rays, disc, ring all use absolute positioning — no mobile override needed */
 
   /* Coffee ring: pull flush on mobile to prevent overflow */
   .coffee-ring { right: 0; width: 220px; }
