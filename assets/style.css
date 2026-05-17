@@ -458,7 +458,7 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .disc-mark {
   position: absolute;
-  right: 0; top: 32px;
+  right: 44px; top: 54px;
   width: 92px; height: 92px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 40%,
@@ -480,7 +480,7 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .disc-ring {
   position: absolute;
-  right: -18px; top: 14px;
+  right: 25px; top: 35px;
   width: 130px; height: 130px;
   border-radius: 50%;
   border: 1px solid var(--border-medium);
@@ -1775,8 +1775,9 @@ footer {
   /* Back-link: glyph only on mobile — text too wide at narrow widths */
   .unified-bar .back-link-text { display: none; }
 
-  /* Atmosphere rays: re-center convergence point on disc-mark at mobile widths */
-  .atm-rays { right: -84px; top: -52px; }
+  /* Atmosphere: disc + ring follow the rays convergence point at all widths */
+  .disc-mark { right: 44px; top: 54px; }
+  .disc-ring  { right: 25px; top: 35px; }
 
   /* Coffee ring: pull flush on mobile to prevent overflow */
   .coffee-ring { right: 0; width: 220px; }
