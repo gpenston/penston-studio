@@ -296,7 +296,7 @@ main { position: relative; overflow-x: clip; }
 .instr-hero {
   position: relative;
   padding: 48px 0 24px;
-  overflow: hidden;
+  overflow: visible;
 }
 .instr-hero > *:not(.disc-mark):not(.disc-ring):not(.atm-dust):not(.atm-rays):not(.atm-horizon) {
   position: relative;
@@ -441,10 +441,10 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .atm-rays {
   position: absolute;
-  right: -84px;
-  top: -52px;
-  width: 260px;
-  height: 260px;
+  right: -144px;
+  top: -112px;
+  width: 380px;
+  height: 380px;
   z-index: 0;
   pointer-events: none;
   opacity: 0.32;
@@ -1775,7 +1775,8 @@ footer {
   /* Back-link: glyph only on mobile — text too wide at narrow widths */
   .unified-bar .back-link-text { display: none; }
 
-  /* Atmosphere: rays, disc, ring all use absolute positioning — no mobile override needed */
+  /* Atmosphere: scale rays down on mobile so they don't overwhelm the viewport */
+  .atm-rays { width: 280px; height: 280px; right: -94px; top: -62px; }
 
   /* Coffee ring: pull flush on mobile to prevent overflow */
   .coffee-ring { right: 0; width: 220px; }
