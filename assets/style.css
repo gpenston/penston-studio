@@ -496,7 +496,7 @@ a.nav-kicker:active { opacity: 0.5; }
 @media (prefers-reduced-motion: no-preference) {
   .disc-ring  { animation: ring-orbit  70s linear      infinite; }
   .disc-mark  { animation: disc-breath  7s ease-in-out  infinite; }
-  .atm-rays   { animation: rays-drift 130s linear      infinite; transform-origin: center center; }
+  .atm-rays   { animation: rays-drift 360s linear      infinite; transform-origin: center center; }
 }
 
 /* ----- Section labels (numbered chapters) --------------------------- */
@@ -1775,8 +1775,8 @@ footer {
   /* Back-link: glyph only on mobile — text too wide at narrow widths */
   .unified-bar .back-link-text { display: none; }
 
-  /* Atmosphere: scale rays down on mobile, restore faster rotation for smaller SVG */
-  .atm-rays { width: 280px; height: 280px; right: -94px; top: -62px; animation-duration: 90s; }
+  /* Atmosphere: scale rays down on mobile, slightly faster rotation for smaller SVG */
+  .atm-rays { width: 280px; height: 280px; right: -94px; top: -62px; animation-duration: 240s; }
 
   /* Coffee ring: pull flush on mobile to prevent overflow */
   .coffee-ring { right: 0; width: 220px; }
