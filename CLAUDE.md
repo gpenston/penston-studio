@@ -48,7 +48,7 @@ A Dieter Rams-style I/O sliding switch. State is driven entirely by `[data-mode=
 
 ## Deployment
 
-Hosted at `penston.studio` via Vercel. No CI/CD — changes go live when pushed to `main`.
+Hosted at `penston.studio` via **Vercel** (migrated from GitHub Pages, June 2026). Deploy from `main` branch — Vercel auto-deploys on push, preview URLs on every branch. `vercel.json` at root sets `cleanUrls` and `trailingSlash: true` to preserve directory-style URLs (`/markedly/`, `/pour-over/`). `www.penston.studio` 308-redirects to the bare apex via Vercel domain config.
 
 ## Git Workflow
 
