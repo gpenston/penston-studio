@@ -62,7 +62,7 @@
 - **`--accent-cool` is a whisper.** Use it for one word in a headline and nowhere else.
 - **Background grid is default.** Every page has a faint mono grid backdrop (`background-size: 48px 48px`, ~11% opacity lines in dark, ~6% in light). It reads as graph paper.
 - **Paper grain is always on.** A `body::before` fixed pseudo-element adds a ~3% feTurbulence SVG grain for organic texture. Dark: 3% opacity, Light: 2%. Never remove it.
-- **No gradients except the disc-mark.** The only gradient allowed is the sun/disc motif behind the home hero.
+- **No gradients.** The site is flat. (The old orange disc gradient and the hero horizon glow were removed in the June 2026 cleanup — don't reintroduce decorative gradients.)
 - **Light mode is not dark-mode-inverted.** It's a distinct paper aesthetic. Recalibrate, don't swap.
 
 ---
@@ -103,6 +103,9 @@ Loaded via Google Fonts. No other families.
 - **Mono labels are always uppercase, tracked, with tabular numbers.** `font-variant-numeric: tabular-nums`.
 - **Section labels carry a chapter number.** `data-num="02"` renders as `02 —` before the label text via CSS `::before`.
 - **`text-wrap: pretty`** on all paragraphs and headlines by default.
+- **11px is the floor.** No text — including mono labels, badges, and captions — goes below 11px. Body-adjacent small text (card descriptions, support subs) sits at 14–15px.
+
+> **Pending separate passes:** the typeface direction ("modern but unique and classic") and the Pour Over app icon redesign are tracked as their own efforts. The current Space Grotesk / Inter / JetBrains Mono stack stays until the type pass lands.
 
 ---
 
@@ -133,7 +136,6 @@ Loaded via Google Fonts. No other families.
 
 - Plates collapse to single column.
 - **Sticky chrome back-link:** text hidden on mobile — glyph (`//` or `<`) only. Product switcher labels remain visible. This prevents the "PENSTON STUDIO" label from wrapping to two lines.
-- **Coffee ring:** pulls flush to `right: 0` and scales to 220px — keeps it on screen without causing horizontal overflow.
 - No hamburger menu — nav is always visible.
 - `main { overflow-x: visible }` on mobile allows product-showcase full-bleed. The `.instr-hero` has its own `overflow: hidden` to contain the disc ornament.
 
@@ -231,52 +233,31 @@ A single `position: sticky` chrome row shared across all pages. CSS Grid `1fr au
 
 Active item is a `<span>` (not a link), dimmed, non-interactive. Inactive items are `<a>` links.
 
-### Mode toggle — Dieter Rams I/O switch
+### Mode toggle — flat sun/moon icon button
 
-A physical sliding pill toggle. CSS-driven entirely from `[data-mode]` on `<html>`. No JS class manipulation needed. The thumb slides 24px right in dark mode. Icons (sun left, moon right) slide slightly with the thumb for a physically coupled feel. A tooltip appears after a 0.6s hover delay.
+A flat icon button — no track, thumb, or skeuomorphic depth (the old Dieter Rams I/O pill was removed in the June 2026 cleanup as out of place). CSS-driven entirely from `[data-mode]` on `<html>`: the button shows the icon of the mode you'll switch *to* — the sun in dark mode (tap for light), the moon in light mode (tap for dark). 32px hit target, `--text-secondary` resting, `--accent` on hover. A tooltip appears after a 0.6s hover delay.
 
 ```html
 <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
-  <span class="mode-toggle-track">
-    <span class="mode-toggle-i" aria-hidden="true"><!-- sun SVG --></span>
-    <span class="mode-toggle-thumb"></span>
-    <span class="mode-toggle-o" aria-hidden="true"><!-- moon SVG --></span>
-  </span>
+  <span class="mode-toggle-i" aria-hidden="true"><!-- sun SVG  — shown in dark mode --></span>
+  <span class="mode-toggle-o" aria-hidden="true"><!-- moon SVG — shown in light mode --></span>
 </button>
 ```
 
-- **Dark mode active:** track fills with `--accent`, thumb at `translateX(24px)`, sun visible, moon hidden.
-- **Light mode active:** track is `--bg-tertiary`, thumb at `translateX(0)`, moon visible, sun hidden.
+- **Dark mode active:** sun icon visible (`.mode-toggle-i` shown, `.mode-toggle-o` hidden).
+- **Light mode active:** moon icon visible (`.mode-toggle-o` shown, `.mode-toggle-i` hidden).
 - **Tooltip:** CSS `::after` on `.mode-toggle` — content set via `:root[data-mode]` attribute selector. Mono font, right-aligned, fades in after 0.6s.
+- **Click sound:** `playClick()` in `site.js` fires on toggle — keep it.
 - **FOUC prevention:** Inline `<script>` in `<head>` reads `localStorage['ps_mode']`, falls back to `prefers-color-scheme`, sets `data-mode` synchronously before any paint.
 
 ### Hero atmosphere (home only)
 
-Three layered decorative elements — all `position: absolute`, `pointer-events: none`, `z-index: 0` — inside `.instr-hero` which has `overflow: hidden` to contain them.
+Two quiet decorative elements — both `position: absolute`, `pointer-events: none`, `z-index: 0` — inside `.instr-hero` which has `overflow: hidden` to contain them. (The heavy orange `.disc-mark` sphere, the `.atm-horizon` line + gradient glow, and the `.coffee-ring` stain were all removed in the June 2026 cleanup as decorative noise.)
 
-- **`.disc-mark`** — 92×92px radial-gradient sphere (orange/accent). Sits top-right.
-- **`.disc-ring`** — 130×130px thin border circle. Slightly offset from disc-mark.
-- **`.atm-rays`** — 260×260px SVG star-burst of thin lines (accent stroke). Top-right, extends slightly beyond.
+- **`.disc-ring`** — ~120px thin border circle, top-right. Reads as a single deliberate mark now that the disc is gone.
+- **`.atm-rays`** — SVG star-burst of thin lines (accent stroke), top-right, extends slightly beyond.
 
-All three animate when `prefers-reduced-motion: no-preference` — see §6 Motion.
-
-### Coffee ring (home only)
-
-A `position: absolute` decorative PNG at the bottom of `<main>`, positioned to straddle the section/footer seam:
-
-```css
-.coffee-ring {
-  right: -20px; bottom: -118px;   /* desktop: bleeds slightly right, bridges footer */
-  width: 260px;
-  transform: rotate(3deg);
-  mix-blend-mode: multiply;       /* screen in dark mode */
-  opacity: 0.18;                  /* 0.06 in dark */
-}
-/* Mobile: pull flush so it doesn't cause horizontal overflow */
-@media (max-width: 600px) {
-  .coffee-ring { right: 0; width: 220px; }
-}
-```
+Both animate when `prefers-reduced-motion: no-preference` — see §6 Motion.
 
 ### Portfolio link (home only)
 
@@ -284,7 +265,7 @@ A styled call-to-action link below the hero bio, pointing to `gpenston.com`. Use
 
 ### Project card (home)
 
-Row-based card with icon tile, name + description, platform badge, arrow. Hover lifts 2px and shifts border toward accent. **No shadow on rest state** — only border.
+Row-based card with icon tile, name + description, platform badge, arrow. **No shadow, ever** — rest or hover. Hover is a flat, deliberate state: border + icon border shift to the card accent, background lifts `--bg-secondary` → `--bg-tertiary`, the name shifts to the accent, the arrow slides, and the whole card lifts 1px (no box-shadow).
 
 ### Section label
 
@@ -366,11 +347,10 @@ Elements with `[data-reveal]` start at `opacity: 0; transform: translateY(16px)`
 
 ### Hero atmosphere (home only)
 
-Three ambient animations, all gated on `prefers-reduced-motion: no-preference`:
+Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 - **`.disc-ring`** — `ring-orbit`: rotates 360° over 70s linear, infinite.
-- **`.disc-mark`** — `disc-breath`: opacity pulses 0.70 → 0.84 over 7s ease-in-out, infinite.
-- **`.atm-rays`** — `rays-drift`: counter-rotates 360° over 90s linear, infinite.
+- **`.atm-rays`** — `rays-drift`: counter-rotates 360° over 360s linear, infinite.
 
 ### Closing CTA icon float (product pages)
 
@@ -392,7 +372,7 @@ Three ambient animations, all gated on `prefers-reduced-motion: no-preference`:
 - **Hover transitions are 150–200ms.** Anything longer feels slow.
 - **No scroll-jacking, parallax, or scroll-tied animation.** The page scrolls like a document.
 - **`prefers-reduced-motion: reduce` kills all transitions and reveals immediately.** Non-negotiable.
-- **The atmosphere (disc + rays) is the only ambient animation on home.** Don't add floating particles, gradient sweeps, or breathing elements elsewhere.
+- **The atmosphere (ring + rays) is the only ambient animation on home.** Don't add floating particles, gradient sweeps, or breathing elements elsewhere.
 - **Mode toggle transition is 200ms `cubic-bezier(0.4, 0, 0.2, 1)`.** Applies to thumb translate, icon slide, and track background.
 
 ---
@@ -461,7 +441,9 @@ Three ambient animations, all gated on `prefers-reduced-motion: no-preference`:
 ## 11. Don't do this
 
 - Don't add a system rail / status bar at the top of pages. We tried it — it added visual noise without earning its keep.
-- Don't add a gradient hero background.
+- Don't add a gradient hero background — or any decorative gradient. The site is flat (June 2026 cleanup).
+- Don't bring back the orange hero disc, the hero horizon line/glow, the coffee-ring stain, or the skeuomorphic sliding mode switch. They were removed deliberately.
+- Don't put shadows on the catalogue cards — the hover state is flat (border + background + accent), never a drop-shadow.
 - Don't use Inter Tight, Satoshi, General Sans, or any "designer" substitute for Space Grotesk — they're all trying too hard.
 - Don't make the accent orange darker "to be tasteful." The orange is the signal.
 - Don't add a "Get in touch" CTA section. There's LinkedIn in the footer, that's enough.
