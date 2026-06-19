@@ -211,11 +211,18 @@ main { position: relative; overflow-x: clip; }
   transition: color 200ms ease, background 200ms ease;
 }
 .mode-toggle:hover { color: var(--accent); }
-.mode-toggle svg { display: block; }
-/* Both icons live in the same SVG so the element never moves — zero positional
-   shift on toggle. Dark mode shows sun (tap for light); light shows moon (tap for dark). */
-.icon-sun { opacity: 0; transition: opacity 150ms ease; }
-.icon-moon { opacity: 1; transition: opacity 150ms ease; }
+.icon-sun,
+.icon-moon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: opacity 150ms ease;
+}
+.icon-sun { opacity: 0; }
+.icon-moon { opacity: 1; }
 :root[data-mode="dark"] .icon-sun { opacity: 1; }
 :root[data-mode="dark"] .icon-moon { opacity: 0; }
 
