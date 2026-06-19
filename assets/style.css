@@ -1567,17 +1567,9 @@ footer {
 }
 
 /* ----- Closing CTA -------------------------------------------------- */
-@keyframes icon-float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .closing-cta .app-icon { animation: icon-float 4s ease-in-out infinite; }
-}
 .closing-cta {
   padding: 72px 0 56px;
   text-align: center;
-  border-top: 1px solid var(--border-medium);
 }
 .closing-cta .app-icon {
   width: 88px;
