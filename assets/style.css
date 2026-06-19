@@ -212,21 +212,12 @@ main { position: relative; overflow-x: clip; }
 }
 .mode-toggle:hover { color: var(--accent); }
 .mode-toggle svg { display: block; }
-/* Both icons are absolutely positioned so the button never reflows on toggle.
-   -i = sun (shown in dark mode, tap for light); -o = moon (shown in light mode, tap for dark). */
-.mode-toggle-i,
-.mode-toggle-o {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 150ms ease;
-}
-.mode-toggle-i { opacity: 0; }
-.mode-toggle-o { opacity: 1; }
-:root[data-mode="dark"] .mode-toggle-i { opacity: 1; }
-:root[data-mode="dark"] .mode-toggle-o { opacity: 0; }
+/* Both icons live in the same SVG so the element never moves — zero positional
+   shift on toggle. Dark mode shows sun (tap for light); light shows moon (tap for dark). */
+.icon-sun { opacity: 0; transition: opacity 150ms ease; }
+.icon-moon { opacity: 1; transition: opacity 150ms ease; }
+:root[data-mode="dark"] .icon-sun { opacity: 1; }
+:root[data-mode="dark"] .icon-moon { opacity: 0; }
 
 .mode-toggle::after {
   content: "";
