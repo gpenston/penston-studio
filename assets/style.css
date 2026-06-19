@@ -531,15 +531,16 @@ a.nav-kicker:active { opacity: 0.5; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 4px 8px;
-  border: 1px solid var(--card-accent, var(--accent));
-  color: var(--card-accent, var(--accent));
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
   border-radius: 3px;
 }
 .project-arrow {
-  color: var(--card-accent, var(--accent));
-  transition: transform 0.2s;
+  color: var(--text-tertiary);
+  transition: transform 0.2s, color 0.2s;
 }
-.project-card:hover .project-arrow { transform: translateX(4px); }
+.project-card:hover .project-arrow { transform: translateX(4px); color: var(--text-secondary); }
 
 /* ----- Sticky chrome — single-row unified nav on all pages ----------- */
 .sticky-chrome {
