@@ -23,6 +23,12 @@ Static HTML/CSS website for [penston.studio](https://penston.studio), the person
 └── sitemap.xml
 ```
 
+## Markedly Page Section Order
+
+`markedly/index.html` uses numbered `.section-label` sections (`data-num`): 01 Why Markdown, 02 What it does, 03 Supported formats, 04 Works with, 05 Privacy, 06 Tips & FAQ, 07 Support. Keep this numbering contiguous when adding/removing sections — anchors (`#privacy`, `#faq`, `#support`) are linked from the top nav (`.page-util-links`), so update both together. The Tips & FAQ section reuses the existing `.privacy-content` (`h3`/`p`) pattern rather than a new component; there's no dedicated FAQ/accordion CSS.
+
+**Keep "Supported formats" in sync with the app.** The format-tag grid must match what Markedly's app actually supports — it previously advertised `XLS` after that format was dropped in the app (v1.1), which meant the site promised something that would fail. When Markedly's own format support changes (see the Markedly repo's `CLAUDE.md`/`ROADMAP.md`), check this grid too.
+
 ## Style & Design Tokens
 
 Defined in `assets/style.css`. Default mode is **dark**. See `docs/design-system.md` for the full token reference. Key values:
