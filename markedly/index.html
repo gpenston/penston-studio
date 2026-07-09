@@ -72,6 +72,7 @@
           </div>
           <ul class="page-util-links">
             <li><a href="#privacy">Privacy</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#support">Support</a></li>
           </ul>
         </div>
@@ -218,7 +219,6 @@
             <div class="format-tags">
               <span class="format-tag format-tag--hi">XLSX</span>
               <span class="format-tag format-tag--hi">CSV</span>
-              <span class="format-tag">XLS</span>
               <span class="format-tag">TSV</span>
             </div>
           </div>
@@ -312,9 +312,27 @@
         </div>
       </section>
 
+      <!-- Tips & FAQ -->
+      <section style="padding: 40px 0 16px;" id="faq">
+        <div class="section-label" data-num="06" data-reveal>Tips &amp; FAQ</div>
+        <div class="privacy-content" data-reveal>
+          <h3>Why didn’t my Word document’s table convert?</h3>
+          <p>Markedly reads the structure Word gives it, and Word’s own file format doesn’t hand over table structure the way it does for headings, bold text, or links. I flatten what I get rather than guess at a table’s shape — a real fix means writing a parser for Word’s raw format, which I’m considering for a future release.</p>
+
+          <h3>Why does macOS ask for permission the first time I use certain features?</h3>
+          <p>The first time Markedly needs to read a folder it doesn’t already have access to, or read your clipboard, macOS shows a one-time system prompt. That’s Apple’s sandboxing at work, not Markedly checking in on you — I never see what you approve.</p>
+
+          <h3>Why isn’t legacy .xls supported?</h3>
+          <p>.xls is a decades-old binary format, and reading it correctly means either paying for a commercial library or reverse-engineering it myself — neither fits a free, zero-dependency app. Save it as .xlsx in Excel or Numbers first and it’ll convert cleanly.</p>
+
+          <h3>Can I convert something without opening the app?</h3>
+          <p>Yes — a few ways. Copy a file, some rich text, or plain text to your clipboard, and Markedly will offer to convert it when you switch to the app. There’s also the right-click Services menu in Finder, and Shortcuts app support for automations.</p>
+        </div>
+      </section>
+
       <!-- Support -->
       <section style="padding: 40px 0 16px;" id="support">
-        <div class="section-label" data-num="06" data-reveal>Support</div>
+        <div class="section-label" data-num="07" data-reveal>Support</div>
         <div class="support-links" data-reveal>
           <a href="https://github.com/gpenston/penston-studio/issues/new?labels=markedly" target="_blank" rel="noopener" class="support-link-item">
             <div>
