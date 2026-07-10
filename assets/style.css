@@ -4,7 +4,16 @@
    on <html>. Default mode is dark.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Martian+Mono:wght@300;400;500;600&display=swap');
+
+/* D-DIN Condensed — self-hosted (DIN 1451 digitization, OFL). Numeric accents only. */
+@font-face {
+  font-family: 'D-DIN Condensed';
+  src: url('fonts/D-DINCondensed-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ----- MPA View Transitions ------------------------------------------ */
 @view-transition { navigation: auto; }
@@ -42,7 +51,7 @@
   --bg-deep:       #080706;
   --text-primary:  #e8e2cf;
   --text-secondary:#9c9687;
-  --text-tertiary: #5a5547;
+  --text-tertiary: #837c66;   /* raised from #5a5547 → 4.72:1, clears WCAG AA for small mono chrome */
   --border-light:  #1f1c14;
   --border-medium: #2a2620;
   --border-rule:   #e8e2cf;
@@ -52,15 +61,17 @@
   --accent-cool-hover: #9ac4be;
   --on-accent:     #0c0b08;
   --grid-line:     rgba(232, 226, 207, 0.11);
+  --graph-line:    rgba(232, 226, 207, 0.04);
   --highlight:     rgba(64, 220, 228, 0.52);
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
   --shadow-md: 0 12px 24px rgba(0,0,0,0.6);
   --shadow-lg: 0 40px 80px rgba(0,0,0,0.8), 0 12px 20px rgba(0,0,0,0.5);
 
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body:    'Inter', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body:    'Hanken Grotesk', system-ui, sans-serif;
+  --mono: 'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-flavor: 'D-DIN Condensed', 'Martian Mono', sans-serif;
 
   --container-max: 880px;
   --container-pad: 32px;
@@ -86,7 +97,7 @@
   --bg-deep:       #1d1a14;
   --text-primary:  #1a1810;
   --text-secondary:#5a5547;
-  --text-tertiary: #8a8371;
+  --text-tertiary: #7d765f;   /* darkened for AA on bone paper */
   --border-light:  #dcd5c2;
   --border-medium: #c8c0ac;
   --border-rule:   #1a1810;
@@ -96,6 +107,7 @@
   --accent-cool-hover: #2a6070;
   --on-accent:     #efece4;
   --grid-line:     rgba(26, 24, 16, 0.06);
+  --graph-line:    rgba(26, 24, 16, 0.03);
   --highlight:     rgba(0, 175, 190, 0.30);
 
   --shadow-sm: 0 1px 2px rgba(20,10,0,0.10);
@@ -143,7 +155,7 @@ body::before {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.1;
   color: var(--text-primary);
   text-wrap: balance;
@@ -168,7 +180,7 @@ main { position: relative; overflow-x: clip; }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
 .nav-wordmark {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.02em;
@@ -335,10 +347,10 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(44px, 6.5vw, 88px);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.9;
+  font-size: clamp(44px, 6.5vw, 84px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
   color: var(--text-primary);
   margin-bottom: 32px;
 }
@@ -452,10 +464,10 @@ a.nav-kicker:active { opacity: 0.5; }
 /* ----- Big H2 — poster headline ------------------------------------- */
 .big-h2 {
   font-family: var(--font-display);
-  font-size: clamp(36px, 6vw, 58px);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
   margin-bottom: 20px;
   color: var(--text-primary);
   max-width: 640px;
@@ -509,7 +521,7 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .project-info { min-width: 0; }
 .project-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -735,7 +747,7 @@ a.nav-kicker:active { opacity: 0.5; }
   -webkit-mask-repeat: no-repeat;
 }
 .app-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.015em;
@@ -754,10 +766,10 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(44px, 7vw, 88px);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.94;
+  font-size: clamp(44px, 7vw, 84px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
   color: var(--text-primary);
   margin-bottom: 24px;
 }
@@ -810,7 +822,7 @@ a.nav-kicker:active { opacity: 0.5; }
   gap: 10px;
   background: var(--accent);
   color: var(--on-accent);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.02em;
@@ -838,7 +850,7 @@ a.nav-kicker:active { opacity: 0.5; }
   gap: 8px;
   background: transparent;
   color: var(--text-secondary);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 500;
   font-size: 14px;
   padding: 12px 0;
@@ -913,7 +925,7 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .spec-row .body { padding-top: 6px; }
 .spec-row .body h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -935,11 +947,11 @@ a.nav-kicker:active { opacity: 0.5; }
 
 /* ----- Pullquote (highlighter) -------------------------------------- */
 .pullquote {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(22px, 3.2vw, 34px);
-  line-height: 1.35;
-  letter-spacing: -0.025em;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   max-width: 640px;
 }
@@ -1075,7 +1087,7 @@ a.nav-kicker:active { opacity: 0.5; }
   flex-shrink: 0;
 }
 .ww-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -1125,7 +1137,7 @@ a.nav-kicker:active { opacity: 0.5; }
   margin-bottom: 14px;
 }
 .fara-heading {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -1155,7 +1167,7 @@ a.nav-kicker:active { opacity: 0.5; }
   gap: 10px;
   margin-top: 8px;
   padding: 12px 20px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -1479,7 +1491,7 @@ footer {
   padding: 32px;
 }
 .privacy-content h2 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.015em;
@@ -1491,7 +1503,7 @@ footer {
   margin-bottom: 24px;
 }
 .privacy-content h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 600;
   margin: 24px 0 8px;
@@ -1552,7 +1564,7 @@ footer {
   color: var(--text-primary);
 }
 .support-link-label {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 15px;
   margin-bottom: 2px;
@@ -1605,11 +1617,11 @@ footer {
 }
 .closing-cta-headline {
   font-family: var(--font-display);
-  font-size: clamp(30px, 5vw, 48px);
-  font-weight: 500;
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.08;
   margin: 0 0 14px;
   text-wrap: pretty;
 }
