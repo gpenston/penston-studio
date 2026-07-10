@@ -723,6 +723,17 @@ a.nav-kicker:active { opacity: 0.5; }
   object-fit: cover;
   display: block;
 }
+/* Pour Over's icon is a plain square photo with no baked-in shape (unlike
+   Markedly's, which already ships a rounded-square macOS icon treatment
+   with transparent corners) — mask it to a squircle to match. */
+:root[data-page="pourover"] .app-icon img {
+  mask-image: url("icon-squircle-mask.svg");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("icon-squircle-mask.svg");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+}
 .app-name {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 24px;
