@@ -716,16 +716,11 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .app-icon {
   width: 64px; height: 64px;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--border-medium);
-  background: var(--bg-secondary);
   flex-shrink: 0;
 }
 .app-icon img {
   width: 100%; height: 100%;
   object-fit: cover;
-  border-radius: 11px;
   display: block;
 }
 .app-name {
@@ -1595,10 +1590,8 @@ footer {
 .closing-cta .app-icon {
   width: 88px;
   height: 88px;
-  border-radius: 20px;
   margin: 0 auto 28px;
 }
-.closing-cta .app-icon img { border-radius: 19px; }
 .closing-cta-headline {
   font-family: var(--font-display);
   font-size: clamp(30px, 5vw, 48px);
