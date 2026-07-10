@@ -1629,8 +1629,11 @@ footer {
     grid-template-columns: 32px 40px 1fr;
     gap: 14px;
   }
-  /* Allow negative-margin full-bleed sections to extend to viewport edges */
-  main { overflow-x: visible; }
+  /* Allow negative-margin full-bleed sections to extend to viewport edges
+     (product pages only — homepage has no .product-showcase and needs the
+     clip to keep .atm-rays from causing horizontal scroll/wiggle) */
+  :root[data-page="markedly"] main,
+  :root[data-page="pourover"] main { overflow-x: visible; }
   .plates-row { grid-template-columns: 1fr; }
   .product-showcase {
     margin-left: calc(-1 * var(--container-pad));
