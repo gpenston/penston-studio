@@ -1269,6 +1269,16 @@ a.nav-kicker:active { opacity: 0.5; }
   object-fit: cover;
   object-position: top center;
 }
+/* Mode-swapped screenshots: raw app-window captures (not full-bleed
+   marketing photography like the other plates), so they're letterboxed
+   via object-fit: contain rather than cropped with cover. */
+.device-macbook .screen img.shot-contain {
+  object-fit: contain;
+  object-position: center;
+}
+.device-macbook .screen img.shot-light { display: none; }
+:root[data-mode="light"] .device-macbook .screen img.shot-dark { display: none; }
+:root[data-mode="light"] .device-macbook .screen img.shot-light { display: block; }
 .device-macbook-base {
   width: 108%;
   margin-left: -4%;
