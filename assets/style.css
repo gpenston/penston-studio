@@ -584,7 +584,7 @@ a.nav-kicker:active { opacity: 0.5; }
   background: transparent;
   border: 1px solid var(--border-medium);
   color: var(--text-tertiary);
-  border-radius: 999px;
+  border-radius: 6px;
 }
 .project-arrow {
   color: var(--text-tertiary);
@@ -1657,21 +1657,23 @@ footer {
 
 /* ----- Responsive --------------------------------------------------- */
 @media (max-width: 600px) {
-  /* Tall tile: chip + arrow ride the top, then icon, name, desc stack below */
+  /* Chip + arrow ride their own top row; icon and name/desc sit side by
+     side below, closing up the vertical space instead of stacking fully. */
   .project-card {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: 48px 1fr;
+    grid-template-rows: auto auto;
     align-items: start;
-    gap: 14px;
-    padding: 20px;
+    gap: 10px 16px;
+    padding: 18px;
   }
   .project-meta {
+    grid-column: 1 / -1;
     grid-row: 1;
     justify-content: space-between;
     align-items: center;
   }
-  .project-icon { grid-row: 2; }
-  .project-info { grid-row: 3; }
+  .project-icon { grid-row: 2; grid-column: 1; }
+  .project-info { grid-row: 2; grid-column: 2; }
   .support-link-item { padding: 16px; }
   .features {
     grid-template-columns: 1fr;
