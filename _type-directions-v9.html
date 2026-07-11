@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penston Studio — Type Directions · v9 — Cabin, Public Sans, Optician + more</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Martian+Mono:wght@100..800&family=Cabin:ital,wght@0,400..700;1,400..700&family=Public+Sans:ital,wght@0,400..900;1,400..900&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Overpass:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Optician Sans';
+    src: url('https://cdn.jsdelivr.net/gh/anewtypeofinterference/Optician-Sans@master/Web-PS/Optician-Sans.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  /* ---- Tokens: synced verbatim from assets/style.css ------------------ */
+  :root { color-scheme: dark; }
+  :root[data-mode="light"] { color-scheme: light; }
+
+  :root {
+    --bg-primary:    #0c0b08;
+    --bg-secondary:  #17150f;
+    --bg-tertiary:   #1f1c14;
+    --text-primary:  #e8e2cf;
+    --text-secondary:#9c9687;
+    --text-tertiary: #5a5547;
+    --border-light:  #1f1c14;
+    --border-medium: #2a2620;
+    --accent:        #eb5a00;
+    --accent-cool:   #7aa9a3;
+    --grid-line:     rgba(232, 226, 207, 0.11);
+    --graph-line:    rgba(232, 226, 207, 0.045);
+  }
+  :root[data-mode="light"] {
+    --bg-primary:    #efece4;
+    --bg-secondary:  #e5e1d4;
+    --bg-tertiary:   #d9d3c2;
+    --text-primary:  #1a1810;
+    --text-secondary:#5a5547;
+    --text-tertiary: #8a8371;
+    --border-light:  #dcd5c2;
+    --border-medium: #c8c0ac;
+    --accent:        #d94f00;
+    --accent-cool:   #3d6b68;
+    --grid-line:     rgba(26, 24, 16, 0.06);
+    --graph-line:    rgba(26, 24, 16, 0.035);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-padding-top: 72px; }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    transition: background-color 300ms ease-out, color 300ms ease-out;
+    background-image:
+      radial-gradient(circle, var(--grid-line) 1.5px, transparent 1.5px),
+      linear-gradient(var(--graph-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--graph-line) 1px, transparent 1px),
+      linear-gradient(var(--graph-line) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, var(--graph-line) 0.5px, transparent 0.5px);
+    background-size: 48px 48px, 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+  :root[data-mode="light"] body::before { opacity: 0.025; }
+
+  ::selection { background: var(--accent); color: var(--bg-primary); }
+
+  /* ---- Board chrome ----------------------------------------------------- */
+  .board-nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    padding: 14px 28px;
+    background: color-mix(in srgb, var(--bg-primary) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-medium);
+    font-family: "Martian Mono", monospace;
+    font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .board-nav .brand { color: var(--accent); margin-right: auto; }
+  .board-nav a { color: var(--text-secondary); text-decoration: none; }
+  .board-nav a:hover { color: var(--text-primary); }
+  .board-nav button {
+    font: inherit; letter-spacing: inherit; text-transform: inherit;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-medium);
+    border-radius: 4px; padding: 6px 12px; cursor: pointer;
+  }
+  .board-nav button:hover { color: var(--text-primary); }
+
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 56px 40px 120px; }
+
+  .intro-hd {
+    font-size: 36px; line-height: 1.1; letter-spacing: -0.015em;
+    font-weight: 500; margin: 0 0 14px; max-width: 800px;
+  }
+  .intro-hd em { color: var(--accent); font-style: italic; }
+  .intro-p { font-size: 15px; color: var(--text-secondary); max-width: 700px; }
+  .intro-p b { color: var(--text-primary); }
+
+  .keeper-note {
+    margin-top: 18px; padding: 16px 20px;
+    background: color-mix(in srgb, var(--accent-cool) 8%, transparent);
+    border-left: 2px solid var(--accent-cool);
+    font-size: 13px; line-height: 1.6; color: var(--text-secondary);
+    max-width: 720px;
+  }
+  .keeper-note b { color: var(--text-primary); }
+
+  /* ---- Mock frames ------------------------------------------------------ */
+  .mock { margin-top: 72px; }
+  .mock-head {
+    display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap;
+    font-family: "Martian Mono", monospace;
+    font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-tertiary);
+    padding-bottom: 12px;
+  }
+  .mock-head .dir { color: var(--accent); font-weight: 700; font-size: 12.5px; }
+  .mock-head .trio b { color: var(--text-primary); font-weight: 400; }
+  .mock-head .status {
+    font-size: 10px; padding: 2px 8px; border-radius: 3px;
+    background: color-mix(in srgb, var(--accent-cool) 18%, transparent);
+    color: var(--accent-cool);
+  }
+
+  .page {
+    border: 1px solid var(--border-medium);
+    border-radius: 6px;
+    background-color: var(--bg-primary);
+    background-image: radial-gradient(circle, var(--grid-line) 1.5px, transparent 1.5px);
+    background-size: 48px 48px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+  :root[data-mode="light"] .page { box-shadow: 0 24px 60px rgba(20,10,0,0.12); }
+
+  .page-inner { max-width: 880px; margin: 0 auto; padding: 0 32px 56px; }
+
+  .ubar {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    padding: 18px 0 14px;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 40px;
+  }
+  .ubar .mark {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--m-font, "Martian Mono"), monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent-cool);
+  }
+  .ubar .mark svg { opacity: 0.55; }
+  .ubar .toggle {
+    justify-self: end;
+    font-family: var(--m-font, "Martian Mono"), monospace;
+    font-size: 10px; letter-spacing: 0.1em; color: var(--text-tertiary);
+    border: 1px solid var(--border-medium); border-radius: 3px; padding: 4px 8px;
+  }
+
+  .hero { position: relative; padding: 24px 0 8px; }
+  .hero .rays {
+    position: absolute; right: -60px; top: -70px;
+    width: 300px; height: 300px;
+    pointer-events: none; opacity: 0.32; z-index: 0;
+  }
+  .hero > * { position: relative; z-index: 2; }
+  .hero .kicker {
+    font-family: var(--m-font, "Martian Mono"), monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-cool); display: block; margin-bottom: 30px;
+  }
+  .hero .name {
+    font-size: clamp(44px, 6.5vw, 84px);
+    line-height: 0.95;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+  }
+  .hero .bio {
+    font-size: 17.5px; line-height: 1.6; color: var(--text-secondary);
+    max-width: 540px; margin-bottom: 20px;
+  }
+  .hero .plink {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--m-font, "Martian Mono"), monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-tertiary); text-decoration: none; margin-bottom: 36px;
+  }
+  .hero .plink:hover { color: var(--accent); }
+
+  .slabel {
+    font-family: var(--m-font, "Martian Mono"), monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-tertiary);
+    display: flex; align-items: baseline; gap: 12px;
+    margin: 28px 0 18px;
+  }
+  .slabel::before { content: attr(data-num); color: var(--accent); }
+  .slabel::after { content: ""; flex: 1; height: 1px; background: var(--border-light); align-self: center; }
+
+  .pcard {
+    display: grid; grid-template-columns: 56px 1fr auto; gap: 20px; align-items: center;
+    padding: 20px; margin-bottom: 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    text-decoration: none; color: inherit;
+    transition: border-color 150ms ease-out, background 150ms ease-out;
+  }
+  .pcard:hover { border-color: var(--border-medium); background: var(--bg-tertiary); }
+  .pcard .picon { width: 56px; height: 56px; border-radius: 10px; overflow: hidden; background: var(--bg-primary); }
+  .pcard .picon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pcard .pname { display: block; font-size: 18px; color: var(--text-primary); margin-bottom: 2px; }
+  .pcard .pdesc { display: block; font-family: var(--b-font); font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+  .pcard .pmeta {
+    font-family: var(--m-font, "Martian Mono"), monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-tertiary); white-space: nowrap;
+  }
+
+  .excerpt { margin-top: 40px; padding-top: 8px; }
+  .excerpt .headline {
+    font-size: clamp(30px, 4.5vw, 52px);
+    line-height: 1.08; letter-spacing: -0.02em;
+    color: var(--text-primary); margin-bottom: 22px; max-width: 620px;
+  }
+  .excerpt .headline em { color: var(--accent-cool); font-style: normal; }
+  .excerpt .prose {
+    font-size: 16.5px; line-height: 1.7; color: var(--text-secondary); max-width: 580px;
+  }
+  .excerpt .prose a { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-medium); }
+  .excerpt .prose a:hover { color: var(--accent); }
+  .excerpt .prose strong { color: var(--text-primary); font-weight: 600; }
+
+  .pfoot {
+    margin-top: 48px; padding-top: 20px;
+    border-top: 1px solid var(--border-light);
+    font-family: var(--m-font, "Martian Mono"), monospace;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .pfoot b { color: var(--text-secondary); font-weight: 700; }
+
+  /* ---- Direction type systems -------------------------------------------- */
+
+  /* I — Gill/Johnston lineage: Cabin display + body */
+  .dir-i { --d-font: "Cabin", sans-serif; --b-font: "Cabin", sans-serif; }
+  .dir-i .hero .name   { font-family: var(--d-font); font-weight: 700; letter-spacing: -0.02em; }
+  .dir-i .hero .bio,
+  .dir-i .excerpt .prose { font-family: var(--b-font); font-weight: 400; }
+  .dir-i .pcard .pname { font-family: var(--d-font); font-weight: 600; }
+  .dir-i .excerpt .headline { font-family: var(--d-font); font-weight: 700; letter-spacing: -0.015em; }
+
+  /* J — Civic Instrument: Public Sans display + body */
+  .dir-j { --d-font: "Public Sans", sans-serif; --b-font: "Public Sans", sans-serif; }
+  .dir-j .hero .name   { font-family: var(--d-font); font-weight: 700; letter-spacing: -0.025em; }
+  .dir-j .hero .bio,
+  .dir-j .excerpt .prose { font-family: var(--b-font); font-weight: 400; }
+  .dir-j .pcard .pname { font-family: var(--d-font); font-weight: 600; }
+  .dir-j .excerpt .headline { font-family: var(--d-font); font-weight: 700; letter-spacing: -0.02em; }
+
+  /* K — Editorial Grotesque, refined: Schibsted display + Overpass body */
+  .dir-k { --d-font: "Schibsted Grotesk", sans-serif; --b-font: "Overpass", sans-serif; }
+  .dir-k .hero .name   { font-family: var(--d-font); font-weight: 700; letter-spacing: -0.025em; }
+  .dir-k .hero .bio,
+  .dir-k .excerpt .prose { font-family: var(--b-font); font-weight: 400; }
+  .dir-k .pcard .pname { font-family: var(--d-font); font-weight: 600; letter-spacing: -0.01em; }
+  .dir-k .excerpt .headline { font-family: var(--d-font); font-weight: 700; letter-spacing: -0.02em; }
+
+  /* L — IBM System, Optician spec */
+  .dir-l { --d-font: "IBM Plex Sans", sans-serif; --b-font: "IBM Plex Sans", sans-serif; --m-font: "Optician Sans"; }
+  .dir-l .hero .name   { font-family: var(--d-font); font-weight: 600; letter-spacing: -0.02em; }
+  .dir-l .hero .bio,
+  .dir-l .excerpt .prose { font-family: var(--b-font); font-weight: 400; }
+  .dir-l .pcard .pname { font-family: var(--d-font); font-weight: 600; letter-spacing: -0.01em; }
+  .dir-l .excerpt .headline { font-family: var(--d-font); font-weight: 600; letter-spacing: -0.015em; }
+  .dir-l .hero .kicker,
+  .dir-l .slabel,
+  .dir-l .pfoot,
+  .dir-l .pcard .pmeta,
+  .dir-l .ubar .mark,
+  .dir-l .ubar .toggle,
+  .dir-l .hero .plink { letter-spacing: 0.02em; }
+
+  /* N — Instrument Sans */
+  .dir-n { --d-font: "Instrument Sans", sans-serif; --b-font: "Instrument Sans", sans-serif; }
+  .dir-n .hero .name   { font-family: var(--d-font); font-weight: 600; letter-spacing: -0.025em; }
+  .dir-n .hero .bio,
+  .dir-n .excerpt .prose { font-family: var(--b-font); font-weight: 400; }
+  .dir-n .pcard .pname { font-family: var(--d-font); font-weight: 600; }
+  .dir-n .excerpt .headline { font-family: var(--d-font); font-weight: 600; letter-spacing: -0.02em; }
+
+  .foot {
+    margin-top: 80px;
+    font-size: 13px; color: var(--text-tertiary); line-height: 1.65;
+    display: flex; flex-direction: column; gap: 8px;
+    max-width: 780px;
+  }
+  .foot b { color: var(--text-primary); font-weight: 600; }
+
+  @media (max-width: 700px) {
+    .wrap { padding: 40px 20px 80px; }
+    .page-inner { padding: 0 20px 40px; }
+    .pcard { grid-template-columns: 48px 1fr; }
+    .pcard .pmeta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="board-nav">
+  <span class="brand">Penston Studio · Type v9</span>
+  <a href="#dir-i">I · Cabin</a>
+  <a href="#dir-j">J · Public Sans</a>
+  <a href="#dir-k">K · Grotesque+Overpass</a>
+  <a href="#dir-l">L · Optician Spec</a>
+  <a href="#dir-n">N · Instrument Sans</a>
+  <button type="button" onclick="document.documentElement.dataset.mode = document.documentElement.dataset.mode === 'dark' ? 'light' : 'dark'">Mode I/O</button>
+</nav>
+
+<div class="wrap">
+
+  <h1 class="intro-hd">Gill's lineage, the civic instrument fix, and a spec-font wildcard.</h1>
+  <p class="intro-p">
+    Five new tastes, same full-homepage format. <b>I</b> answers the Gill Sans pull with a
+    free descendant. <b>J</b> replaces Overpass-as-header with its calmer civic cousin.
+    <b>K</b> keeps Overpass but demotes it to body copy, per your note. <b>L</b> takes your
+    IBM System favorite and swaps the spec font to something genuinely unclaimed. <b>N</b>
+    is a bonus — a font literally named for this conversation.
+  </p>
+  <div class="keeper-note">
+    <b>On Futura:</b> true Gill Sans is Monotype-licensed (Gill Sans Nova, reachable via
+    Adobe Fonts if you have Creative Cloud) — <b>Cabin</b> below is the free, open-source
+    answer built explicitly on Gill's and Edward Johnston's London Underground lineage,
+    without the licensing question.
+  </div>
+
+  <!-- I — CABIN -->
+  <section class="mock dir-i" id="dir-i">
+    <div class="mock-head">
+      <span class="dir">I · Gill/Johnston Lineage</span>
+      <span class="status">new</span>
+      <span class="trio">Display: <b>Cabin 700</b> · Body: <b>Cabin 400</b> · Spec: <b>Martian Mono</b></span>
+      <span>— free descendant of Gill Sans &amp; Johnston Underground</span>
+    </div>
+    <div class="page">
+      <div class="page-inner">
+        <div class="ubar">
+          <span class="mark">Penston Studio</span><span></span><span class="toggle">I / O</span>
+        </div>
+        <div class="hero">
+          <span class="kicker">Bureau · CH. 00</span>
+          <h2 class="name">George Penston</h2>
+          <p class="bio">Principal product designer and maker. I turn big ideas into real products and sweat the details that make them worth using. This is where the side projects live.</p>
+          <a class="plink" href="#dir-i">Full portfolio ↗</a>
+        </div>
+        <div class="slabel" data-num="01">Catalogue</div>
+        <a class="pcard" href="#dir-i"><span class="picon"><img src="assets/markedly-icon.png" alt=""></span><span><span class="pname">Markedly</span><span class="pdesc">Convert documents and images to Markdown — locally, instantly, for free.</span></span><span class="pmeta">macOS · Free</span></a>
+        <a class="pcard" href="#dir-i"><span class="picon"><img src="assets/pour-over-icon.png" alt=""></span><span><span class="pname">Pour Over for Raindrop</span><span class="pdesc">Your read-later list, brewed fresh and delivered to your inbox.</span></span><span class="pmeta">GitHub Action · Free</span></a>
+        <div class="excerpt">
+          <div class="slabel" data-num="02">Product page excerpt</div>
+          <h3 class="headline">Your read-later list, brewed <em>fresh daily</em>.</h3>
+          <p class="prose">Connect your <a href="#dir-i">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. <strong>No dashboard, no app.</strong> Just your inbox.</p>
+        </div>
+        <div class="pfoot"><b>Penston Studio</b><span>EST. 2025</span><span>Mode I/O</span><span>CH. 00–03</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- J — PUBLIC SANS -->
+  <section class="mock dir-j" id="dir-j">
+    <div class="mock-head">
+      <span class="dir">J · Civic Instrument</span>
+      <span class="status">new</span>
+      <span class="trio">Display: <b>Public Sans 700</b> · Body: <b>Public Sans 400</b> · Spec: <b>Martian Mono</b></span>
+      <span>— USWDS's own typeface. Overpass's calmer, better-drawn cousin</span>
+    </div>
+    <div class="page">
+      <div class="page-inner">
+        <div class="ubar"><span class="mark">Penston Studio</span><span></span><span class="toggle">I / O</span></div>
+        <div class="hero">
+          <span class="kicker">Bureau · CH. 00</span>
+          <h2 class="name">George Penston</h2>
+          <p class="bio">Principal product designer and maker. I turn big ideas into real products and sweat the details that make them worth using. This is where the side projects live.</p>
+          <a class="plink" href="#dir-j">Full portfolio ↗</a>
+        </div>
+        <div class="slabel" data-num="01">Catalogue</div>
+        <a class="pcard" href="#dir-j"><span class="picon"><img src="assets/markedly-icon.png" alt=""></span><span><span class="pname">Markedly</span><span class="pdesc">Convert documents and images to Markdown — locally, instantly, for free.</span></span><span class="pmeta">macOS · Free</span></a>
+        <a class="pcard" href="#dir-j"><span class="picon"><img src="assets/pour-over-icon.png" alt=""></span><span><span class="pname">Pour Over for Raindrop</span><span class="pdesc">Your read-later list, brewed fresh and delivered to your inbox.</span></span><span class="pmeta">GitHub Action · Free</span></a>
+        <div class="excerpt">
+          <div class="slabel" data-num="02">Product page excerpt</div>
+          <h3 class="headline">Your read-later list, brewed <em>fresh daily</em>.</h3>
+          <p class="prose">Connect your <a href="#dir-j">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. <strong>No dashboard, no app.</strong> Just your inbox.</p>
+        </div>
+        <div class="pfoot"><b>Penston Studio</b><span>EST. 2025</span><span>Mode I/O</span><span>CH. 00–03</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- K — SCHIBSTED + OVERPASS BODY -->
+  <section class="mock dir-k" id="dir-k">
+    <div class="mock-head">
+      <span class="dir">K · Editorial Grotesque, refined</span>
+      <span class="status">new</span>
+      <span class="trio">Display: <b>Schibsted Grotesk 700</b> · Body: <b>Overpass 400</b> · Spec: <b>Martian Mono</b></span>
+      <span>— your G with Overpass demoted to supporting copy, where you said it works</span>
+    </div>
+    <div class="page">
+      <div class="page-inner">
+        <div class="ubar"><span class="mark">Penston Studio</span><span></span><span class="toggle">I / O</span></div>
+        <div class="hero">
+          <span class="kicker">Bureau · CH. 00</span>
+          <h2 class="name">George Penston</h2>
+          <p class="bio">Principal product designer and maker. I turn big ideas into real products and sweat the details that make them worth using. This is where the side projects live.</p>
+          <a class="plink" href="#dir-k">Full portfolio ↗</a>
+        </div>
+        <div class="slabel" data-num="01">Catalogue</div>
+        <a class="pcard" href="#dir-k"><span class="picon"><img src="assets/markedly-icon.png" alt=""></span><span><span class="pname">Markedly</span><span class="pdesc">Convert documents and images to Markdown — locally, instantly, for free.</span></span><span class="pmeta">macOS · Free</span></a>
+        <a class="pcard" href="#dir-k"><span class="picon"><img src="assets/pour-over-icon.png" alt=""></span><span><span class="pname">Pour Over for Raindrop</span><span class="pdesc">Your read-later list, brewed fresh and delivered to your inbox.</span></span><span class="pmeta">GitHub Action · Free</span></a>
+        <div class="excerpt">
+          <div class="slabel" data-num="02">Product page excerpt</div>
+          <h3 class="headline">Your read-later list, brewed <em>fresh daily</em>.</h3>
+          <p class="prose">Connect your <a href="#dir-k">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. <strong>No dashboard, no app.</strong> Just your inbox.</p>
+        </div>
+        <div class="pfoot"><b>Penston Studio</b><span>EST. 2025</span><span>Mode I/O</span><span>CH. 00–03</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- L — IBM SYSTEM, OPTICIAN SPEC -->
+  <section class="mock dir-l" id="dir-l">
+    <div class="mock-head">
+      <span class="dir">L · IBM System, Optician Spec</span>
+      <span class="status">new</span>
+      <span class="trio">Display: <b>IBM Plex Sans 600</b> · Body: <b>IBM Plex Sans 400</b> · Spec: <b>Optician Sans</b></span>
+      <span>— your E favorite, spec font swapped to an actual optical-instrument face</span>
+    </div>
+    <div class="page">
+      <div class="page-inner">
+        <div class="ubar"><span class="mark">Penston Studio</span><span></span><span class="toggle">I / O</span></div>
+        <div class="hero">
+          <span class="kicker">Bureau · CH. 00</span>
+          <h2 class="name">George Penston</h2>
+          <p class="bio">Principal product designer and maker. I turn big ideas into real products and sweat the details that make them worth using. This is where the side projects live.</p>
+          <a class="plink" href="#dir-l">Full portfolio ↗</a>
+        </div>
+        <div class="slabel" data-num="01">Catalogue</div>
+        <a class="pcard" href="#dir-l"><span class="picon"><img src="assets/markedly-icon.png" alt=""></span><span><span class="pname">Markedly</span><span class="pdesc">Convert documents and images to Markdown — locally, instantly, for free.</span></span><span class="pmeta">macOS · Free</span></a>
+        <a class="pcard" href="#dir-l"><span class="picon"><img src="assets/pour-over-icon.png" alt=""></span><span><span class="pname">Pour Over for Raindrop</span><span class="pdesc">Your read-later list, brewed fresh and delivered to your inbox.</span></span><span class="pmeta">GitHub Action · Free</span></a>
+        <div class="excerpt">
+          <div class="slabel" data-num="02">Product page excerpt</div>
+          <h3 class="headline">Your read-later list, brewed <em>fresh daily</em>.</h3>
+          <p class="prose">Connect your <a href="#dir-l">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. <strong>No dashboard, no app.</strong> Just your inbox.</p>
+        </div>
+        <div class="pfoot"><b>Penston Studio</b><span>EST. 2025</span><span>Mode I/O</span><span>CH. 00–03</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- N — INSTRUMENT SANS -->
+  <section class="mock dir-n" id="dir-n">
+    <div class="mock-head">
+      <span class="dir">N · Instrument Sans</span>
+      <span class="status">bonus</span>
+      <span class="trio">Display: <b>Instrument Sans 600</b> · Body: <b>Instrument Sans 400</b> · Spec: <b>Martian Mono</b></span>
+      <span>— literally named for this conversation. Grotesque with slightly quirky curves</span>
+    </div>
+    <div class="page">
+      <div class="page-inner">
+        <div class="ubar"><span class="mark">Penston Studio</span><span></span><span class="toggle">I / O</span></div>
+        <div class="hero">
+          <span class="kicker">Bureau · CH. 00</span>
+          <h2 class="name">George Penston</h2>
+          <p class="bio">Principal product designer and maker. I turn big ideas into real products and sweat the details that make them worth using. This is where the side projects live.</p>
+          <a class="plink" href="#dir-n">Full portfolio ↗</a>
+        </div>
+        <div class="slabel" data-num="01">Catalogue</div>
+        <a class="pcard" href="#dir-n"><span class="picon"><img src="assets/markedly-icon.png" alt=""></span><span><span class="pname">Markedly</span><span class="pdesc">Convert documents and images to Markdown — locally, instantly, for free.</span></span><span class="pmeta">macOS · Free</span></a>
+        <a class="pcard" href="#dir-n"><span class="picon"><img src="assets/pour-over-icon.png" alt=""></span><span><span class="pname">Pour Over for Raindrop</span><span class="pdesc">Your read-later list, brewed fresh and delivered to your inbox.</span></span><span class="pmeta">GitHub Action · Free</span></a>
+        <div class="excerpt">
+          <div class="slabel" data-num="02">Product page excerpt</div>
+          <h3 class="headline">Your read-later list, brewed <em>fresh daily</em>.</h3>
+          <p class="prose">Connect your <a href="#dir-n">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. <strong>No dashboard, no app.</strong> Just your inbox.</p>
+        </div>
+        <div class="pfoot"><b>Penston Studio</b><span>EST. 2025</span><span>Mode I/O</span><span>CH. 00–03</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span><b>What to look at:</b></span>
+    <span>— <b>I Cabin</b> is the direct answer to the Gill Sans instinct — same humanist-geometric warmth, free, a genuine display+body family.</span>
+    <span>— <b>J Public Sans</b> is the fix if Overpass-as-header felt like signage: same civic lineage, drawn calmer, the U.S. government's own typeface.</span>
+    <span>— <b>K</b> keeps Overpass only as supporting body copy.</span>
+    <span>— <b>L</b> is a pure spec-font taste test: Optician Sans is the most "instrument" object on the board, but check its legibility at small chrome sizes.</span>
+    <span>— <b>N Instrument Sans</b> — the joke that might not be a joke.</span>
+  </div>
+
+</div>
+</body>
+</html>
