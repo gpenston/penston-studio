@@ -1556,28 +1556,35 @@ footer {
 .privacy-content a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .privacy-content strong { color: var(--text-primary); font-weight: 600; }
 
-/* ----- Support list ------------------------------------------------- */
+/* ----- Support list — lighter version of the homepage catalogue tile - */
 .support-links {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--border-light);
+  gap: 10px;
 }
 .support-link-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 4px;
-  background: transparent;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--r-md);
   color: var(--text-primary);
   text-decoration: none;
-  transition: color 0.15s;
-  border-bottom: 1px solid var(--border-light);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
 }
 .support-link-item:hover {
-  background: transparent;
-  color: var(--accent);
+  border-color: var(--border-medium);
+  background: var(--bg-tertiary);
+  transform: translateY(-1px);
+  color: var(--text-primary);
 }
-.support-link-item:hover .support-link-label { color: var(--accent); }
+.support-link-item > div {
+  flex: 1;
+  min-width: 0;
+}
 .support-link-label {
   font-family: var(--font-display);
   font-weight: 600;
@@ -1589,6 +1596,7 @@ footer {
   color: var(--text-tertiary);
 }
 .support-link-arrow {
+  flex-shrink: 0;
   color: var(--text-tertiary);
   transition: transform 0.2s, color 0.2s;
 }
@@ -1664,6 +1672,7 @@ footer {
   }
   .project-icon { grid-row: 2; }
   .project-info { grid-row: 3; }
+  .support-link-item { padding: 16px; }
   .features {
     grid-template-columns: 1fr;
   }
