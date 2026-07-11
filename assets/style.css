@@ -1757,7 +1757,9 @@ footer {
   .works-with-row {
     grid-template-columns: repeat(2, 1fr);
   }
-  .ww-item { padding: 14px 16px; }
+  .ww-item { padding: 12px 10px; gap: 7px; }
+  .ww-icon { width: 26px; height: 26px; border-radius: 7px; }
+  .ww-name { font-size: 12.5px; line-height: 1.2; }
   /* Allow negative-margin full-bleed sections to extend to viewport edges
      (product pages only — homepage has no .product-showcase and needs the
      clip to keep .atm-rays from causing horizontal scroll/wiggle) */
