@@ -72,21 +72,29 @@
 ### Families
 
 ```css
---font-display: 'Space Grotesk', system-ui, sans-serif;  /* headlines, name */
---font-body:    'Inter', system-ui, sans-serif;          /* body copy */
---mono:         'JetBrains Mono', ui-monospace, monospace; /* system chrome, numerics, labels */
+--font-display: 'Hanken Grotesk', system-ui, sans-serif;  /* headlines, name */
+--font-body:    'Hanken Grotesk', system-ui, sans-serif;  /* body copy */
+--mono:         'Martian Mono', ui-monospace, monospace;  /* system chrome, labels */
+--font-flavor:  'D-DIN Condensed', 'Martian Mono', sans-serif; /* numeric accents only */
 ```
 
-Loaded via Google Fonts. No other families.
+Hanken Grotesk and Martian Mono load via Google Fonts. **D-DIN Condensed is
+self-hosted** at `assets/fonts/D-DINCondensed-Bold.woff2` (DIN 1451 digitization,
+OFL) — served from Vercel's edge like any static asset. See the full rationale in
+`DESIGN.md` (root) and `docs/superpowers/specs/2026-07-10-type-system-refresh-design.md`.
+
+Hanken does display **and** body (one warm humanist family). Martian Mono is the
+technical chrome. D-DIN Condensed is a flavor accent used **only** for numeric
+moments — never for body or headings.
 
 ### Scale
 
-| Token | Size | Usage |
-|---|---|---|
-| `hero-name` | `clamp(56px, 9vw, 128px)` | Home h1 — "George Penston" |
-| `hero-headline` | `clamp(44px, 7vw, 88px)` | Product h1 — "Convert anything to Markdown." |
-| `big-h2` | `clamp(36px, 6vw, 58px)` | Section headlines |
-| `pullquote` | `clamp(22px, 3vw, 32px)` | Editorial pullquote |
+| Token | Size | Weight | Usage |
+|---|---|---|---|
+| `hero-name` | `clamp(44px, 6.5vw, 84px)` | 800 | Home h1 — "George Penston" |
+| `hero-headline` | `clamp(44px, 7vw, 84px)` | 800 | Product h1 — "Convert anything to Markdown." |
+| `big-h2` | `clamp(36px, 6vw, 56px)` | 700 | Section headlines |
+| `pullquote` | `clamp(22px, 3.2vw, 34px)` | 700 | Editorial pullquote (carries the highlight marker) |
 | `body-lg` | 17px / 1.7 | Hero bios, long paragraphs |
 | `body` | 15px / 1.6 | Default paragraph |
 | `body-sm` | 13px | Meta, captions |
@@ -94,18 +102,22 @@ Loaded via Google Fonts. No other families.
 
 ### Rules
 
-- **Display weight is 500.** Not 700 — we want editorial, not punchy.
+- **Display weight is 700–800.** Hanken reads lighter than the old Space Grotesk at matched weights, so hero display sits at 800, section headlines at 700, base headings at 600.
 - **One emphasized word per headline.** Wrap it in `<em>` and it renders in `--accent-cool`, not italic.
   ```html
   <h2>Small and <em>considered</em>.</h2>
   ```
-- **Mono is for system, not body.** Never use JetBrains Mono for paragraphs.
-- **Mono labels are always uppercase, tracked, with tabular numbers.** `font-variant-numeric: tabular-nums`.
-- **Section labels carry a chapter number.** `data-num="02"` renders as `02 —` before the label text via CSS `::before`.
+- **Mono is for system, not body.** Never use Martian Mono for paragraphs.
+- **Mono labels are always uppercase, tracked, with tabular numbers.**
+- **D-DIN is for numeric accents only** — the hero chapter marker, section-label numbers, feature-row numbers, and the footer `EST.` mark. Never for body or headings.
+- **Section labels carry a chapter number.** `data-num="02"` renders the number in condensed D-DIN (signal orange) before the mono label text via CSS `::before`.
+- **The highlight marker (`.hl`, accent-cool) is reserved for the pullquote block** — the single expressive flourish per page. Don't scatter it per section.
 - **`text-wrap: pretty`** on all paragraphs and headlines by default.
-- **11px is the floor.** No text — including mono labels, badges, and captions — goes below 11px. Body-adjacent small text (card descriptions, support subs) sits at 14–15px.
+- **11px is the floor.** No text — including mono labels, badges, and captions — goes below 11px. The faint chrome color (`--text-tertiary`) is tuned to clear WCAG AA (4.5:1) at these small sizes.
 
-> **Pending separate passes:** the typeface direction ("modern but unique and classic") and the Pour Over app icon redesign are tracked as their own efforts. The current Space Grotesk / Inter / JetBrains Mono stack stays until the type pass lands.
+> **Type direction (resolved 2026-07-10):** Hanken Grotesk + Martian Mono + D-DIN
+> Condensed, chosen after the v6–v12 exploration. Extending it to the Markedly/Pour
+> Over apps and gpenston.com is a later, separate effort.
 
 ---
 

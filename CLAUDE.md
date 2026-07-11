@@ -37,7 +37,7 @@ Defined in `assets/style.css`. Default mode is **dark**. See `docs/design-system
 - **Pour Over accent override**: `#f0a830` (warm amber)
 - **Backgrounds (dark)**: `#0c0b08` primary · `#17150f` secondary · `#1f1c14` tertiary
 - **Backgrounds (light)**: `#efece4` primary · `#e5e1d4` secondary · `#d9d3c2` tertiary
-- **Fonts**: Space Grotesk (headings) · Inter (body) · JetBrains Mono (labels, system chrome)
+- **Fonts**: Hanken Grotesk (headings + body) · Martian Mono (labels, system chrome) · D-DIN Condensed (numeric accents only — self-hosted in `assets/fonts/`). Chosen 2026-07-10; see `DESIGN.md` and `docs/superpowers/specs/2026-07-10-type-system-refresh-design.md`.
 - Icons use [Remixicon](https://remixicon.com/) via CDN (product pages only)
 
 ## Mode Toggle
