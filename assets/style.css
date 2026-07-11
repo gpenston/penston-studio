@@ -4,7 +4,16 @@
    on <html>. Default mode is dark.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Martian+Mono:wght@300;400;500;600&display=swap');
+
+/* D-DIN Condensed — self-hosted (DIN 1451 digitization, OFL). Numeric accents only. */
+@font-face {
+  font-family: 'D-DIN Condensed';
+  src: url('fonts/D-DINCondensed-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ----- MPA View Transitions ------------------------------------------ */
 @view-transition { navigation: auto; }
@@ -42,7 +51,7 @@
   --bg-deep:       #080706;
   --text-primary:  #e8e2cf;
   --text-secondary:#9c9687;
-  --text-tertiary: #5a5547;
+  --text-tertiary: #837c66;   /* raised from #5a5547 → 4.72:1, clears WCAG AA for small mono chrome */
   --border-light:  #1f1c14;
   --border-medium: #2a2620;
   --border-rule:   #e8e2cf;
@@ -52,15 +61,17 @@
   --accent-cool-hover: #9ac4be;
   --on-accent:     #0c0b08;
   --grid-line:     rgba(232, 226, 207, 0.11);
+  --graph-line:    rgba(232, 226, 207, 0.08);
   --highlight:     rgba(64, 220, 228, 0.52);
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
   --shadow-md: 0 12px 24px rgba(0,0,0,0.6);
   --shadow-lg: 0 40px 80px rgba(0,0,0,0.8), 0 12px 20px rgba(0,0,0,0.5);
 
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body:    'Inter', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body:    'Hanken Grotesk', system-ui, sans-serif;
+  --mono: 'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-flavor: 'D-DIN Condensed', 'Martian Mono', sans-serif;
 
   --container-max: 880px;
   --container-pad: 32px;
@@ -86,7 +97,7 @@
   --bg-deep:       #1d1a14;
   --text-primary:  #1a1810;
   --text-secondary:#5a5547;
-  --text-tertiary: #8a8371;
+  --text-tertiary: #7d765f;   /* darkened for AA on bone paper */
   --border-light:  #dcd5c2;
   --border-medium: #c8c0ac;
   --border-rule:   #1a1810;
@@ -96,6 +107,7 @@
   --accent-cool-hover: #2a6070;
   --on-accent:     #efece4;
   --grid-line:     rgba(26, 24, 16, 0.06);
+  --graph-line:    rgba(26, 24, 16, 0.055);
   --highlight:     rgba(0, 175, 190, 0.30);
 
   --shadow-sm: 0 1px 2px rgba(20,10,0,0.10);
@@ -141,9 +153,28 @@ body::before {
 }
 :root[data-mode="light"] body::before { opacity: 0.025; }
 
+/* Worn graph-paper layer — faint engineering-grid lines behind the dot grid.
+   A low-frequency turbulence mask erodes the lines in gentle patches so the
+   drafting surface reads as aged, not mechanically uniform. Sits behind content. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--graph-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--graph-line) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='worn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.014' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.7 0 0 0 0.32'/%3E%3C/filter%3E%3Crect width='420' height='420' filter='url(%23worn)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='worn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.014' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.7 0 0 0 0.32'/%3E%3C/filter%3E%3Crect width='420' height='420' filter='url(%23worn)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 420px 420px;
+  mask-size: 420px 420px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.1;
   color: var(--text-primary);
   text-wrap: balance;
@@ -168,7 +199,7 @@ main { position: relative; overflow-x: clip; }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
 .nav-wordmark {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.02em;
@@ -285,6 +316,22 @@ main { position: relative; overflow-x: clip; }
   margin-bottom: 32px;
   padding-left: 2px;
 }
+/* Hero chapter marker — big DIN numeral beside the mono kicker */
+.instr-kickrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.instr-kickrow .instr-kicker { margin-bottom: 0; padding-left: 0; }
+.hero-chapter {
+  font-family: var(--font-flavor);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 0.7;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
 .nav-kicker {
   margin-bottom: 0;
   padding-left: 0;
@@ -335,10 +382,10 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(44px, 6.5vw, 88px);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.9;
+  font-size: clamp(44px, 6.5vw, 84px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
   color: var(--text-primary);
   margin-bottom: 32px;
 }
@@ -427,9 +474,14 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .section-label::before {
   content: attr(data-num);
+  font-family: var(--font-flavor);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 0.7;
+  letter-spacing: 0.02em;
   color: var(--accent);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  /* optical nudge so the tall DIN numeral sits on the mono caption's baseline */
+  transform: translateY(0.06em);
 }
 .section-label::after {
   content: "";
@@ -452,10 +504,10 @@ a.nav-kicker:active { opacity: 0.5; }
 /* ----- Big H2 — poster headline ------------------------------------- */
 .big-h2 {
   font-family: var(--font-display);
-  font-size: clamp(36px, 6vw, 58px);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
   margin-bottom: 20px;
   color: var(--text-primary);
   max-width: 640px;
@@ -509,7 +561,7 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .project-info { min-width: 0; }
 .project-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -667,8 +719,8 @@ a.nav-kicker:active { opacity: 0.5; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-secondary);
-  padding: 5px 8px;
-  border-radius: var(--r-sm);
+  padding: 6px 12px;
+  border-radius: 999px;
   white-space: nowrap;
   transition: color var(--t-fast), background var(--t-fast);
 }
@@ -676,17 +728,11 @@ a.nav-kicker:active { opacity: 0.5; }
   color: var(--text-primary);
   background: var(--bg-secondary);
 }
+/* Active item reads as "you're here" via a filled pill, not by dimming */
 .product-switcher-item.is-active > span {
-  color: var(--text-tertiary);
-  opacity: 0.45;
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
   cursor: default;
-}
-.product-switcher-icon {
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  object-fit: cover;
-  flex-shrink: 0;
 }
 
 /* ----- Product page hero ------------------------------------------- */
@@ -723,8 +769,19 @@ a.nav-kicker:active { opacity: 0.5; }
   object-fit: cover;
   display: block;
 }
+/* Pour Over's icon is a plain square photo with no baked-in shape (unlike
+   Markedly's, which already ships a rounded-square macOS icon treatment
+   with transparent corners) — mask it to a squircle to match. */
+:root[data-page="pourover"] .app-icon img {
+  mask-image: url("icon-squircle-mask.svg");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("icon-squircle-mask.svg");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+}
 .app-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.015em;
@@ -743,10 +800,10 @@ a.nav-kicker:active { opacity: 0.5; }
 
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(44px, 7vw, 88px);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.94;
+  font-size: clamp(44px, 7vw, 84px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
   color: var(--text-primary);
   margin-bottom: 24px;
 }
@@ -768,7 +825,7 @@ a.nav-kicker:active { opacity: 0.5; }
 
 /* Inline prose link states — hover + click across all body contexts */
 .hero-sub a:hover,
-.spec-row .body a:hover,
+.feature p a:hover,
 .why a:hover,
 .fara-body a:hover,
 .privacy-content a:hover {
@@ -777,7 +834,7 @@ a.nav-kicker:active { opacity: 0.5; }
   text-decoration-thickness: 1.5px;
 }
 .hero-sub a:active,
-.spec-row .body a:active,
+.feature p a:active,
 .why a:active,
 .fara-body a:active,
 .privacy-content a:active {
@@ -799,12 +856,12 @@ a.nav-kicker:active { opacity: 0.5; }
   gap: 10px;
   background: var(--accent);
   color: var(--on-accent);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.02em;
   padding: 12px 22px;
-  border-radius: 4px;
+  border-radius: var(--r-md);
   border: 0;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
@@ -827,7 +884,7 @@ a.nav-kicker:active { opacity: 0.5; }
   gap: 8px;
   background: transparent;
   color: var(--text-secondary);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 500;
   font-size: 14px;
   padding: 12px 0;
@@ -842,93 +899,58 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .badge-app-store:hover { opacity: 0.85; transform: translateY(-1px); }
 
-/* ----- Spec rows (feature list) ------------------------------------- */
-.spec-row {
+/* ----- Feature grid (4-up) ------------------------------------------ */
+.features {
   display: grid;
-  grid-template-columns: 40px 48px 1fr;
-  gap: 20px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--border-light);
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;                       /* hairline dividers via the container fill */
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--r-lg);
+  overflow: hidden;
 }
-.spec-row:last-of-type { border-bottom: 1px solid var(--border-medium); }
-.spec-row .n {
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 14px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.08em;
-  padding-top: 14px;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
+.feature {
+  background: var(--bg-primary);
+  padding: 28px;
 }
-.spec-row .icon-cell {
-  width: 48px; height: 48px;
-  border: 1px solid var(--border-medium);
-  border-radius: 6px;
-  background: var(--bg-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: border-color 0.2s, background 0.2s;
-}
-.spec-row .icon-cell::before,
-.spec-row .icon-cell::after {
-  content: "";
-  position: absolute;
-  width: 4px; height: 4px;
-}
-.spec-row .icon-cell::before {
-  top: 4px; left: 4px;
-  border-top: 1px solid var(--text-tertiary);
-  border-left: 1px solid var(--text-tertiary);
-}
-.spec-row .icon-cell::after {
-  bottom: 4px; right: 4px;
-  border-bottom: 1px solid var(--text-tertiary);
-  border-right: 1px solid var(--text-tertiary);
-}
-.spec-row .icon-cell i {
+.feature .fnum {
+  display: block;
+  font-family: var(--font-flavor);
+  font-weight: 700;
   font-size: 22px;
-  color: var(--accent);
   line-height: 1;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  margin-bottom: 16px;
 }
-.spec-row:hover .icon-cell i { transform: scale(1.15); }
-.spec-row:hover .icon-cell {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, var(--bg-secondary));
-}
-.spec-row .body { padding-top: 6px; }
-.spec-row .body h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 20px;
+.feature h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   color: var(--text-primary);
 }
-.spec-row .body p {
+.feature p {
   font-size: 15px;
   color: var(--text-secondary);
-  line-height: 1.55;
+  line-height: 1.6;
 }
-.spec-row .body a {
+.feature p a {
   color: var(--text-secondary);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: var(--border-medium);
 }
-.spec-row .body a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.feature p a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 /* ----- Pullquote (highlighter) -------------------------------------- */
 .pullquote {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(22px, 3.2vw, 34px);
-  line-height: 1.35;
-  letter-spacing: -0.025em;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   max-width: 640px;
 }
@@ -1064,7 +1086,7 @@ a.nav-kicker:active { opacity: 0.5; }
   flex-shrink: 0;
 }
 .ww-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -1090,13 +1112,10 @@ a.nav-kicker:active { opacity: 0.5; }
 
 
 /* ----- FARA card --------------------------------------------------- */
+/* Line-indent callout (no block fill) — matches the pullquote treatment */
 .fara-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-medium);
-  border-radius: 4px;
-  padding: 32px;
   position: relative;
-  overflow: hidden;
+  padding: 2px 0 2px 24px;
 }
 .fara-card::before {
   content: "";
@@ -1114,7 +1133,7 @@ a.nav-kicker:active { opacity: 0.5; }
   margin-bottom: 14px;
 }
 .fara-heading {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -1144,7 +1163,7 @@ a.nav-kicker:active { opacity: 0.5; }
   gap: 10px;
   margin-top: 8px;
   padding: 12px 20px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -1427,6 +1446,18 @@ footer {
   flex-wrap: wrap;
   gap: 16px;
 }
+.footer-left {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.footer-est {
+  font-family: var(--font-flavor);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
 .footer-copy,
 .footer-links a {
   font-family: var(--mono);
@@ -1462,13 +1493,11 @@ footer {
 
 /* ----- Privacy (Markedly inline) ----------------------------------- */
 .privacy-content {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
-  border-radius: 4px;
-  padding: 32px;
+  /* Text sits directly on the drafting surface — no inset box. */
+  padding: 0;
 }
 .privacy-content h2 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.015em;
@@ -1480,10 +1509,11 @@ footer {
   margin-bottom: 24px;
 }
 .privacy-content h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
+  font-family: var(--font-display);
+  font-size: 17px;
   font-weight: 600;
-  margin: 24px 0 8px;
+  letter-spacing: -0.01em;
+  margin: 26px 0 8px;
   color: var(--text-primary);
 }
 .privacy-content p {
@@ -1519,29 +1549,26 @@ footer {
 .support-links {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border-medium);
-  border-radius: 4px;
-  overflow: hidden;
-  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
 }
 .support-link-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 22px;
-  background: var(--bg-primary);
+  padding: 20px 4px;
+  background: transparent;
   color: var(--text-primary);
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition: color 0.15s;
   border-bottom: 1px solid var(--border-light);
 }
-.support-link-item:last-child { border-bottom: 0; }
 .support-link-item:hover {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
+  background: transparent;
+  color: var(--accent);
 }
+.support-link-item:hover .support-link-label { color: var(--accent); }
 .support-link-label {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 15px;
   margin-bottom: 2px;
@@ -1594,11 +1621,11 @@ footer {
 }
 .closing-cta-headline {
   font-family: var(--font-display);
-  font-size: clamp(30px, 5vw, 48px);
-  font-weight: 500;
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.08;
   margin: 0 0 14px;
   text-wrap: pretty;
 }
@@ -1625,12 +1652,15 @@ footer {
   .project-meta {
     justify-content: flex-start;
   }
-  .spec-row {
-    grid-template-columns: 32px 40px 1fr;
-    gap: 14px;
+  .features {
+    grid-template-columns: 1fr;
   }
-  /* Allow negative-margin full-bleed sections to extend to viewport edges */
-  main { overflow-x: visible; }
+  .feature { padding: 22px; }
+  /* Allow negative-margin full-bleed sections to extend to viewport edges
+     (product pages only — homepage has no .product-showcase and needs the
+     clip to keep .atm-rays from causing horizontal scroll/wiggle) */
+  :root[data-page="markedly"] main,
+  :root[data-page="pourover"] main { overflow-x: visible; }
   .plates-row { grid-template-columns: 1fr; }
   .product-showcase {
     margin-left: calc(-1 * var(--container-pad));

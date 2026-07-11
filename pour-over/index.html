@@ -21,7 +21,7 @@
   <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#efece4':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="canonical" href="https://penston.studio/pour-over/">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css?v=35">
+  <link rel="stylesheet" href="../assets/style.css?v=38">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
   <script defer src="../assets/site.js?v=15"></script>
 </head>
@@ -38,13 +38,11 @@
         <ul class="product-switcher">
           <li class="product-switcher-item">
             <a href="../markedly/">
-              <img class="product-switcher-icon" src="../assets/markedly-icon.png" alt="">
               <span class="product-switcher-label">Markedly</span>
             </a>
           </li>
           <li class="product-switcher-item is-active">
             <span>
-              <img class="product-switcher-icon" src="../assets/pour-over-icon.png" alt="">
               <span class="product-switcher-label">Pour Over</span>
             </span>
           </li>
@@ -171,37 +169,24 @@
       <section style="padding: 32px 0 8px;">
         <div class="section-label" data-num="02" data-reveal>What it does</div>
 
-        <div class="spec-row" data-reveal>
-          <div class="n">01</div>
-          <div class="icon-cell"><i class="ri-bookmark-line"></i></div>
-          <div class="body">
+        <div class="features" data-reveal>
+          <div class="feature">
+            <span class="fnum">01</span>
             <h3>Recent bookmarks</h3>
             <p>Pulls your latest saves from Raindrop’s Read Later collection, with cover images, tags, and source metadata.</p>
           </div>
-        </div>
-
-        <div class="spec-row" data-reveal>
-          <div class="n">02</div>
-          <div class="icon-cell"><i class="ri-sparkling-2-line"></i></div>
-          <div class="body">
+          <div class="feature">
+            <span class="fnum">02</span>
             <h3>Smart recommendations</h3>
             <p>Analyzes your archive tags and surfaces related articles via NewsAPI — optional, but worth enabling.</p>
           </div>
-        </div>
-
-        <div class="spec-row" data-reveal>
-          <div class="n">03</div>
-          <div class="icon-cell"><i class="ri-mail-open-line"></i></div>
-          <div class="body">
+          <div class="feature">
+            <span class="fnum">03</span>
             <h3>Beautiful emails</h3>
             <p>Responsive design that feels like a real editorial newsletter. Native dark and light mode support for macOS and iOS Mail.</p>
           </div>
-        </div>
-
-        <div class="spec-row" data-reveal>
-          <div class="n">04</div>
-          <div class="icon-cell"><i class="ri-loop-right-line"></i></div>
-          <div class="body">
+          <div class="feature">
+            <span class="fnum">04</span>
             <h3>Fully automated</h3>
             <p>Runs on a configurable schedule via GitHub Actions. Daily, weekly, or specific days — no server, no babysitting.</p>
           </div>
@@ -232,7 +217,7 @@
             a nonprofit funding research into a progressive neurological condition with no known cure that directly impacts my family.
             If this project saves you time, consider passing it forward.
           </p>
-          <a href="https://www.curefa.org/donate?campaign=gpenston" target="_blank" rel="noopener" class="fara-link">
+          <a href="https://give.curefa.org/campaign/785456/donate?pour-over" target="_blank" rel="noopener" class="fara-link">
             Donate to FARA
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M5 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M8 2h4m0 0v4m0-4L6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -290,7 +275,10 @@
 
     <footer>
       <div class="footer-inner">
-        <span class="footer-copy">© 2026 George Penston</span>
+        <div class="footer-left">
+          <span class="footer-est">EST. 2025</span>
+          <span class="footer-copy">© 2026 George Penston</span>
+        </div>
         <ul class="footer-links">
           <li><a href="https://gpenston.com" target="_blank" rel="noopener">Portfolio</a></li>
           <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn</a></li>

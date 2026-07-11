@@ -21,7 +21,7 @@
   <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#efece4':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="canonical" href="https://penston.studio/markedly/">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css?v=35">
+  <link rel="stylesheet" href="../assets/style.css?v=38">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
   <script defer src="../assets/site.js?v=15"></script>
 </head>
@@ -38,13 +38,11 @@
         <ul class="product-switcher">
           <li class="product-switcher-item is-active">
             <span>
-              <img class="product-switcher-icon" src="../assets/markedly-icon.png" alt="">
               <span class="product-switcher-label">Markedly</span>
             </span>
           </li>
           <li class="product-switcher-item">
             <a href="../pour-over/">
-              <img class="product-switcher-icon" src="../assets/pour-over-icon.png" alt="">
               <span class="product-switcher-label">Pour Over</span>
             </a>
           </li>
@@ -175,37 +173,24 @@
       <section style="padding: 32px 0 8px;">
         <div class="section-label" data-num="02" data-reveal>What it does</div>
 
-        <div class="spec-row" data-reveal>
-          <div class="n">01</div>
-          <div class="icon-cell"><i class="ri-drag-drop-line"></i></div>
-          <div class="body">
+        <div class="features" data-reveal>
+          <div class="feature">
+            <span class="fnum">01</span>
             <h3>Drag &amp; drop</h3>
             <p>Drop files onto the window or use ⌘O. Drag in a whole folder and Markedly finds every supported file inside automatically. Converted files are saved right alongside your originals.</p>
           </div>
-        </div>
-
-        <div class="spec-row" data-reveal>
-          <div class="n">02</div>
-          <div class="icon-cell"><i class="ri-lock-line"></i></div>
-          <div class="body">
+          <div class="feature">
+            <span class="fnum">02</span>
             <h3>Fully local</h3>
             <p>No uploads, no accounts, no analytics. All conversions run on-device, so your files stay private and the app works without an internet connection.</p>
           </div>
-        </div>
-
-        <div class="spec-row" data-reveal>
-          <div class="n">03</div>
-          <div class="icon-cell"><i class="ri-flashlight-line"></i></div>
-          <div class="body">
+          <div class="feature">
+            <span class="fnum">03</span>
             <h3>Shortcuts &amp; Services</h3>
             <p>Convert files without opening the app. Works with the Shortcuts app for automations and the right-click Services menu in Finder for quick one-off conversions.</p>
           </div>
-        </div>
-
-        <div class="spec-row" data-reveal>
-          <div class="n">04</div>
-          <div class="icon-cell"><i class="ri-markdown-line"></i></div>
-          <div class="body">
+          <div class="feature">
+            <span class="fnum">04</span>
             <h3>GitHub Flavored Markdown</h3>
             <p>Outputs <a href="https://github.github.com/gfm/" target="_blank" rel="noopener">GFM</a> — the widely adopted standard that adds tables, strikethrough, task lists, and more on top of core Markdown. Natively supported by Obsidian, Notion, Bear, and most AI tools.</p>
           </div>
@@ -372,7 +357,10 @@
 
     <footer>
       <div class="footer-inner">
-        <span class="footer-copy">© 2026 George Penston</span>
+        <div class="footer-left">
+          <span class="footer-est">EST. 2025</span>
+          <span class="footer-copy">© 2026 George Penston</span>
+        </div>
         <ul class="footer-links">
           <li><a href="https://gpenston.com" target="_blank" rel="noopener">Portfolio</a></li>
           <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn</a></li>
