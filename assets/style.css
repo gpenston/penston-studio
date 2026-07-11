@@ -719,8 +719,8 @@ a.nav-kicker:active { opacity: 0.5; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-secondary);
-  padding: 5px 8px;
-  border-radius: var(--r-sm);
+  padding: 6px 12px;
+  border-radius: 999px;
   white-space: nowrap;
   transition: color var(--t-fast), background var(--t-fast);
 }
@@ -728,17 +728,11 @@ a.nav-kicker:active { opacity: 0.5; }
   color: var(--text-primary);
   background: var(--bg-secondary);
 }
+/* Active item reads as "you're here" via a filled pill, not by dimming */
 .product-switcher-item.is-active > span {
-  color: var(--text-tertiary);
-  opacity: 0.45;
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
   cursor: default;
-}
-.product-switcher-icon {
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  object-fit: cover;
-  flex-shrink: 0;
 }
 
 /* ----- Product page hero ------------------------------------------- */
@@ -831,7 +825,7 @@ a.nav-kicker:active { opacity: 0.5; }
 
 /* Inline prose link states — hover + click across all body contexts */
 .hero-sub a:hover,
-.spec-row .body a:hover,
+.feature p a:hover,
 .why a:hover,
 .fara-body a:hover,
 .privacy-content a:hover {
@@ -840,7 +834,7 @@ a.nav-kicker:active { opacity: 0.5; }
   text-decoration-thickness: 1.5px;
 }
 .hero-sub a:active,
-.spec-row .body a:active,
+.feature p a:active,
 .why a:active,
 .fara-body a:active,
 .privacy-content a:active {
@@ -867,7 +861,7 @@ a.nav-kicker:active { opacity: 0.5; }
   font-size: 14px;
   letter-spacing: 0.02em;
   padding: 12px 22px;
-  border-radius: 4px;
+  border-radius: var(--r-md);
   border: 0;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
@@ -905,84 +899,50 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .badge-app-store:hover { opacity: 0.85; transform: translateY(-1px); }
 
-/* ----- Spec rows (feature list) ------------------------------------- */
-.spec-row {
+/* ----- Feature grid (4-up) ------------------------------------------ */
+.features {
   display: grid;
-  grid-template-columns: 40px 48px 1fr;
-  gap: 20px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--border-light);
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;                       /* hairline dividers via the container fill */
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--r-lg);
+  overflow: hidden;
 }
-.spec-row:last-of-type { border-bottom: 1px solid var(--border-medium); }
-.spec-row .n {
+.feature {
+  background: var(--bg-primary);
+  padding: 28px;
+}
+.feature .fnum {
+  display: block;
   font-family: var(--font-flavor);
   font-weight: 700;
   font-size: 22px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.03em;
-  padding-top: 10px;
-  text-align: right;
-}
-.spec-row .icon-cell {
-  width: 48px; height: 48px;
-  border: 1px solid var(--border-medium);
-  border-radius: 6px;
-  background: var(--bg-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: border-color 0.2s, background 0.2s;
-}
-.spec-row .icon-cell::before,
-.spec-row .icon-cell::after {
-  content: "";
-  position: absolute;
-  width: 4px; height: 4px;
-}
-.spec-row .icon-cell::before {
-  top: 4px; left: 4px;
-  border-top: 1px solid var(--text-tertiary);
-  border-left: 1px solid var(--text-tertiary);
-}
-.spec-row .icon-cell::after {
-  bottom: 4px; right: 4px;
-  border-bottom: 1px solid var(--text-tertiary);
-  border-right: 1px solid var(--text-tertiary);
-}
-.spec-row .icon-cell i {
-  font-size: 22px;
-  color: var(--accent);
   line-height: 1;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  margin-bottom: 16px;
 }
-.spec-row:hover .icon-cell i { transform: scale(1.15); }
-.spec-row:hover .icon-cell {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, var(--bg-secondary));
-}
-.spec-row .body { padding-top: 6px; }
-.spec-row .body h3 {
+.feature h3 {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   color: var(--text-primary);
 }
-.spec-row .body p {
+.feature p {
   font-size: 15px;
   color: var(--text-secondary);
-  line-height: 1.55;
+  line-height: 1.6;
 }
-.spec-row .body a {
+.feature p a {
   color: var(--text-secondary);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: var(--border-medium);
 }
-.spec-row .body a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.feature p a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 /* ----- Pullquote (highlighter) -------------------------------------- */
 .pullquote {
@@ -1152,13 +1112,10 @@ a.nav-kicker:active { opacity: 0.5; }
 
 
 /* ----- FARA card --------------------------------------------------- */
+/* Line-indent callout (no block fill) — matches the pullquote treatment */
 .fara-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-medium);
-  border-radius: 4px;
-  padding: 32px;
   position: relative;
-  overflow: hidden;
+  padding: 2px 0 2px 24px;
 }
 .fara-card::before {
   content: "";
@@ -1695,10 +1652,10 @@ footer {
   .project-meta {
     justify-content: flex-start;
   }
-  .spec-row {
-    grid-template-columns: 32px 40px 1fr;
-    gap: 14px;
+  .features {
+    grid-template-columns: 1fr;
   }
+  .feature { padding: 22px; }
   /* Allow negative-margin full-bleed sections to extend to viewport edges
      (product pages only — homepage has no .product-showcase and needs the
      clip to keep .atm-rays from causing horizontal scroll/wiggle) */
