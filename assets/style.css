@@ -55,6 +55,7 @@
   --border-light:  #1f1c14;
   --border-medium: #2a2620;
   --border-rule:   #e8e2cf;
+  --rule: color-mix(in srgb, var(--border-medium), var(--text-tertiary) 25%);
   --accent:        #eb5a00;
   --accent-hover:  #ff7a2e;
   --accent-cool:   #7aa9a3;
@@ -611,7 +612,7 @@ a.nav-kicker:active { opacity: 0.5; }
   background: var(--bg-primary);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--border-medium);
+  border-bottom: 1px solid var(--rule);
 }
 /* Safari 26 toolbar tint bar — position:fixed, full-width, exactly as tall as
    the safe-area inset. Sits in the status-bar zone so Safari's tint-reading
@@ -1448,7 +1449,7 @@ a.nav-kicker:active { opacity: 0.5; }
 footer {
   margin-top: 64px;
   padding: 24px 0 32px;
-  border-top: 1px solid var(--border-rule);
+  border-top: 1px solid var(--rule);
 }
 .footer-inner {
   display: flex;
