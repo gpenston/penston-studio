@@ -916,13 +916,12 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .spec-row:last-of-type { border-bottom: 1px solid var(--border-medium); }
 .spec-row .n {
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 14px;
+  font-family: var(--font-flavor);
+  font-weight: 700;
+  font-size: 22px;
   color: var(--text-tertiary);
-  letter-spacing: 0.08em;
-  padding-top: 14px;
-  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+  padding-top: 10px;
   text-align: right;
 }
 .spec-row .icon-cell {
