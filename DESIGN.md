@@ -209,6 +209,25 @@ sit on the raised surface with a 1px subtle border; hover nudges the border and
 background one step, plus a 1px lift. A fixed, pointer-events-none grain overlay
 (~3% opacity) and a faint hero starburst/ring add atmosphere without depth.
 
+## Motion
+
+Motion is a supporting cast member, not a feature. Hover transitions run
+150–200ms; nothing longer feels slow. The only ambient (always-on) motion
+lives in the home hero atmosphere (a slow-rotating ring and counter-rotating
+rays) — no floating particles, gradient sweeps, or breathing elements
+elsewhere. `prefers-reduced-motion: reduce` kills everything, no exceptions.
+
+Two moments use the View Transitions API rather than ordinary CSS
+transitions: MPA page navigation (a 360ms fade-and-rise on arrival, with the
+nav wordmark anchored so it never moves between pages) and the **mode-switch
+wipe** — nightfall/sunup, described under Components above. The wipe was
+deliberately simplified down to a single soft gradient band after an
+organic-ripple attempt (layered radial "puddles" riding the same edge)
+kept producing a second, competing edge wherever the wipe crossed a
+hard-edged element like a card — broke the one-sheet illusion. An SVG
+noise-displacement mask is the leading candidate to revisit organic falloff
+without that conflict, if it's worth another pass later.
+
 ## Shapes
 
 Restrained, engineered softness. Small radii throughout: **4px** for buttons,
@@ -235,6 +254,11 @@ technical-drawing detail that reinforces the instrument theme.
   hairline rule.
 - **Mode toggle.** Sun/moon icons (Remixicon) with an opacity+rotation crossfade;
   reduced-motion falls back to opacity only. Drives `[data-mode]` on `<html>`.
+  The switch itself triggers a same-document View Transition: a soft, wide
+  gradient band sweeps the new mode in — darkness descending from the top
+  ("nightfall") when switching to dark, light rising from the bottom
+  ("sunup") when switching to light. Deliberately a single plain gradient,
+  not a hard edge or a decorated one — see Motion below.
 - **Highlight.** A hand-drawn marker highlight (Accent Cool) reserved for the
   pullquote block only — the single expressive flourish per page.
 
