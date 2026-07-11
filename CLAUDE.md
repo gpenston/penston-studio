@@ -60,3 +60,9 @@ Hosted at `penston.studio` via **Vercel** (migrated from GitHub Pages, June 2026
 
 - Feature branches: `claude/<description>-<sessionId>`
 - Push to branch, open PR, merge to `main` to deploy
+
+## Sister Site
+
+**gpenston-portfolio** (gpenston.com, `~/Projects/gpenston-portfolio`, github.com/gpenston/gpenston-portfolio) is the sibling portfolio site — **Next.js 16 + React 19 + Tailwind v4 + Framer Motion** (not Framer/HTML). This repo is the design source of truth: `DESIGN.md` + `docs/design-system.md` are the canonical spec, and the portfolio implements the same "bureau" language in its `app/globals.css` `@theme`.
+
+Shared DNA (keep in sync both ways): the warm bone/near-black palette, orange (+ cool-teal) accents, 880px container, mono section labels, dot-grid + grain, and the Chapter 03 type system (Hanken Grotesk + Martian Mono + D-DIN Condensed — synced 2026-07-11). Sibling-distinct by design: content structure and per-site ornament. **When you change tokens, the type system, or a shared component here, mirror it in the portfolio and update both CLAUDE.md files the same session** — they've drifted before.
