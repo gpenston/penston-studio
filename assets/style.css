@@ -250,13 +250,13 @@ main { position: relative; overflow-x: clip; }
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1),
-              transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 220ms ease-out,
+              transform 340ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.icon-sun  { opacity: 0; transform: rotate(90deg); }
-.icon-moon { opacity: 1; transform: rotate(0deg); }
-:root[data-mode="dark"] .icon-sun  { opacity: 1; transform: rotate(0deg); }
-:root[data-mode="dark"] .icon-moon { opacity: 0; transform: rotate(-90deg); }
+.icon-sun  { opacity: 0; transform: rotate(75deg) scale(0.5); }
+.icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+:root[data-mode="dark"] .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+:root[data-mode="dark"] .icon-moon { opacity: 0; transform: rotate(-75deg) scale(0.5); }
 @media (prefers-reduced-motion: reduce) {
   .icon-sun, .icon-moon { transition: opacity 150ms ease; transform: none !important; }
 }
@@ -747,9 +747,28 @@ a.nav-kicker:active { opacity: 0.5; }
   padding-top: 24px;
   margin-bottom: 20px;
 }
-.back-link:hover { color: var(--accent); }
-.back-link svg { transition: transform 0.2s; }
-.back-link:hover svg { transform: translateX(-3px); }
+/* Heavier chevron (Remixicon, replacing the thin inline SVG) + a stronger,
+   pill-background hover — scoped to .back-link so the home page's `//`
+   wordmark (which shares .nav-mark) is untouched. */
+.back-link .nav-glyph {
+  font-size: 17px;
+  opacity: 0.85;
+  transition: transform 0.2s, opacity 150ms ease-out;
+}
+.unified-bar .nav-mark.back-link {
+  border-radius: 999px;
+  padding: 5px 10px;
+  margin: -5px -10px;
+  transition: color 150ms ease-out, background 150ms ease-out, opacity 100ms;
+}
+.unified-bar .nav-mark.back-link:hover {
+  color: var(--accent-cool-hover);
+  background: var(--bg-secondary);
+}
+.unified-bar .nav-mark.back-link:hover .nav-glyph {
+  opacity: 1;
+  transform: translateX(-3px);
+}
 
 .app-identity {
   display: flex;
