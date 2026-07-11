@@ -45,13 +45,32 @@
   function wire() {
     var root = document.documentElement;
 
+    var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     document.querySelectorAll('[data-mode-toggle]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var next = root.dataset.mode === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-mode', next);
-        localStorage.setItem(KEY, next);
-        syncThemeColor();
+        function apply() {
+          root.setAttribute('data-mode', next);
+          localStorage.setItem(KEY, next);
+          syncThemeColor();
+        }
         playClick();
+        // Organic vertical gradient wipe (see style.css) via the View
+        // Transitions API already used for page navigation. Direction
+        // follows the mode: nightfall descending into dark, sunup rising
+        // into light. Falls back to an instant swap on unsupported
+        // browsers or reduced motion.
+        if (document.startViewTransition && !prefersReducedMotion) {
+          var directionClass = next === 'dark' ? 'vt-to-dark' : 'vt-to-light';
+          root.classList.add('vt-mode', directionClass);
+          var transition = document.startViewTransition(apply);
+          transition.finished.finally(function () {
+            root.classList.remove('vt-mode', 'vt-to-dark', 'vt-to-light');
+          });
+        } else {
+          apply();
+        }
       });
     });
 
