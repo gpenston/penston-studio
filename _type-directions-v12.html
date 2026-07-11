@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark" data-type="hk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penston Studio — Type v12 — HK vs J, full product page A/B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Public+Sans:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'D-DIN Condensed';
+    src: url('https://cdn.jsdelivr.net/gh/amcchord/datto-d-din@main/D-DINCondensed-Bold.woff2') format('woff2');
+    font-weight: 700; font-display: swap;
+  }
+
+  /* ---- Tokens: synced from assets/style.css, with a11y tertiary fix ---- */
+  :root { color-scheme: dark; }
+  :root[data-mode="light"] { color-scheme: light; }
+
+  :root {
+    --bg-primary:    #0c0b08;
+    --bg-secondary:  #17150f;
+    --bg-tertiary:   #1f1c14;
+    --text-primary:  #e8e2cf;
+    --text-secondary:#9c9687;
+    --text-tertiary: #837c66;   /* raised to 4.72:1 for small mono chrome */
+    --border-light:  #1f1c14;
+    --border-medium: #2a2620;
+    --accent:        #eb5a00;
+    --accent-cool:   #7aa9a3;
+    --grid-line:     rgba(232, 226, 207, 0.11);
+    --graph-line:    rgba(232, 226, 207, 0.045);
+  }
+  :root[data-mode="light"] {
+    --bg-primary:    #efece4;
+    --bg-secondary:  #e5e1d4;
+    --bg-tertiary:   #d9d3c2;
+    --text-primary:  #1a1810;
+    --text-secondary:#5a5547;
+    --text-tertiary: #7d765f;
+    --border-light:  #dcd5c2;
+    --border-medium: #c8c0ac;
+    --accent:        #d94f00;
+    --accent-cool:   #3d6b68;
+    --grid-line:     rgba(26, 24, 16, 0.06);
+    --graph-line:    rgba(26, 24, 16, 0.035);
+  }
+
+  /* ---- Type systems (the only variable) ------------------------------- */
+  :root[data-type="hk"] { --d-font: "Hanken Grotesk", sans-serif; --b-font: "Hanken Grotesk", sans-serif; --d-wght: 800; --h-wght: 700; --d-track: -0.03em; }
+  :root[data-type="j"]  { --d-font: "Public Sans", sans-serif;   --b-font: "Public Sans", sans-serif;   --d-wght: 700; --h-wght: 700; --d-track: -0.025em; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-padding-top: 60px; }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--b-font);
+    font-size: 16px; line-height: 1.6; min-height: 100vh;
+    transition: background-color 300ms ease-out, color 300ms ease-out;
+    background-image:
+      radial-gradient(circle, var(--grid-line) 1.5px, transparent 1.5px),
+      linear-gradient(var(--graph-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--graph-line) 1px, transparent 1px);
+    background-size: 48px 48px, 96px 96px, 96px 96px;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 200px 200px;
+  }
+  :root[data-mode="light"] body::before { opacity: 0.025; }
+  ::selection { background: var(--accent); color: var(--bg-primary); }
+
+  .mono { font-family: "Martian Mono", monospace; }
+  .din  { font-family: "D-DIN Condensed", sans-serif; font-weight: 700; }
+
+  /* ---- A/B switch bar -------------------------------------------------- */
+  .switch {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 12px 24px;
+    background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-medium);
+    font-family: "Martian Mono", monospace;
+    font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .switch .lbl { color: var(--accent); margin-right: auto; }
+  .switch button {
+    font: inherit; letter-spacing: inherit; text-transform: inherit;
+    color: var(--text-secondary); background: var(--bg-secondary);
+    border: 1px solid var(--border-medium); border-radius: 4px;
+    padding: 6px 14px; cursor: pointer; transition: all 150ms ease-out;
+  }
+  .switch button:hover { color: var(--text-primary); }
+  .switch button.active { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .switch .now { color: var(--text-tertiary); }
+  .switch .now b { color: var(--text-secondary); font-weight: 400; }
+
+  /* ---- Page shell ------------------------------------------------------ */
+  .container { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+
+  .ubar {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    padding: 18px 0 14px; border-bottom: 1px solid var(--border-light);
+  }
+  .ubar .mark {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: "Martian Mono", monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-cool);
+  }
+  .ubar .switcher {
+    justify-self: center; display: flex; gap: 6px;
+    font-family: "Martian Mono", monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .ubar .switcher .pill { padding: 4px 10px; border-radius: 999px; color: var(--text-tertiary); }
+  .ubar .switcher .pill.on { background: var(--bg-secondary); color: var(--text-primary); }
+  .ubar .toggle {
+    justify-self: end; font-family: "Martian Mono", monospace;
+    font-size: 10px; letter-spacing: 0.1em; color: var(--text-tertiary);
+    border: 1px solid var(--border-medium); border-radius: 3px; padding: 4px 8px;
+  }
+
+  /* ---- Hero ------------------------------------------------------------ */
+  .hero { position: relative; padding: 44px 0 8px; }
+  .hero > * { position: relative; z-index: 2; }
+  .app-id { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+  .app-id .ico { width: 60px; height: 60px; border-radius: 13px; overflow: hidden; }
+  .app-id .ico img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .app-id .name { font-family: var(--d-font); font-weight: var(--h-wght); font-size: 22px; letter-spacing: -0.01em; line-height: 1; margin-bottom: 5px; }
+  .app-id .plat { font-family: "Martian Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); }
+  .hero .headline {
+    font-family: var(--d-font); font-weight: var(--d-wght); letter-spacing: var(--d-track);
+    font-size: clamp(40px, 6.4vw, 76px); line-height: 0.98; margin-bottom: 26px; max-width: 15ch;
+  }
+  .hero .headline em { color: var(--accent-cool); font-style: normal; }
+  .hero .sub { font-size: 18.5px; line-height: 1.55; color: var(--text-secondary); max-width: 560px; margin-bottom: 30px; }
+  .hero .sub a { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-medium); }
+  .cta-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 12px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--d-font); font-weight: 600; font-size: 15px;
+    background: var(--accent); color: var(--bg-primary); text-decoration: none;
+    padding: 12px 22px; border-radius: 8px; transition: transform 120ms ease-out;
+  }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-secondary {
+    font-family: "Martian Mono", monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-secondary); text-decoration: none;
+  }
+  .btn-secondary:hover { color: var(--accent); }
+
+  /* ---- Section scaffolding --------------------------------------------- */
+  section.blk { padding: 40px 0; }
+  .slabel { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+  .slabel .num { font-family: "D-DIN Condensed", sans-serif; font-weight: 700; font-size: 26px; line-height: 1; color: var(--accent); letter-spacing: 0.02em; }
+  .slabel .txt { font-family: "Martian Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+  .slabel::after { content: ""; flex: 1; height: 1px; background: var(--border-light); }
+
+  h2.sec { font-family: var(--d-font); font-weight: var(--h-wght); font-size: clamp(26px, 3.6vw, 38px); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; max-width: 20ch; }
+  h2.sec em { color: var(--accent-cool); font-style: normal; }
+  p.lead { font-size: 17px; line-height: 1.7; color: var(--text-secondary); max-width: 620px; margin-bottom: 16px; }
+  p.lead strong { color: var(--text-primary); font-weight: 600; }
+  p.lead a { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-medium); }
+  p.lead a:hover { color: var(--accent); }
+
+  .pullquote {
+    font-family: var(--d-font); font-weight: var(--h-wght); font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.25; letter-spacing: -0.015em; color: var(--text-primary);
+    max-width: 20ch; margin: 6px 0 8px; padding-left: 22px; border-left: 3px solid var(--accent);
+  }
+  .pullquote .hl { color: var(--accent); }
+
+  /* Feature grid */
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-light); border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; }
+  .feature { background: var(--bg-primary); padding: 26px; }
+  .feature .fnum { font-family: "D-DIN Condensed", sans-serif; font-weight: 700; font-size: 20px; color: var(--accent); }
+  .feature h3 { font-family: var(--d-font); font-weight: 600; font-size: 19px; letter-spacing: -0.01em; margin: 8px 0 8px; }
+  .feature p { font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); }
+
+  /* Steps */
+  .steps { display: flex; flex-direction: column; gap: 2px; }
+  .step { display: grid; grid-template-columns: 52px 1fr; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--border-light); align-items: baseline; }
+  .step .snum { font-family: "D-DIN Condensed", sans-serif; font-weight: 700; font-size: 34px; line-height: 0.8; color: var(--accent); }
+  .step h3 { font-family: var(--d-font); font-weight: 600; font-size: 18px; margin-bottom: 5px; letter-spacing: -0.01em; }
+  .step p { font-size: 15px; line-height: 1.6; color: var(--text-secondary); max-width: 560px; }
+
+  /* FAQ */
+  .faq h3 { font-family: var(--d-font); font-weight: 600; font-size: 18px; letter-spacing: -0.005em; margin: 22px 0 7px; }
+  .faq p { font-size: 15.5px; line-height: 1.65; color: var(--text-secondary); max-width: 620px; }
+  .faq p code { font-family: "Martian Mono", monospace; font-size: 0.86em; background: var(--bg-secondary); padding: 1px 6px; border-radius: 4px; color: var(--text-primary); }
+
+  /* Works-with prose */
+  .ww { font-size: 17px; line-height: 1.75; color: var(--text-secondary); max-width: 640px; }
+  .ww strong { color: var(--text-primary); font-weight: 600; }
+
+  footer.pf { margin-top: 40px; padding: 28px 0 60px; border-top: 1px solid var(--border-light); display: flex; gap: 22px; flex-wrap: wrap; align-items: baseline; }
+  footer.pf .est { font-family: "D-DIN Condensed", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 0.04em; color: var(--text-secondary); }
+  footer.pf .m { font-family: "Martian Mono", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); }
+
+  @media (max-width: 720px) {
+    .container { padding: 0 20px; }
+    .features { grid-template-columns: 1fr; }
+    .ubar .switcher { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="switch">
+  <span class="lbl">Type v12 · Full Page A/B</span>
+  <span class="now">Now showing: <b id="nowlbl">HK · Hanken Grotesk</b></span>
+  <button type="button" id="btn-hk" class="active" onclick="setType('hk')">HK · Hanken</button>
+  <button type="button" id="btn-j" onclick="setType('j')">J · Public Sans</button>
+  <button type="button" onclick="document.documentElement.dataset.mode = document.documentElement.dataset.mode === 'dark' ? 'light' : 'dark'">Mode I/O</button>
+</div>
+
+<div class="container">
+
+  <div class="ubar">
+    <span class="mark">Penston Studio</span>
+    <span class="switcher"><span class="pill">Markedly</span><span class="pill on">Pour Over</span></span>
+    <span class="toggle">I / O</span>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="app-id">
+      <div class="ico"><img src="assets/pour-over-icon.png" alt="Pour Over"></div>
+      <div>
+        <div class="name">Pour Over for Raindrop</div>
+        <div class="plat">GitHub Action · Free</div>
+      </div>
+    </div>
+    <h1 class="headline">Your read-later list, brewed <em>fresh daily</em>.</h1>
+    <p class="sub">Connect your <a href="#">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. No dashboard, no app. Just your inbox.</p>
+    <div class="cta-row">
+      <a class="btn-primary" href="#">View on GitHub →</a>
+      <a class="btn-secondary" href="#">Fork and set up ↗</a>
+    </div>
+  </div>
+
+  <!-- THE IDEA -->
+  <section class="blk">
+    <div class="slabel"><span class="num">01</span><span class="txt">The idea</span></div>
+    <div class="pullquote">A read-later list is where good intentions go to <span class="hl">quietly die</span>.</div>
+    <p class="lead" style="margin-top:20px;">You save an article meaning to get to it, and three weeks later it's buried under forty more. Pour Over fixes the part that actually breaks: <strong>it brings the queue back to you</strong>, on a schedule you set, in a format you'll actually read over coffee.</p>
+    <p class="lead">It runs entirely inside your own GitHub account as a scheduled Action — no server to babysit, no third-party service holding your data, nothing to install on your machine. You point it at a Raindrop collection, pick a cadence, and it does the rest. When you want to change how it behaves, you edit a plain <code style="font-family:'Martian Mono',monospace;font-size:0.86em;background:var(--bg-secondary);padding:1px 6px;border-radius:4px;color:var(--text-primary)">config.yml</code> and commit.</p>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="blk">
+    <div class="slabel"><span class="num">02</span><span class="txt">What it does</span></div>
+    <h2 class="sec">Small, sharp, and entirely <em>yours</em>.</h2>
+    <p class="lead" style="margin-bottom:26px;">Four moving parts, no more than it needs. Everything runs on infrastructure you already have.</p>
+    <div class="features">
+      <div class="feature"><div class="fnum">01</div><h3>Recent bookmarks</h3><p>Pulls the latest saves from any Raindrop collection you choose, respecting tags and filters so the digest stays focused on what you actually meant to read.</p></div>
+      <div class="feature"><div class="fnum">02</div><h3>Smart recommendations</h3><p>Optional NewsAPI-powered suggestions, drawn from the tags in your archive — so the digest occasionally surfaces something new that fits your taste.</p></div>
+      <div class="feature"><div class="fnum">03</div><h3>Beautiful emails</h3><p>A clean, typographic digest that reads well on phone and desktop. No tracking pixels, no marketing chrome, no unsubscribe gauntlet. Just the list.</p></div>
+      <div class="feature"><div class="fnum">04</div><h3>Fully automated</h3><p>Runs on a cron schedule inside GitHub Actions. Set it once and forget it exists until the next digest lands in your inbox at the time you picked.</p></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="blk">
+    <div class="slabel"><span class="num">03</span><span class="txt">How it works</span></div>
+    <h2 class="sec">Set up in about ten minutes.</h2>
+    <div class="steps" style="margin-top:20px;">
+      <div class="step"><div class="snum">1</div><div><h3>Fork the repository</h3><p>One click puts a copy in your own GitHub account. Everything runs from there — the code, the schedule, and the secrets all stay under your control.</p></div></div>
+      <div class="step"><div class="snum">2</div><div><h3>Add your keys</h3><p>Drop your Raindrop token and email credentials into the repository's encrypted secrets. Pour Over never sees them outside your own Actions runner.</p></div></div>
+      <div class="step"><div class="snum">3</div><div><h3>Pick a schedule</h3><p>Edit one line of the config to choose your cadence — every morning, weekly on Sundays, whatever fits how you actually read. Commit, and you're done.</p></div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="blk faq">
+    <div class="slabel"><span class="num">04</span><span class="txt">Questions</span></div>
+    <h2 class="sec">The practical stuff.</h2>
+    <h3>Does it cost anything to run?</h3>
+    <p>No. Public repositories get unlimited GitHub Actions minutes, and a daily digest uses a trivial amount. Raindrop's free tier and most email providers cover the rest. Pour Over itself is free and open source under the MIT license.</p>
+    <h3>Where does my data live?</h3>
+    <p>Entirely in your own accounts. Pour Over reads from Raindrop and sends through your email provider, and the code that ties them together runs in your GitHub Actions runner. There's no Penston Studio server in the middle — I never see your bookmarks or your inbox.</p>
+    <h3>Can I customize the digest?</h3>
+    <p>Yes. The email template is a plain file you can edit, and the <code>config.yml</code> controls cadence, collection, recommendation sources, and how many items each digest includes. If you can read YAML, you can reshape it.</p>
+    <h3>What if I use Gmail or Outlook instead of iCloud?</h3>
+    <p>All supported. Any provider that offers standard SMTP or an app-specific password will work — the setup guide walks through the common ones step by step.</p>
+  </section>
+
+  <!-- WORKS WITH -->
+  <section class="blk">
+    <div class="slabel"><span class="num">05</span><span class="txt">Works with</span></div>
+    <p class="ww">Built on <strong>Raindrop.io</strong> and <strong>GitHub Actions</strong>, with optional <strong>NewsAPI</strong> recommendations. Delivers cleanly to <strong>iCloud Mail</strong>, <strong>Gmail</strong>, and <strong>Outlook</strong> — anywhere that speaks standard SMTP. No new accounts, no new subscriptions, nothing to learn beyond a single config file.</p>
+  </section>
+
+  <footer class="pf">
+    <span class="est">EST. 2025</span>
+    <span class="m">Penston Studio</span>
+    <span class="m">Pour Over · MIT</span>
+    <span class="m">Mode I/O</span>
+    <span class="m">CH. 00–03</span>
+  </footer>
+
+</div>
+
+<script>
+  function setType(t){
+    document.documentElement.dataset.type = t;
+    document.getElementById('btn-hk').classList.toggle('active', t==='hk');
+    document.getElementById('btn-j').classList.toggle('active', t==='j');
+    document.getElementById('nowlbl').textContent = t==='hk' ? 'HK · Hanken Grotesk' : 'J · Public Sans';
+  }
+</script>
+</body>
+</html>
