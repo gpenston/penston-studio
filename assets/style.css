@@ -297,6 +297,22 @@ main { position: relative; overflow-x: clip; }
   margin-bottom: 32px;
   padding-left: 2px;
 }
+/* Hero chapter marker — big DIN numeral beside the mono kicker */
+.instr-kickrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.instr-kickrow .instr-kicker { margin-bottom: 0; padding-left: 0; }
+.hero-chapter {
+  font-family: var(--font-flavor);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 0.7;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
 .nav-kicker {
   margin-bottom: 0;
   padding-left: 0;
@@ -439,9 +455,14 @@ a.nav-kicker:active { opacity: 0.5; }
 }
 .section-label::before {
   content: attr(data-num);
+  font-family: var(--font-flavor);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 0.7;
+  letter-spacing: 0.02em;
   color: var(--accent);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  /* optical nudge so the tall DIN numeral sits on the mono caption's baseline */
+  transform: translateY(0.06em);
 }
 .section-label::after {
   content: "";
@@ -1449,6 +1470,18 @@ footer {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
+}
+.footer-left {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.footer-est {
+  font-family: var(--font-flavor);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
 }
 .footer-copy,
 .footer-links a {
