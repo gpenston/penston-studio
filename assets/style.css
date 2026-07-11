@@ -1271,11 +1271,8 @@ a.nav-kicker:active { opacity: 0.5; }
 /* ----- Plates (product shot gallery) ------------------------------- */
 .product-showcase {
   position: relative;
-  margin: 16px calc(-1 * var(--container-pad)) 16px;
-  padding: 40px 48px 36px;
-  background: var(--bg-tertiary);
-  border-top: 1px solid var(--border-medium);
-  border-bottom: 1px solid var(--border-medium);
+  margin: 16px 0 24px;
+  padding: 0;
   overflow: hidden;
 }
 
