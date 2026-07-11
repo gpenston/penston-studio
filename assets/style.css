@@ -1149,7 +1149,7 @@ a.nav-kicker:active { opacity: 0.5; }
 .fara-body a {
   color: var(--text-primary);
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: currentColor;
   text-underline-offset: 3px;
   text-decoration-thickness: 1.5px;
 }
@@ -1165,16 +1165,16 @@ a.nav-kicker:active { opacity: 0.5; }
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--text-primary);
+  color: var(--accent);
   background: transparent;
-  border: 1.5px solid var(--border-medium);
+  border: 1.5px solid var(--accent);
   border-radius: 8px;
-  transition: border-color 0.18s ease, color 0.18s ease;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 .fara-link svg { transition: transform 0.18s ease; }
 .fara-link:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
   text-decoration: none;
 }
 .fara-link:hover svg { transform: translate(2px, -2px); }
