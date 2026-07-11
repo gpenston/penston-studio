@@ -1536,10 +1536,8 @@ footer {
 
 /* ----- Privacy (Markedly inline) ----------------------------------- */
 .privacy-content {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
-  border-radius: 4px;
-  padding: 32px;
+  /* Text sits directly on the drafting surface — no inset box. */
+  padding: 0;
 }
 .privacy-content h2 {
   font-family: var(--font-display);
@@ -1555,9 +1553,10 @@ footer {
 }
 .privacy-content h3 {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
-  margin: 24px 0 8px;
+  letter-spacing: -0.01em;
+  margin: 26px 0 8px;
   color: var(--text-primary);
 }
 .privacy-content p {
@@ -1593,27 +1592,24 @@ footer {
 .support-links {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border-medium);
-  border-radius: 4px;
-  overflow: hidden;
-  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
 }
 .support-link-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 22px;
-  background: var(--bg-primary);
+  padding: 20px 4px;
+  background: transparent;
   color: var(--text-primary);
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition: color 0.15s;
   border-bottom: 1px solid var(--border-light);
 }
-.support-link-item:last-child { border-bottom: 0; }
 .support-link-item:hover {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
+  background: transparent;
+  color: var(--accent);
 }
+.support-link-item:hover .support-link-label { color: var(--accent); }
 .support-link-label {
   font-family: var(--font-display);
   font-weight: 600;
