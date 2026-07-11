@@ -1808,9 +1808,11 @@ footer {
   /* Sticky chrome tightens on mobile */
   .unified-bar { padding: 10px 0; gap: 8px; }
 
-  /* Product switcher: restore gap for labels, keep padding tight */
+  /* Product switcher: restore gap for labels, keep padding tighter than
+     desktop but comfortable — 4px 6px read cramped, especially on the
+     filled active pill */
   .product-switcher-item > a,
-  .product-switcher-item > span { gap: 6px; padding: 4px 6px; }
+  .product-switcher-item > span { gap: 6px; padding: 6px 10px; }
 
   /* Back-link: glyph only on mobile — text too wide at narrow widths */
   .unified-bar .back-link-text { display: none; }
