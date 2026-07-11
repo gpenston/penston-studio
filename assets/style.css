@@ -880,7 +880,7 @@ a.nav-kicker:active { opacity: 0.5; }
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.02em;
-  padding: 12px 22px;
+  padding: 10px 16px;
   border-radius: var(--r-md);
   border: 0;
   cursor: pointer;
@@ -896,7 +896,16 @@ a.nav-kicker:active { opacity: 0.5; }
   transform: translateY(1px);
   transition-duration: 80ms;
 }
-.btn-primary .mono-arrow { font-family: var(--mono); font-weight: 500; }
+.btn-primary .btn-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+.btn-primary .mono-arrow {
+  font-size: 15px;
+  line-height: 1;
+  transition: transform 0.15s;
+}
+.btn-primary:hover .mono-arrow { transform: translateX(2px); }
 
 .btn-secondary {
   display: inline-flex;
