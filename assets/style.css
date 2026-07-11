@@ -289,7 +289,7 @@ main { position: relative; overflow-x: clip; }
   width: 32px;
   height: 32px;
   border: 0;
-  border-radius: var(--r-sm);
+  border-radius: 999px;
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
@@ -297,7 +297,7 @@ main { position: relative; overflow-x: clip; }
   flex-shrink: 0;
   transition: color 200ms ease, background 200ms ease;
 }
-.mode-toggle:hover { color: var(--accent); }
+.mode-toggle:hover { color: var(--accent); background: var(--bg-secondary); }
 .icon-sun,
 .icon-moon {
   position: absolute;
