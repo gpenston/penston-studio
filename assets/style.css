@@ -587,6 +587,8 @@ a.nav-kicker:active { opacity: 0.5; }
   border-radius: 6px;
 }
 .project-arrow {
+  font-size: 16px;
+  line-height: 1;
   color: var(--text-tertiary);
   transition: transform 0.2s, color 0.2s;
 }
@@ -1597,6 +1599,8 @@ footer {
 }
 .support-link-arrow {
   flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1;
   color: var(--text-tertiary);
   transition: transform 0.2s, color 0.2s;
 }
