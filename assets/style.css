@@ -1625,6 +1625,15 @@ footer {
 }
 .privacy-content a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .privacy-content strong { color: var(--text-primary); font-weight: 600; }
+.privacy-content code {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-medium);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
 
 /* ----- Support list — lighter version of the homepage catalogue tile - */
 .support-links {

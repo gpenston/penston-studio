@@ -21,7 +21,7 @@
   <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#efece4':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="canonical" href="https://penston.studio/markedly/">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css?v=69">
+  <link rel="stylesheet" href="../assets/style.css?v=70">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
   <script defer src="../assets/site.js?v=17"></script>
 </head>
@@ -323,6 +323,15 @@
 
           <h3>Can I convert something without opening the app?</h3>
           <p>Yes, a few ways. Copy a file or some rich text to your clipboard, and Markedly will offer to convert it when you switch to the app. There’s also a Finder Quick Action (right-click any file or folder and choose “Convert to Markdown”), plus Shortcuts app support for automations.</p>
+
+          <h3>Why does a converted file get blocked on my work Mac with a “can’t be verified” warning?</h3>
+          <p>That’s your Mac’s security policy, not a problem with the file — it’s plain text. When Markedly saves a file, macOS’s sandbox tags it as coming from Markedly, similar to the tag a browser adds to anything you download. On a personal Mac that shows a prompt with an “Open Anyway” button. On a managed work Mac, IT often tightens that policy so the first prompt only offers “Move to Trash.” A few ways around it:</p>
+          <ul>
+            <li>Open the file from <em>inside</em> your editor (File → Open) instead of double-clicking it in Finder. That usually skips the check entirely, with no extra steps — the smoothest option if you convert often.</li>
+            <li>Check System Settings → Privacy &amp; Security, under Security, for an “Open Anyway” button after a blocked attempt. It’s usually there even on work Macs, but it clears one file at a time, so you’ll click it again for each newly converted file.</li>
+            <li>Clear the tag yourself: open Terminal and run <code>xattr -d com.apple.quarantine "your-file.md"</code> (drag the file into the Terminal window to fill in the path). Terminal isn’t sandboxed, so it can do what the app can’t — handy as a saved alias if you do this a lot.</li>
+            <li>If it keeps getting in your way, ask your IT team to allow Markedly. That’s the one durable, machine-wide fix.</li>
+          </ul>
         </div>
       </section>
 
