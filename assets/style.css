@@ -461,7 +461,15 @@ a.nav-kicker:active { opacity: 0.5; }
   margin-bottom: 20px;
 }
 
-.portfolio-link {
+/* `a.portfolio-link` (not just `.portfolio-link`) is deliberate: this link
+   also carries `data-stagger` for its scroll-reveal entrance, and
+   `[data-stagger] { transition: opacity ..., transform ...; }` further down
+   the sheet has equal specificity to a bare class selector — being later in
+   source order, it was winning the cascade and silently replacing this
+   rule's `transition` shorthand, killing the hover underline/color
+   animation entirely (instant snap, no 220ms ease). The extra type selector
+   bumps specificity so this rule always wins regardless of sheet order. */
+a.portfolio-link {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -479,8 +487,8 @@ a.nav-kicker:active { opacity: 0.5; }
   margin-bottom: 40px;
   transition: color var(--t-fast), background-size 220ms ease, opacity 100ms;
 }
-.portfolio-link:hover { color: var(--accent); background-size: 100% 1px; }
-.portfolio-link:active { opacity: 0.5; }
+a.portfolio-link:hover { color: var(--accent); background-size: 100% 1px; }
+a.portfolio-link:active { opacity: 0.5; }
 
 /* ----- Atmosphere (hero ring + rays) -------------------------------- */
 .atm-rays {
