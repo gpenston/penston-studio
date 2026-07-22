@@ -36,7 +36,7 @@ Defined in `assets/style.css`. Default mode is **dark**. See `docs/design-system
 - **Accent**: `#eb5a00` (orange, dark) / `#d94f00` (slightly deeper, light)
 - **Pour Over accent override**: `#f0a830` (warm amber)
 - **Backgrounds (dark)**: `#0c0b08` primary · `#17150f` secondary · `#1f1c14` tertiary
-- **Backgrounds (light)**: `#efece4` primary · `#e5e1d4` secondary · `#d9d3c2` tertiary
+- **Backgrounds (light)**: `#f2f1ec` primary · `#e8e6df` secondary · `#dbd9d0` tertiary — "greige paper", updated 2026-07-21 (was bone paper `#efece4`/`#e5e1d4`/`#d9d3c2`; ported from gpenston-portfolio's rework, closing what had been a sibling divergence — both sites now share this light palette). See `DESIGN.md` + `docs/design-system.md` §2.
 - **Fonts**: Hanken Grotesk (headings + body) · Martian Mono (labels, system chrome) · D-DIN Condensed (numeric accents only — self-hosted in `assets/fonts/`). Chosen 2026-07-10; see `DESIGN.md` and `docs/superpowers/specs/2026-07-10-type-system-refresh-design.md`.
 - Icons use [Remixicon](https://remixicon.com/) via CDN (product pages only)
 
@@ -65,4 +65,6 @@ Hosted at `penston.studio` via **Vercel** (migrated from GitHub Pages, June 2026
 
 **gpenston-portfolio** (gpenston.com, `~/Projects/gpenston-portfolio`, github.com/gpenston/gpenston-portfolio) is the sibling portfolio site — **Next.js 16 + React 19 + Tailwind v4 + Framer Motion** (not Framer/HTML). This repo is the design source of truth: `DESIGN.md` + `docs/design-system.md` are the canonical spec, and the portfolio implements the same "bureau" language in its `app/globals.css` `@theme`.
 
-Shared DNA (keep in sync both ways): the warm bone/near-black palette, orange (+ cool-teal) accents, 880px container, mono section labels, dot-grid + grain, and the Chapter 03 type system (Hanken Grotesk + Martian Mono + D-DIN Condensed — synced 2026-07-11). Sibling-distinct by design: content structure and per-site ornament. **When you change tokens, the type system, or a shared component here, mirror it in the portfolio and update both CLAUDE.md files the same session** — they've drifted before.
+Shared DNA (keep in sync both ways): the warm greige/near-black palette (both sites now share the same light-mode greige as of 2026-07-21 — see Style & Design Tokens above), orange (+ cool-teal) accents, 880px container, mono section labels, dot-grid + grain, and the Chapter 03 type system (Hanken Grotesk + Martian Mono + D-DIN Condensed — synced 2026-07-11). Sibling-distinct by design: content structure and per-site ornament (this site's worn graph-paper texture vs. the portfolio's dot-grid/registration-ticks). **When you change tokens, the type system, or a shared component here, mirror it in the portfolio and update both CLAUDE.md files the same session** — they've drifted before.
+
+**Cross-site theme handshake (2026-07-21):** outbound links between the two sites carry the active mode as a `?theme=dark|light` query param (set on click in `assets/site.js`'s `wire()`), and each site's FOUC-prevention `<head>` script reads/strips it on load before applying its own stored/OS-fallback logic. No shared cookie or backend — just the param on links that already existed. Full mechanism documented in `docs/design-system.md` §13; the portfolio's mirror-image implementation lives in `lib/cross-site-theme.ts` + `app/layout.tsx`.

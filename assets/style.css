@@ -145,23 +145,29 @@ html.vt-mode.vt-to-light::view-transition-new(root) {
   transition: background-color var(--t-med), color var(--t-med), border-color var(--t-med);
 }
 
-/* ----- Tokens: LIGHT (bone paper) ------------------------------------ */
+/* ----- Tokens: LIGHT (greige paper) ----------------------------------
+   Desaturated warm greige, ported from gpenston-portfolio's 2026-07-21
+   light-mode rework — reads as "paper" rather than "beige". Was bone
+   paper (#efece4/#e5e1d4/#d9d3c2); border tones pulled toward neutral in
+   step so they don't read warmer than the new bg. See DESIGN.md. */
 :root[data-mode="light"] {
-  --bg-primary:    #efece4;
-  --bg-secondary:  #e5e1d4;
-  --bg-tertiary:   #d9d3c2;
+  --bg-primary:    #f2f1ec;
+  --bg-secondary:  #e8e6df;
+  --bg-tertiary:   #dbd9d0;
   --bg-deep:       #1d1a14;
   --text-primary:  #1a1810;
   --text-secondary:#5a5547;
-  --text-tertiary: #7d765f;   /* darkened for AA on bone paper */
-  --border-light:  #dcd5c2;
-  --border-medium: #c8c0ac;
+  --text-tertiary: #6d6752;   /* was #7d765f (3.84:1 on old bone paper, still only
+     4.01:1 on the new greige — both below the 4.5:1 floor for small mono chrome).
+     Darkened further to clear 5.00:1. */
+  --border-light:  #dad7ca;
+  --border-medium: #c4c1b5;
   --border-rule:   #1a1810;
   --accent:        #d94f00;
   --accent-hover:  #a53600;
   --accent-cool:   #3d6b68;
   --accent-cool-hover: #2a6070;
-  --on-accent:     #efece4;
+  --on-accent:     #f2f1ec;
   --grid-line:     rgba(26, 24, 16, 0.06);
   --graph-line:    rgba(26, 24, 16, 0.055);
   --highlight:     rgba(0, 175, 190, 0.30);
@@ -688,7 +694,7 @@ a.nav-kicker:active { opacity: 0.5; }
   transition: none;           /* must snap — no delay for Safari to see stale color */
 }
 [data-mode="light"] #safari-toolbar-tint {
-  background-color: #efece4;
+  background-color: #f2f1ec;
 }
 
 /* Absolute fill ensures the painted background covers the full box including

@@ -3,7 +3,7 @@ version: alpha
 name: Penston Studio — Bureau
 description: >-
   Personal studio and side-project site for George Penston. An instrument, not
-  an album cover: warm near-black (or bone-paper) canvas, one signal-orange
+  an album cover: warm near-black (or greige-paper) canvas, one signal-orange
   accent, humanist-grotesk type, monospaced technical chrome, and condensed
   industrial numerals. Dieter Rams / Braun / Eames Office lineage.
 colors:
@@ -138,13 +138,20 @@ clinical gray, real icons and a hand-drawn highlight survive alongside the
 technical chrome, and the background carries a worn drafting-table texture.
 
 The site is **dual-mode**. Dark is the default (warm near-black); light is a
-distinct **bone-paper** aesthetic, not a mechanical inversion. Mode is a manual
+distinct **greige-paper** aesthetic, not a mechanical inversion. Mode is a manual
 toggle (sun/moon), persisted locally, applied before paint to avoid a flash.
+
+The site is also **theme-aware of its sister site**, gpenston.com. Outbound
+links to the portfolio append `?theme=dark|light` for whichever mode is
+active; the receiving site reads it on load, adopts it, and strips the param.
+The reverse holds too — arriving here via a themed link from the portfolio
+sets `ps_mode` before paint. See §5 Components → "Mode toggle" below and
+`docs/design-system.md` §13.
 
 ## Colors
 
 The palette is high-contrast warm neutrals with a single evocative accent. Values
-below are the **dark (default) theme**; the light "bone paper" theme remaps the
+below are the **dark (default) theme**; the light "greige paper" theme remaps the
 same roles (see end of section).
 
 - **Primary — Signal Orange (#eb5a00):** The sole accent. Used only for the most
@@ -162,10 +169,19 @@ same roles (see end of section).
   footer marks. Tuned to clear WCAG AA (4.5:1) at small sizes.
 - **Borders (#1f1c14 subtle, #2a2620 medium):** Hairline separation only.
 
-**Light "bone paper" theme:** surface `#efece4` / `#e5e1d4` / `#d9d3c2`, on-surface
-`#1a1810`, muted `#5a5547`, faint `#7d765f`, primary `#d94f00`, accent-cool
-`#3d6b68`. **Per-page accent override:** the Pour Over page swaps Primary to a
-warm amber (`#f0a830` dark / `#c88a1e` light).
+**Light "greige paper" theme (updated 2026-07-21):** surface `#f2f1ec` /
+`#e8e6df` / `#dbd9d0`, on-surface `#1a1810`, muted `#5a5547`, faint `#6d6752`,
+primary `#d94f00`, accent-cool `#3d6b68`. Desaturated and lifted from the
+original bone paper (`#efece4` / `#e5e1d4` / `#d9d3c2`) to read as "paper"
+rather than "beige" — ported from gpenston-portfolio's light-mode rework, and
+now the shared value across both sites (no longer a sibling divergence). Faint
+was darkened from `#7d765f` in the same pass — the old value cleared only
+3.84:1 on bone paper and 4.01:1 on the new greige, short of the 4.5:1 floor
+for small mono chrome; `#6d6752` clears 5.00:1. Border tones (`--border-light`
+`#dad7ca`, `--border-medium` `#c4c1b5`) were pulled toward neutral in step so
+they don't read warmer than the desaturated bg. **Per-page accent override:**
+the Pour Over page swaps Primary to a warm amber (`#f0a830` dark / `#c88a1e`
+light).
 
 ## Typography
 
@@ -259,6 +275,9 @@ technical-drawing detail that reinforces the instrument theme.
   ("nightfall") when switching to dark, light rising from the bottom
   ("sunup") when switching to light. Deliberately a single plain gradient,
   not a hard edge or a decorated one — see Motion below.
+  **Cross-site handshake:** outbound links to gpenston.com pick up the
+  active mode via a `?theme=` query param on click; the reverse also holds
+  for links arriving from the portfolio. See `docs/design-system.md` §13.
 - **Highlight.** A hand-drawn marker highlight (Accent Cool) reserved for the
   pullquote block only — the single expressive flourish per page.
 

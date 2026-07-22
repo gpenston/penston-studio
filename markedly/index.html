@@ -2,7 +2,7 @@
 <html lang="en" data-mode="dark" data-page="markedly">
 <head>
   <meta charset="UTF-8">
-  <script>!function(){var s=localStorage.getItem('ps_mode');if(s===null)s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-mode',s)}();</script>
+  <script>!function(){try{var p=new URLSearchParams(location.search),i=p.get('theme');if(i==='light'||i==='dark'){localStorage.setItem('ps_mode',i);p.delete('theme');var q=p.toString();history.replaceState(null,'',location.pathname+(q?'?'+q:'')+location.hash)}}catch(e){}var s=localStorage.getItem('ps_mode');if(s===null)s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-mode',s)}();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Markedly — Convert files to Markdown</title>
   <meta name="description" content="A free macOS app that converts documents, PDFs, spreadsheets, and images to Markdown. Everything stays on your Mac.">
@@ -17,13 +17,13 @@
   <meta name="twitter:description" content="A free macOS app that converts documents, PDFs, spreadsheets, and images to Markdown. Everything stays on your Mac.">
   <meta name="twitter:image" content="https://penston.studio/assets/markedly-icon.png">
   <meta name="theme-color" content="#0c0b08" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#efece4" media="(prefers-color-scheme: light)">
-  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#efece4':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
+  <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
+  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="canonical" href="https://penston.studio/markedly/">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css?v=70">
+  <link rel="stylesheet" href="../assets/style.css?v=71">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
-  <script defer src="../assets/site.js?v=17"></script>
+  <script defer src="../assets/site.js?v=18"></script>
 </head>
 <body>
   <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>

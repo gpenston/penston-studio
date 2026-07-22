@@ -36,7 +36,7 @@
   // Safari 26 toolbar tint is handled entirely in CSS via color-scheme
   // on [data-mode] selectors — no JS intervention needed.
   function syncThemeColor() {
-    var color = document.documentElement.dataset.mode === 'dark' ? '#0c0b08' : '#efece4';
+    var color = document.documentElement.dataset.mode === 'dark' ? '#0c0b08' : '#f2f1ec';
     document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
       m.setAttribute('content', color);
     });
@@ -117,6 +117,18 @@
     setTimeout(function () {
       reveals.forEach(function (el) { el.classList.add('is-revealed'); });
     }, 2500);
+
+    // Cross-site theme handshake: outbound links to the sister portfolio
+    // (gpenston.com) carry the current mode as a ?theme= param so the
+    // receiving site can pick it up on load instead of defaulting cold.
+    // See gpenston-portfolio's lib/cross-site-theme.ts for the matching side.
+    document.querySelectorAll('a[href^="https://gpenston.com"]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var url = new URL(a.href);
+        url.searchParams.set('theme', root.dataset.mode);
+        a.href = url.toString();
+      });
+    });
 
     // Smooth animated scroll for anchor links (e.g. Support, Privacy, # top).
     // easeOutExpo: fast start, physical settle — matches the site's motion language.

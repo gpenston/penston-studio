@@ -37,20 +37,35 @@
 ### Light mode
 
 ```css
---bg-primary:     #efece4;   /* bone paper */
---bg-secondary:   #e5e1d4;
---bg-tertiary:    #d9d3c2;
+--bg-primary:     #f2f1ec;   /* greige paper — was #efece4 bone paper, see below */
+--bg-secondary:   #e8e6df;   /* was #e5e1d4 */
+--bg-tertiary:    #dbd9d0;   /* was #d9d3c2 */
 --text-primary:   #1a1810;   /* warm near-black */
 --text-secondary: #5a5547;
---text-tertiary:  #8a8371;
---border-light:   #dcd5c2;
---border-medium:  #c8c0ac;
+--text-tertiary:  #6d6752;   /* was #7d765f — only 3.84:1 on old bone paper /
+                                 4.01:1 on greige, below the 4.5:1 floor for
+                                 small mono chrome. Darkened to clear 5.00:1. */
+--border-light:   #dad7ca;   /* was #dcd5c2 — pulled toward neutral in step
+                                 with the bg desaturation */
+--border-medium:  #c4c1b5;   /* was #c8c0ac */
 --border-rule:    #1a1810;
 --accent:         #d94f00;   /* slightly deeper for contrast on paper */
 --accent-hover:   #a53600;
 --accent-cool:    #3d6b68;
 --highlight:      rgba(0,175,190,0.30);  /* pullquote .hl — muted teal wash */
 ```
+
+**2026-07-21 — greige repaint.** The light bg tokens were desaturated and
+lifted a touch (ported from gpenston-portfolio's light-mode rework) to read
+as "paper" rather than "beige." This closes what had been a deliberate
+sibling divergence — until this pass, the portfolio used this desaturated
+greige while this site kept the warmer original bone paper. They're back in
+sync now. `--text-tertiary` was darkened in the same pass to actually clear
+WCAG AA (it had quietly been failing on bone paper too — not a regression
+introduced by the repaint, just caught while in the area). Dark mode is
+untouched. `--border-light`/`--border-medium` and `--on-accent` moved with
+the bg; all other light tokens (text-primary/secondary, accent family,
+highlight) are unchanged.
 
 ### Per-page accent overrides
 
@@ -289,7 +304,7 @@ Mono, uppercase, tracked. The `data-num` renders as `02 —` in `--text-tertiary
 
 ### Big H2 (section headline)
 
-Space Grotesk, weight 500, `clamp(36px, 6vw, 58px)`. Usually has one `<em>` word in `--accent-cool`.
+Hanken Grotesk, weight 700, `clamp(36px, 6vw, 58px)` (see §3 Scale — `big-h2`). Usually has one `<em>` word in `--accent-cool`.
 
 ### Spec row (product features)
 
@@ -331,7 +346,7 @@ A single sentence naming tools, rendered as body copy. Not a grid or icon row.
 </section>
 ```
 
-`.works-with-prose`: 17px Inter, `--text-secondary`, max-width 580px, line-height 1.7. `strong` in `--text-primary`.
+`.works-with-prose`: 17px Hanken Grotesk, `--text-secondary`, max-width 580px, line-height 1.7. `strong` in `--text-primary`.
 
 ### FARA card
 
@@ -425,10 +440,13 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 ```css
 :root {
-  /* Type */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body:    'Inter', system-ui, sans-serif;
-  --mono:         'JetBrains Mono', ui-monospace, monospace;
+  /* Type — Chapter 03 system, resolved 2026-07-10 (see §3). This block had
+     drifted to the pre-refresh Space Grotesk/Inter/JetBrains Mono names —
+     corrected 2026-07-21 to match assets/style.css and §3 above. */
+  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body:    'Hanken Grotesk', system-ui, sans-serif;
+  --mono:         'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-flavor:  'D-DIN Condensed', 'Martian Mono', sans-serif;
 
   /* Space */
   --container-max: 880px;
@@ -456,7 +474,7 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 - Don't add a gradient hero background — or any decorative gradient. The site is flat (June 2026 cleanup).
 - Don't bring back the orange hero disc, the hero horizon line/glow, the coffee-ring stain, or the skeuomorphic sliding mode switch. They were removed deliberately.
 - Don't put shadows on the catalogue cards — the hover state is flat (border + background + accent), never a drop-shadow.
-- Don't use Inter Tight, Satoshi, General Sans, or any "designer" substitute for Space Grotesk — they're all trying too hard.
+- Don't use Inter Tight, Satoshi, General Sans, or any "designer" substitute for Hanken Grotesk — they're all trying too hard.
 - Don't make the accent orange darker "to be tasteful." The orange is the signal.
 - Don't add a "Get in touch" CTA section. There's LinkedIn in the footer, that's enough.
 - Don't put a newsletter signup anywhere.
@@ -488,3 +506,37 @@ When adding a new product page or section:
 9. Footer.
 
 Not every section is required, but they should appear **in this order** when present. The narrative is: *what is it → show me → the idea → what does it do → how does it fit my world → who's behind it → where do I go next.*
+
+---
+
+## 13. Cross-site theme handshake (added 2026-07-21)
+
+gpenston.com (the sister portfolio, Next.js) and penston.studio each persist
+their mode choice independently — `localStorage['theme']` on the portfolio,
+`localStorage['ps_mode']` here — and `localStorage` doesn't cross origins.
+Without help, a visitor who sets dark mode on one site lands cold (OS-default)
+on the other. The fix is a lightweight query-param handshake, no shared
+infrastructure required:
+
+- **Outbound.** Every link to `https://gpenston.com` (footer, nav, product
+  pages) gets a click handler in `assets/site.js` (`wire()`) that appends
+  `?theme=<mode>` to the href just before the browser navigates, reading the
+  live `document.documentElement.dataset.mode`.
+- **Inbound.** Each page's blocking `<head>` script (the one that already
+  prevents FOUC) checks `location.search` for a `theme` param *before*
+  deciding the mode. If present and valid, it writes to `localStorage['ps_mode']`,
+  strips the param via `history.replaceState` (so a reload or bookmark
+  doesn't re-force it), and only then falls through to the normal
+  stored-preference / OS-preference logic.
+- The portfolio implements the mirror image: `lib/cross-site-theme.ts`
+  (`appendThemeParam`) wired onto its two outbound links (Footer, About), and
+  the same read-strip-apply sequence prepended to its FOUC-prevention script
+  in `app/layout.tsx`.
+- **Why a query param and not a shared cookie:** no common parent domain
+  exists between `gpenston.com` and `penston.studio`, so a cross-site cookie
+  isn't an option without extra infrastructure. The query-param handshake
+  needs nothing beyond the links that already exist between the two sites.
+- Applies only to the sites' own cross-links — following an external
+  search-engine or social link with a stray `theme=` param would be
+  harmless (falls through to normal logic if the value isn't exactly
+  `"dark"` or `"light"`).
