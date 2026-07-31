@@ -256,36 +256,6 @@ a:hover { color: var(--accent); }
 }
 main { position: relative; overflow-x: clip; }
 
-/* ----- Nav ----------------------------------------------------------- */
-.nav { padding: 20px 0 0; }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-
-.nav-wordmark {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.02em;
-  color: var(--text-primary);
-}
-.nav-wordmark span { color: var(--accent); }
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-  align-items: center;
-}
-.nav-links li { display: flex; align-items: center; }
-.nav-links a {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-.nav-links a:hover { color: var(--accent); }
-
 /* Mode toggle — flat sun/moon icon button */
 .mode-toggle {
   position: relative;
@@ -915,8 +885,7 @@ a.portfolio-link:active { opacity: 0.5; }
 /* Inline prose link states — hover + click across all body contexts */
 .hero-sub a:hover,
 .feature p a:hover,
-.why a:hover,
-.fara-body a:hover,
+.callout-body a:hover,
 .privacy-content a:hover {
   color: var(--accent-hover);
   text-underline-offset: 5px;
@@ -924,8 +893,7 @@ a.portfolio-link:active { opacity: 0.5; }
 }
 .hero-sub a:active,
 .feature p a:active,
-.why a:active,
-.fara-body a:active,
+.callout-body a:active,
 .privacy-content a:active {
   opacity: 0.65;
 }
@@ -1082,27 +1050,6 @@ a.portfolio-link:active { opacity: 0.5; }
   .pullquote .hl { background-size: 100% 72%; transition: none; }
 }
 
-/* ----- Why / prose blocks ------------------------------------------ */
-.why {
-  padding: 16px 0 32px;
-  max-width: 640px;
-}
-.why p {
-  font-size: 17px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 14px;
-}
-.why p:last-child { margin-bottom: 0; }
-.why strong { color: var(--text-primary); font-weight: 600; }
-.why a {
-  color: var(--text-secondary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--border-medium);
-}
-.why a:hover { color: var(--accent); text-decoration-color: var(--accent); }
-
 /* ----- Format grid (Markedly supported formats) --------------------- */
 .format-grid {
   padding: 8px 0 24px;
@@ -1215,19 +1162,19 @@ a.portfolio-link:active { opacity: 0.5; }
 }
 
 
-/* ----- FARA card --------------------------------------------------- */
+/* ----- Callout (line-indent) ---------------------------------------- */
 /* Line-indent callout (no block fill) — matches the pullquote treatment */
-.fara-card {
+.callout-card {
   position: relative;
   padding: 2px 0 2px 24px;
 }
-.fara-card::before {
+.callout-card::before {
   content: "";
   position: absolute;
   left: 0; top: 0; bottom: 0; width: 3px;
   background: var(--accent);
 }
-.fara-label {
+.callout-label {
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
@@ -1236,7 +1183,7 @@ a.portfolio-link:active { opacity: 0.5; }
   color: var(--accent);
   margin-bottom: 14px;
 }
-.fara-heading {
+.callout-heading {
   font-family: var(--font-display);
   font-size: 24px;
   font-weight: 600;
@@ -1245,23 +1192,23 @@ a.portfolio-link:active { opacity: 0.5; }
   margin-bottom: 12px;
   color: var(--text-primary);
 }
-.fara-body {
+.callout-body {
   font-size: 15px;
   line-height: 1.6;
   color: var(--text-secondary);
   margin-bottom: 20px;
   max-width: 560px;
 }
-.fara-body a {
+.callout-body a {
   color: var(--text-primary);
   text-decoration: underline;
   text-decoration-color: currentColor;
   text-underline-offset: 3px;
   text-decoration-thickness: 1.5px;
 }
-.fara-body a:hover { color: var(--accent); }
+.callout-body a:hover { color: var(--accent); }
 
-.fara-link {
+.callout-link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -1277,14 +1224,14 @@ a.portfolio-link:active { opacity: 0.5; }
   border-radius: 8px;
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
-.fara-link svg { transition: transform 0.18s ease; }
-.fara-link:hover {
+.callout-link svg { transition: transform 0.18s ease; }
+.callout-link:hover {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--on-accent);
   text-decoration: none;
 }
-.fara-link:hover svg { transform: translate(2px, -2px); }
+.callout-link:hover svg { transform: translate(2px, -2px); }
 
 /* ----- Plates (product shot gallery) ------------------------------- */
 .product-showcase {
@@ -1449,45 +1396,6 @@ a.portfolio-link:active { opacity: 0.5; }
   z-index: 3;
 }
 
-/* mac Mail window frame */
-.device-mac-window {
-  width: 100%;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-medium);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 10px 24px -12px rgba(0,0,0,0.35);
-}
-.window-chrome {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 10px;
-  background: color-mix(in srgb, var(--text-tertiary) 8%, var(--bg-secondary));
-  border-bottom: 1px solid var(--border-light);
-}
-.window-chrome span {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-}
-.window-chrome span:nth-child(1) { background: #ff5f57; }
-.window-chrome span:nth-child(2) { background: #febc2e; }
-.window-chrome span:nth-child(3) { background: #28c840; }
-.window-screen {
-  aspect-ratio: 4/3;
-  background: var(--bg-primary);
-  position: relative;
-  overflow: hidden;
-}
-.window-screen img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-
 /* iPad frame */
 .device-ipad {
   position: relative;
@@ -1515,22 +1423,6 @@ a.portfolio-link:active { opacity: 0.5; }
 .plates .plate:nth-child(2) { flex: 1 1 340px; max-width: 420px; }
 .plates .plate:nth-child(3) { width: 240px; }
 .plates .device-iphone { width: 180px; }
-
-/* ----- Placeholder mock (for Pour Over devices) -------------------- */
-.mock-pour {
-  width: 100%; height: 100%;
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 16px;
-}
 
 /* ----- Footer ------------------------------------------------------- */
 footer {
@@ -1831,8 +1723,6 @@ footer {
   .plates .plate:nth-child(1),
   .plates .plate:nth-child(2),
   .plates .plate:nth-child(3) { width: 100%; max-width: 100%; }
-  .nav-inner { flex-wrap: wrap; }
-  .nav-links { gap: 14px; }
 
   /* Sticky chrome tightens on mobile */
   .unified-bar { padding: 10px 0; gap: 8px; }
