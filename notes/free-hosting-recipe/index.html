@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark" data-page="notes-free-hosting-recipe">
+<head>
+  <meta charset="UTF-8">
+  <script>!function(){try{var p=new URLSearchParams(location.search),i=p.get('theme');if(i==='light'||i==='dark'){localStorage.setItem('ps_mode',i);p.delete('theme');var q=p.toString();history.replaceState(null,'',location.pathname+(q?'?'+q:'')+location.hash)}}catch(e){}var s=localStorage.getItem('ps_mode');if(s===null)s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-mode',s)}();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>My Free Site Hosting Setup — Notes</title>
+  <meta name="description" content="How I actually host things now: an AI tool, GitHub, and Vercel. No server, no bill.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="My Free Site Hosting Setup">
+  <meta property="og:description" content="How I actually host things now: an AI tool, GitHub, and Vercel. No server, no bill.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://penston.studio/notes/free-hosting-recipe/">
+  <meta property="og:image" content="https://penston.studio/assets/favicon-200.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0c0b08" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
+  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/style.css?v=73">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
+  <script defer src="../../assets/site.js?v=18"></script>
+  <style>
+    /* Scoped to this note — a divided cost list in the same hairline language as .features */
+    .cost-list {
+      border: 1px solid var(--border-light);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .cost-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 22px;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .cost-row:last-child { border-bottom: none; }
+    .cost-item {
+      font-family: var(--font-display);
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+    .cost-amount {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .cost-amount.is-muted { color: var(--text-tertiary); }
+    .feature h3 .tag-optional {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>
+  <div class="container">
+
+    <div class="sticky-chrome">
+      <div class="unified-bar">
+        <a href="../../" class="back-link nav-mark">
+          <i class="ri-arrow-left-s-line nav-glyph" aria-hidden="true"></i>
+          <span class="back-link-text nav-text">Penston Studio</span>
+        </a>
+        <ul class="page-util-links">
+          <li><a href="#recipe">Recipe</a></li>
+          <li><a href="#cost">Cost</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <div class="unified-actions">
+          <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
+            <i class="ri-sun-line icon-sun" aria-hidden="true"></i>
+            <i class="ri-moon-line icon-moon" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main>
+
+      <!-- Hero -->
+      <section style="position: relative; overflow: hidden;">
+        <div class="hero-header" data-stagger="0">
+          <span class="instr-kicker">Notes · Unlisted</span>
+        </div>
+
+        <h1 class="hero-headline" data-stagger="1">Build it, back it up, and serve it,<br>all for <em>free</em>.</h1>
+        <p class="hero-sub" data-stagger="2">
+          Here’s the recipe: an AI tool writes the code, GitHub keeps every version safe, and Vercel
+          puts it on the internet under your own domain. There’s no server to maintain and nothing
+          to pay for. The AI tool and GitHub aren’t really required, but I recommend it. If you’re
+          using an AI tool, it can handle GitHub and the deploys for you.
+        </p>
+      </section>
+
+      <!-- The recipe -->
+      <section style="padding: 40px 0 16px;" id="recipe">
+        <div class="section-label" data-num="01" data-reveal>The recipe</div>
+
+        <div class="features" data-reveal>
+          <div class="feature">
+            <i class="ri-chat-3-line feature-icon"></i>
+            <h3>Build <span class="tag-optional">(optional)</span></h3>
+            <p>Describe what you want in plain English. “Make the headline bigger.” “Add a contact page.” An AI tool (I use Claude, though ChatGPT and others work fine too) writes the actual code for you. You could still hand-write the HTML, but this step alone saves more time than the other two combined.</p>
+          </div>
+          <div class="feature">
+            <i class="ri-git-branch-line feature-icon"></i>
+            <h3>Save <span class="tag-optional">(optional)</span></h3>
+            <p>Every change gets saved as a snapshot in GitHub. Unlimited undo for the whole site, plus a free backup that isn’t sitting on one laptop. Break something? Roll back to yesterday’s version in a click. Skip it and everything you’ve built lives in exactly one place, which is fine until the day it isn’t.</p>
+          </div>
+          <div class="feature">
+            <i class="ri-rocket-2-line feature-icon"></i>
+            <h3>Ship</h3>
+            <p>Vercel watches that GitHub folder and publishes automatically. Save a change, and the live site updates within seconds. Point your own domain at it and you’re done — plus real analytics for free, no extra install, no extra cookie banner.</p>
+          </div>
+          <div class="feature">
+            <i class="ri-price-tag-3-line feature-icon"></i>
+            <h3>What it costs</h3>
+            <p>Basically nothing. The AI tool, GitHub, and Vercel all have free tiers generous enough for a personal site. The one real cost is the domain name itself, and you’d pay that no matter who’s hosting.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pullquote — the part worth underlining -->
+      <section style="padding: 48px 0 16px;" data-reveal>
+        <div class="fara-card">
+          <div class="fara-label">Worth noting</div>
+          <h2 class="fara-heading">It comes off professional with no badging or watermarks.</h2>
+          <p class="fara-body">
+            Both Vercel and GitHub Pages let you hook up a custom domain for free, with zero of
+            their branding attached. No “Powered by” subdomain, no badge in the footer. Once
+            your domain’s connected, there’s nothing on the page telling anyone who’s hosting
+            it. It’s just your site.
+          </p>
+        </div>
+      </section>
+
+      <!-- Cost breakdown -->
+      <section style="padding: 40px 0 16px;" id="cost">
+        <div class="section-label" data-num="02" data-reveal>What it actually costs</div>
+        <div class="cost-list" data-reveal>
+          <div class="cost-row">
+            <span class="cost-item">AI tool to build/edit the site</span>
+            <span class="cost-amount">Free tier usually enough</span>
+          </div>
+          <div class="cost-row">
+            <span class="cost-item">GitHub — storage + version history</span>
+            <span class="cost-amount">Free</span>
+          </div>
+          <div class="cost-row">
+            <span class="cost-item">Vercel hosting (or GitHub Pages)</span>
+            <span class="cost-amount">Free</span>
+          </div>
+          <div class="cost-row">
+            <span class="cost-item">Your domain name</span>
+            <span class="cost-amount is-muted">~$12/year — the only real cost</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section style="padding: 40px 0 16px;" id="faq">
+        <div class="section-label" data-num="03" data-reveal>Common questions</div>
+        <div class="privacy-content" data-reveal>
+          <h3>So when would I actually have to pay?</h3>
+          <p>Vercel’s free “Hobby” tier is built for personal, non-commercial sites, which covers a portfolio, a blog, most side projects. It’s the same infrastructure real companies run production sites on, so it’s fast and ad-free with no catch, just plenty of bandwidth and build minutes for that use case. You’d outgrow it if the site starts making you money directly (Vercel asks commercial projects to move to a paid plan), or if traffic gets big enough to blow past the usage caps, which is a good problem to have and not something a personal site runs into by accident. GitHub Pages works the same way: free for reasonable personal use, with soft limits behind it.</p>
+
+          <h3>How long can I count on this being free?</h3>
+          <p>Vercel and GitHub can change their pricing or terms whenever they want, nobody can promise they won’t. The reassuring part is that none of this locks you in. The site itself is just HTML, CSS, and JS sitting in a folder. If either of them ever stopped making sense, you’d point that same folder at Netlify, Cloudflare Pages, or anywhere else that hosts static files, and be back up in an afternoon.</p>
+
+          <h3>What if I want to drop or change my AI tool later?</h3>
+          <p>Go for it. It just writes normal code files into GitHub. Any developer, or any other AI tool, can pick up right where you left off.</p>
+
+          <h3>Vercel or GitHub Pages, which one?</h3>
+          <p>Both are free, and both let you attach a custom domain with none of their branding. GitHub Pages deploys straight from the repo, no separate account to set up, which is about as simple as it gets. Vercel’s a bit more full featured: nicer previews, easier domain setup, analytics built in, and honestly just as easy once you’ve got an AI tool doing the setup with you.</p>
+
+          <h3>Do I need to know how to code?</h3>
+          <p>Nope, that’s the whole point of the first step. You do need someone comfortable following a short setup guide once, to wire the three pieces together.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-est">EST. 2025</span>
+          <span class="footer-copy">© 2026 George Penston</span>
+        </div>
+        <ul class="footer-links">
+          <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></a></li>
+          <li><a href="https://github.com/gpenston" target="_blank" rel="noopener">GitHub<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></a></li>
+          <li><a href="https://gpenston.com" target="_blank" rel="noopener">Portfolio<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+  <script>window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };</script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

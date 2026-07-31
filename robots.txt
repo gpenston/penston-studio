@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /notes/
 
 Sitemap: https://penston.studio/sitemap.xml
