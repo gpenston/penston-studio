@@ -99,6 +99,9 @@
       letter-spacing: 0.04em;
       color: var(--text-tertiary);
     }
+    /* .features is a 2x2 grid site-wide; this section only has 3 cards, so the
+       3rd spans full width instead of leaving an empty 4th cell. */
+    #accounts .features .feature:nth-child(3) { grid-column: 1 / -1; }
 
     /* Print: readable on paper regardless of the active theme */
     @media print {
