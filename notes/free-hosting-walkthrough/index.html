@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark" data-page="notes-free-hosting-walkthrough">
+<head>
+  <meta charset="UTF-8">
+  <script>!function(){try{var p=new URLSearchParams(location.search),i=p.get('theme');if(i==='light'||i==='dark'){localStorage.setItem('ps_mode',i);p.delete('theme');var q=p.toString();history.replaceState(null,'',location.pathname+(q?'?'+q:'')+location.hash)}}catch(e){}var s=localStorage.getItem('ps_mode');if(s===null)s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-mode',s)}();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>The Walkthrough — Notes</title>
+  <meta name="description" content="The step-by-step version of the free hosting recipe — connect your AI tool to GitHub and Vercel, and let it drive.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="The Walkthrough">
+  <meta property="og:description" content="The step-by-step version of the free hosting recipe — connect your AI tool to GitHub and Vercel, and let it drive.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://penston.studio/notes/free-hosting-walkthrough/">
+  <meta property="og:image" content="https://penston.studio/assets/favicon-200.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0c0b08" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
+  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/style.css?v=73">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
+  <script defer src="../../assets/site.js?v=18"></script>
+  <style>
+    /* Scoped to this note — copy-paste-able command/prompt blocks. No block-code
+       component exists in style.css (only inline .privacy-content code), so this
+       follows the free-hosting-recipe note's precedent of page-local CSS. */
+    .cmd-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin: 20px 0 6px;
+    }
+    .cmd-label:first-child { margin-top: 0; }
+    .cmd {
+      position: relative;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--r-sm);
+      padding: 14px 52px 14px 16px;
+      margin: 0 0 16px;
+      overflow-x: auto;
+      white-space: pre;
+      font-variant-numeric: tabular-nums;
+    }
+    .cmd--ask {
+      white-space: pre-wrap;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      overflow-x: visible;
+    }
+    .cmd-copy {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      background: transparent;
+      border: 1px solid var(--border-medium);
+      border-radius: var(--r-sm);
+      padding: 4px 8px;
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .cmd-copy:hover,
+    .cmd-copy:focus-visible {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .feature h3 .tag-optional {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+    }
+
+    /* Print: readable on paper regardless of the active theme */
+    @media print {
+      #safari-toolbar-tint,
+      .sticky-chrome,
+      footer,
+      .cmd-copy { display: none !important; }
+      body, .container, .cmd, .cmd--ask {
+        background: #fff !important;
+        color: #111 !important;
+      }
+      .cmd, .cmd--ask {
+        border: 1px solid #999 !important;
+        white-space: pre-wrap !important;
+        overflow-x: visible !important;
+      }
+      a { color: #111 !important; text-decoration: underline; }
+      .feature, .callout-card, .privacy-content, .studio-body { color: #111 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>
+  <div class="container">
+
+    <div class="sticky-chrome">
+      <div class="unified-bar">
+        <a href="../../" class="back-link nav-mark">
+          <i class="ri-arrow-left-s-line nav-glyph" aria-hidden="true"></i>
+          <span class="back-link-text nav-text">Penston Studio</span>
+        </a>
+        <ul class="page-util-links">
+          <li><a href="#accounts">Accounts</a></li>
+          <li><a href="#domain">Domain</a></li>
+          <li><a href="#gotchas">Gotchas</a></li>
+        </ul>
+        <div class="unified-actions">
+          <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
+            <i class="ri-sun-line icon-sun" aria-hidden="true"></i>
+            <i class="ri-moon-line icon-moon" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main>
+
+      <!-- Hero -->
+      <section style="position: relative; overflow: hidden;">
+        <div class="hero-header" data-stagger="0">
+          <span class="instr-kicker">Notes / Walkthrough</span>
+        </div>
+
+        <h1 class="hero-headline" data-stagger="1">From laptop to <em>live</em>, in an afternoon.</h1>
+        <p class="hero-sub" data-stagger="2">
+          This is the step-by-step version of <a href="../free-hosting-recipe/">the free hosting recipe</a> —
+          the actual moves, not just the pitch. You’ll create two free accounts yourself, then hand
+          the rest to your AI tool.
+        </p>
+      </section>
+
+      <!-- What you need first -->
+      <section style="padding: 40px 0 16px;" id="accounts">
+        <div class="section-label" data-num="01" data-reveal>What you need first</div>
+        <p class="studio-body" data-reveal>
+          Two accounts, both free, both take about a minute. This is the one part nobody can do
+          for you — an AI tool can’t sign a Terms of Service on your behalf.
+        </p>
+
+        <div class="features" data-reveal>
+          <div class="feature">
+            <i class="ri-github-fill feature-icon"></i>
+            <h3>GitHub</h3>
+            <p>Where your code lives and gets its version history. Sign up with an email or your Google account, whatever’s fastest.</p>
+          </div>
+          <div class="feature">
+            <i class="ri-triangle-fill feature-icon"></i>
+            <h3>Vercel</h3>
+            <p>What actually puts your site on the internet. Sign in with “Continue with GitHub” instead of a new email and password. It links the two accounts in one step and saves you doing it later.</p>
+          </div>
+          <div class="feature">
+            <i class="ri-global-line feature-icon"></i>
+            <h3>A domain <span class="tag-optional">(optional)</span></h3>
+            <p>If you want yourname.com instead of a project.vercel.app address, buy it now from any registrar. Not required to get started — this is easy to add later, in step 04.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Point your AI tool at them -->
+      <section style="padding: 48px 0 16px;" id="connect">
+        <div class="section-label" data-num="02" data-reveal>Point your AI tool at them</div>
+        <p class="studio-body" data-reveal>
+          This is the part that turns your AI tool from something that talks about code into
+          something that can actually push it. MCP (Model Context Protocol) lets it talk to
+          GitHub and Vercel directly, creating repositories, pushing commits, triggering
+          deploys, without you relaying every command by hand.
+        </p>
+
+        <div data-reveal>
+          <span class="cmd-label">Ask your AI tool something like</span>
+          <div class="cmd cmd--ask">
+            <span class="cmd-text" id="cmd-connect-ask">Connect yourself to my GitHub and Vercel accounts using MCP, so you can create repositories, push code, and deploy on my behalf.</span>
+            <button class="cmd-copy" type="button" data-copy="cmd-connect-ask" aria-label="Copy prompt">Copy</button>
+          </div>
+
+          <span class="cmd-label">Or, if you’re driving Claude Code directly</span>
+          <div class="cmd">
+            <span class="cmd-text" id="cmd-connect-mcp">claude mcp add --transport http vercel https://mcp.vercel.com
+claude mcp add --transport http github https://api.githubcopilot.com/mcp/</span>
+            <button class="cmd-copy" type="button" data-copy="cmd-connect-mcp" aria-label="Copy command">Copy</button>
+          </div>
+
+          <p class="studio-body">
+            Either command opens a one-time sign-in in your browser. Approve it, and you’re
+            connected.
+          </p>
+          <p class="studio-body">
+            If a connection won’t authorize (it happens, MCP is still young), you haven’t lost
+            anything. Any capable AI tool already knows how to drive the <code>gh</code> and
+            <code>vercel</code> command-line tools directly, the same way a developer would type
+            them. Just make sure it’s running them through <code>npx vercel</code> rather than a
+            global install. A stale local copy can hang onto a login token that’s already
+            expired, and it’ll fail with a confusing error instead of just reauthenticating.
+          </p>
+        </div>
+      </section>
+
+      <!-- Callout -->
+      <section style="padding: 32px 0 16px;" data-reveal>
+        <div class="callout-card">
+          <div class="callout-label">Worth knowing</div>
+          <h2 class="callout-heading">DNS changes are the one thing to make by hand.</h2>
+          <p class="callout-body">
+            Everything above is safe to let an AI tool drive on its own. Pointing a live domain
+            somewhere new is the exception, since a mistake there can take a real site offline.
+            Have it tell you exactly what to change, then make the change yourself.
+          </p>
+        </div>
+      </section>
+
+      <!-- Get it online -->
+      <section style="padding: 32px 0 16px;" id="online">
+        <div class="section-label" data-num="03" data-reveal>Get it online</div>
+        <p class="studio-body" data-reveal>
+          From here it’s the same three moves every time: your files go into a GitHub
+          repository, that repository gets connected to a Vercel project, and Vercel publishes
+          it. Once that connection exists, every future change goes live automatically the
+          moment it’s pushed.
+        </p>
+
+        <div data-reveal>
+          <span class="cmd-label">Ask your AI tool something like</span>
+          <div class="cmd cmd--ask">
+            <span class="cmd-text" id="cmd-online-ask">Create a GitHub repository for this project, push everything to it, connect it to a new Vercel project, deploy it, and give me the live URL when it’s done.</span>
+            <button class="cmd-copy" type="button" data-copy="cmd-online-ask" aria-label="Copy prompt">Copy</button>
+          </div>
+
+          <span class="cmd-label">Or, the manual version</span>
+          <div class="cmd">
+            <span class="cmd-text" id="cmd-online-manual">gh repo create my-site --private --source=. --push
+npx vercel link
+npx vercel --prod</span>
+            <button class="cmd-copy" type="button" data-copy="cmd-online-manual" aria-label="Copy command">Copy</button>
+          </div>
+
+          <p class="studio-body">
+            Vercel reads what kind of project it is and configures the build itself. There’s
+            nothing to set. You’ll land on a free address ending in <code>.vercel.app</code> —
+            live there for a while before you touch a domain. It’s the exact same site either
+            way, and there’s no rush.
+          </p>
+        </div>
+      </section>
+
+      <!-- Add your own domain -->
+      <section style="padding: 32px 0 16px;" id="domain">
+        <div class="section-label" data-num="04" data-reveal>Add your own domain</div>
+        <p class="studio-body" data-reveal>
+          The shape of this step is the same everywhere, even though every registrar’s
+          dashboard looks different: you add the domain in Vercel, Vercel tells you exactly one
+          DNS record to add, and you go add that record wherever you bought the domain. Then you
+          delete anything left over from wherever the domain used to point.
+        </p>
+
+        <div data-reveal>
+          <span class="cmd-label">Ask your AI tool something like</span>
+          <div class="cmd cmd--ask">
+            <span class="cmd-text" id="cmd-domain-ask">I want to point my own domain at this Vercel project. Tell me exactly which DNS record to add, and check whether anything old needs to be removed first.</span>
+            <button class="cmd-copy" type="button" data-copy="cmd-domain-ask" aria-label="Copy prompt">Copy</button>
+          </div>
+
+          <span class="cmd-label">Or, to add the domain yourself</span>
+          <div class="cmd">
+            <span class="cmd-text" id="cmd-domain-manual">npx vercel domains add yourdomain.com
+npx vercel domains inspect yourdomain.com</span>
+            <button class="cmd-copy" type="button" data-copy="cmd-domain-manual" aria-label="Copy command">Copy</button>
+          </div>
+
+          <div class="privacy-content">
+            <ul>
+              <li>Whatever’s already pointed at your old host has to go first — DNS won’t let two different records answer for the same name.</li>
+              <li>If you want yourname.com and www.yourname.com to both work, that redirect is a setting inside Vercel’s dashboard, not something you add in DNS.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- What tripped me up -->
+      <section style="padding: 40px 0 16px;" id="gotchas">
+        <div class="section-label" data-num="05" data-reveal>What tripped me up</div>
+        <div class="privacy-content" data-reveal>
+          <h3>Old records block new ones</h3>
+          <p>Anything still pointed at your previous host has to be deleted before a new record can take over the same name. If you’ve migrated through more than one host over the years, expect to find more leftover records than you’d guess.</p>
+
+          <h3>Switch the record type before you paste</h3>
+          <p>In most DNS dashboards, an “A” record field only accepts an IP address. If you’re adding a CNAME instead, change the Type dropdown first. Pasting a hostname into an A field just throws a generic error that doesn’t explain itself.</p>
+
+          <h3>The www redirect isn’t a DNS setting</h3>
+          <p>Making www.yoursite.com forward to yoursite.com (or the reverse) happens in Vercel’s own dashboard, under the domain’s settings. Looking for it in your DNS records will send you in circles.</p>
+
+          <h3>Keep new records “DNS only”</h3>
+          <p>If your registrar or DNS host offers a proxy or CDN option (Cloudflare calls it the orange cloud), leave it off for records pointed at Vercel. Vercel needs to see the real traffic directly.</p>
+
+          <h3>Use npx vercel, not a global install</h3>
+          <p>A <code>vercel</code> command installed once and left alone quietly goes stale, and its saved login can expire without telling you. Running it through <code>npx</code> always pulls something current, and reauthenticating is a non-issue.</p>
+
+          <h3>Secrets go in the dashboard, never in a chat</h3>
+          <p>If you’re ever asked for an API key or a password during any of this, type it directly into Vercel’s (or GitHub’s) own settings page. Don’t paste it into a terminal command or hand it to an AI tool in conversation. Nothing here actually requires that.</p>
+        </div>
+      </section>
+
+      <!-- Close -->
+      <section style="padding: 40px 0 16px;">
+        <p class="studio-body" data-reveal>
+          That’s the whole thing, start to finish. If any of this still feels abstract, the
+          short version, and the reasoning behind it, is back on the overview.
+        </p>
+        <div class="support-links" data-reveal>
+          <a href="../free-hosting-recipe/" class="support-link-item">
+            <div>
+              <div class="support-link-label">Back to the overview</div>
+              <div class="support-link-sub">The recipe — what this is and why it’s free</div>
+            </div>
+            <i class="ri-arrow-right-line support-link-arrow" aria-hidden="true"></i>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-est">EST. 2025</span>
+          <span class="footer-copy">© 2026 George Penston</span>
+        </div>
+        <ul class="footer-links">
+          <li><a href="https://linkedin.com/in/gpenston" target="_blank" rel="noopener">LinkedIn<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></a></li>
+          <li><a href="https://github.com/gpenston" target="_blank" rel="noopener">GitHub<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></a></li>
+          <li><a href="https://gpenston.com" target="_blank" rel="noopener">Portfolio<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+  <script>window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };</script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script>
+    // Copy-to-clipboard for .cmd blocks — scoped to this page, not assets/site.js
+    // (see the page-local <style> comment above for why).
+    !function () {
+      if (!navigator.clipboard) {
+        document.querySelectorAll('.cmd-copy').forEach(function (b) { b.style.display = 'none'; });
+        return;
+      }
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-copy]');
+        if (!btn) return;
+        var target = document.getElementById(btn.getAttribute('data-copy'));
+        if (!target) return;
+        navigator.clipboard.writeText(target.textContent.trim()).then(function () {
+          var original = btn.textContent;
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = original; }, 1500);
+        }).catch(function () {});
+      });
+    }();
+  </script>
+</body>
+</html>
