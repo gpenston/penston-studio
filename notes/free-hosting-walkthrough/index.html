@@ -19,11 +19,16 @@
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/style.css?v=73">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script defer src="../../assets/site.js?v=18"></script>
   <style>
     /* Scoped to this note — copy-paste-able command/prompt blocks. No block-code
        component exists in style.css (only inline .privacy-content code), so this
-       follows the free-hosting-recipe note's precedent of page-local CSS. */
+       follows the free-hosting-setup note's precedent of page-local CSS. Code
+       content itself uses JetBrains Mono (loaded above); labels and the copy
+       button stay in the site's own Martian Mono so they still read as chrome. */
     .cmd-label {
       display: block;
       font-family: var(--mono);
@@ -37,7 +42,7 @@
     .cmd-label:first-child { margin-top: 0; }
     .cmd {
       position: relative;
-      font-family: var(--mono);
+      font-family: 'JetBrains Mono', var(--mono);
       font-size: 13px;
       line-height: 1.65;
       color: var(--text-primary);
@@ -77,6 +82,15 @@
     .cmd-copy:focus-visible {
       color: var(--accent);
       border-color: var(--accent);
+    }
+    .kicker-crumb {
+      color: inherit;
+      text-decoration: none;
+    }
+    .kicker-crumb:hover {
+      color: var(--accent-cool-hover);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
     .feature h3 .tag-optional {
       font-family: var(--mono);
@@ -135,12 +149,12 @@
       <!-- Hero -->
       <section style="position: relative; overflow: hidden;">
         <div class="hero-header" data-stagger="0">
-          <span class="instr-kicker">Notes / Walkthrough</span>
+          <span class="instr-kicker">Notes / <a href="../free-hosting-setup/" class="kicker-crumb">Setup</a> / Walkthrough</span>
         </div>
 
-        <h1 class="hero-headline" data-stagger="1">From laptop to <em>live</em>, in an afternoon.</h1>
+        <h1 class="hero-headline" data-stagger="1">Go <em>live</em> with your site, in an hour or so.</h1>
         <p class="hero-sub" data-stagger="2">
-          This walks through <a href="../free-hosting-recipe/">the setup</a> from the last page,
+          This walks through <a href="../free-hosting-setup/">the setup</a> from the last page,
           step by step. You’ll create two free accounts yourself, then hand the rest to your AI
           tool.
         </p>
@@ -168,7 +182,7 @@
           <div class="feature">
             <i class="ri-global-line feature-icon"></i>
             <h3>A domain <span class="tag-optional">(optional)</span></h3>
-            <p>If you want yourname.com instead of a project.vercel.app address, buy it now from any registrar. Not required to get started — this is easy to add later, in step 04.</p>
+            <p>Bring a domain you already own, or buy a new one from any registrar. I use Cloudflare, but any registrar works fine. Not required to get started. This is easy to add later, in step 04.</p>
           </div>
         </div>
       </section>
@@ -323,7 +337,7 @@ npx vercel domains inspect yourdomain.com</span>
           short version, and the reasoning behind it, is back on the overview.
         </p>
         <div class="support-links" data-reveal>
-          <a href="../free-hosting-recipe/" class="support-link-item">
+          <a href="../free-hosting-setup/" class="support-link-item">
             <div>
               <div class="support-link-label">Back to the overview</div>
               <div class="support-link-sub">The setup — what this is and why it’s free</div>
