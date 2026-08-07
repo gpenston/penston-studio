@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>OG card template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=Martian+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* D-DIN is self-hosted, not a Google font — without this the chapter
+       numeral silently falls back to Martian Mono and loses the whole
+       condensed-figure look the numerals exist for. */
+    @font-face {
+      font-family: 'D-DIN Condensed';
+      src: url('../assets/fonts/D-DINCondensed-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-display: block;
+    }
+
+    /* Tokens copied from assets/style.css :root (dark). Copied rather than
+       linked because the card renders from file:// where the site's relative
+       asset paths don't resolve — and because a share card should be frozen
+       anyway: it's cached by every platform that scrapes it, so it must not
+       silently change when the site's CSS does. Keep in sync by hand if the
+       palette moves; there is a matching note in CLAUDE.md. */
+    :root {
+      --bg-primary:    #0c0b08;
+      --bg-secondary:  #17150f;
+      --text-primary:  #e8e2cf;
+      --text-secondary:#9c9687;
+      --text-tertiary: #837c66;
+      --border-medium: #2a2620;
+      --accent:        #eb5a00;
+      --accent-cool:   #7aa9a3;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Hanken Grotesk', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 72px 80px;
+    }
+
+    /* Studio's worn graph paper, at card scale. */
+    body::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(#2a2620 1px, transparent 1px),
+        linear-gradient(90deg, #2a2620 1px, transparent 1px);
+      background-size: 96px 96px, 96px 96px;
+      opacity: 0.55;
+    }
+
+    /* The starburst from the studio hero, bleeding off the right edge. */
+    .rays {
+      position: absolute;
+      right: -180px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 620px;
+      height: 620px;
+      opacity: 0.5;
+    }
+
+    .row { position: relative; z-index: 1; display: flex; align-items: center; gap: 16px; }
+
+    .chapter {
+      font-family: 'D-DIN Condensed', 'Martian Mono', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 0.7;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+    }
+
+    .kicker {
+      font-family: 'Martian Mono', monospace;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .body { position: relative; z-index: 1; display: flex; align-items: center; gap: 40px; }
+
+    .icon {
+      width: 132px;
+      height: 132px;
+      border-radius: 28px;
+      flex-shrink: 0;
+      border: 1px solid var(--border-medium);
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 78px;
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      max-width: 15ch;
+      text-wrap: balance;
+    }
+
+    h1.long { font-size: 62px; }
+
+    .sub {
+      margin-top: 20px;
+      font-size: 26px;
+      line-height: 1.35;
+      color: var(--text-secondary);
+      max-width: 30ch;
+      text-wrap: pretty;
+    }
+
+    .foot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: 'Martian Mono', monospace;
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      padding-top: 24px;
+      border-top: 1px solid var(--border-medium);
+    }
+
+    .foot .url { color: var(--accent-cool); }
+  </style>
+</head>
+<body>
+  <svg class="rays" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    <g stroke="#eb5a00" stroke-width="0.6" opacity="0.7">
+      <line x1="100" y1="100" x2="100" y2="0"/><line x1="100" y1="100" x2="170" y2="30"/>
+      <line x1="100" y1="100" x2="200" y2="100"/><line x1="100" y1="100" x2="170" y2="170"/>
+      <line x1="100" y1="100" x2="100" y2="200"/><line x1="100" y1="100" x2="30" y2="170"/>
+      <line x1="100" y1="100" x2="0" y2="100"/><line x1="100" y1="100" x2="30" y2="30"/>
+      <line x1="100" y1="100" x2="140" y2="10"/><line x1="100" y1="100" x2="190" y2="60"/>
+      <line x1="100" y1="100" x2="190" y2="140"/><line x1="100" y1="100" x2="140" y2="190"/>
+      <line x1="100" y1="100" x2="60" y2="190"/><line x1="100" y1="100" x2="10" y2="140"/>
+      <line x1="100" y1="100" x2="10" y2="60"/><line x1="100" y1="100" x2="60" y2="10"/>
+    </g>
+  </svg>
+
+  <div class="row">
+    <span class="chapter" id="chapter">00</span>
+    <span class="kicker" id="kicker">Bureau · Chapter 03</span>
+  </div>
+
+  <div class="body">
+    <img class="icon" id="icon" alt="" hidden>
+    <div>
+      <h1 id="title">Penston Studio</h1>
+      <p class="sub" id="sub"></p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span id="foot-left">Penston Studio</span>
+    <span class="url" id="foot-right">penston.studio</span>
+  </div>
+
+  <script>
+    // Populated by scripts/generate-og-cards.mjs via query string.
+    const q = new URLSearchParams(location.search);
+    const set = (id, value) => { if (value) document.getElementById(id).textContent = value; };
+    set('chapter', q.get('chapter'));
+    set('kicker', q.get('kicker'));
+    set('title', q.get('title'));
+    set('sub', q.get('sub'));
+    set('foot-left', q.get('foot'));
+
+    const title = document.getElementById('title');
+    if (title.textContent.length > 24) title.classList.add('long');
+
+    const icon = q.get('icon');
+    if (icon) {
+      const el = document.getElementById('icon');
+      el.src = icon;
+      el.hidden = false;
+    }
+  </script>
+</body>
+</html>
