@@ -1,6 +1,13 @@
 # penston.studio — Next-Session Plan (post-critique)
 
-_Written 2026-07-11, after a `/design-critique` pass on the homepage, Markedly, and Pour Over. The site is in a strong, near-final place; this is a prioritized plan for the next working session. The product-shot showcase is the known biggest gap and is the centerpiece here._
+_Written 2026-07-11, after a `/design-critique` pass on the homepage, Markedly, and Pour Over. Updated 2026-09-14 — Workstream A shipped (see below); two new items carried over from a same-day session._
+
+---
+
+## Carried over — 2026-09-14
+
+1. **Markedly plates need real light-mode screenshots.** The macOS 27 desktop-context restage (`ac38fd0`) replaced all four Markedly plates but only produced one capture per plate — `markedly-shot-{open,drag,complete,quickaction}-dark.png` and their `-light` counterparts are byte-identical duplicates, not actual light-mode captures. Toggling mode currently shows the same (dark-context) image either way. Need to reshoot each plate in light mode (matching the existing light UI chrome already built for `.device-photo img.shot-light` in `assets/style.css:1391-1393`) before the light/dark swap is a real feature rather than a no-op.
+2. **Fix the page-transition jitter for real (Option 3).** Landed a stopgap this session: the hero cascade and catalogue/plate reveals now only play once per browsing session (`.ps-skip-reveal`, gated via `sessionStorage.ps_hero_seen` in the inline `<head>` script), which kills the jitter but also kills the entrance motion on every page after the first. The actual fix is to stop racing the native `@view-transition` swap against a separately-timed CSS/JS reveal — give the hero/tiles/plates `view-transition-name`s and drive the entrance through the native transition itself (one animation engine, like the already-working `nav-text` pin), matching how gpenston.com's Framer Motion tree stays coordinated. More surgical than the last two fixes; needs real tuning so it doesn't just read as a generic crossfade.
 
 ---
 
@@ -18,7 +25,9 @@ _Written 2026-07-11, after a `/design-critique` pass on the homepage, Markedly, 
 
 ---
 
-## Workstream A — Product Showcase Rework ⭐ (the centerpiece)
+## Workstream A — Product Showcase Rework ⭐ (the centerpiece) — ✅ shipped
+
+_Reworked and shipped since this plan was written (real Pour Over digest shot, macOS 27 desktop-context plates for Markedly). Left as-is below for reference; the one open thread it left behind is `Carried over — 2026-09-14` item #1 above._
 
 The `.product-showcase` section on both product pages is the least-loved part of the site. It also absorbs critique #1 and #6, so fixing the showcase and fixing those findings is one job.
 
