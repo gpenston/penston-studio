@@ -431,35 +431,6 @@ a.nav-kicker:active { opacity: 0.5; }
   margin-bottom: 20px;
 }
 
-/* `a.portfolio-link` (not just `.portfolio-link`) is deliberate: this link
-   also carries `data-stagger` for its scroll-reveal entrance, and
-   `[data-stagger] { transition: opacity ..., transform ...; }` further down
-   the sheet has equal specificity to a bare class selector — being later in
-   source order, it was winning the cascade and silently replacing this
-   rule's `transition` shorthand, killing the hover underline/color
-   animation entirely (instant snap, no 220ms ease). The extra type selector
-   bumps specificity so this rule always wins regardless of sheet order. */
-a.portfolio-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--mono);
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 0% 1px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  text-decoration: none;
-  margin-bottom: 40px;
-  transition: color var(--t-fast), background-size 220ms ease, opacity 100ms;
-}
-a.portfolio-link:hover { color: var(--accent); background-size: 100% 1px; }
-a.portfolio-link:active { opacity: 0.5; }
-
 /* ----- Atmosphere (hero ring + rays) -------------------------------- */
 .atm-rays {
   position: absolute;
@@ -1208,30 +1179,70 @@ a.portfolio-link:active { opacity: 0.5; }
 }
 .callout-body a:hover { color: var(--accent); }
 
-.callout-link {
+/* ===== Pill buttons — ported from gpenston.com's bureau pill-btn.
+   secondary: visible-at-rest tinted pill for a CTA that stands alone
+   ("Donate to FARA"). tertiary: transparent-at-rest, tinted-on-hover;
+   only reads correctly paired beside a stronger neighbor ("Full portfolio"
+   next to the hero bio). Type selector on the base rule matches the old
+   .portfolio-link fix: [data-stagger] shares this specificity and sits
+   later in the sheet, so a bare class selector would lose its transition
+   to the cascade. ===== */
+a.pill-btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 8px;
-  padding: 10px 16px;
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--accent);
-  background: transparent;
-  border: 1.5px solid color-mix(in srgb, var(--accent), transparent 12%);
-  border-radius: 8px;
-  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-}
-.callout-link svg { transition: transform 0.18s ease; }
-.callout-link:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent);
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid transparent;
   text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
 }
-.callout-link:hover svg { transform: translate(2px, -2px); }
+a.pill-btn:active { transform: translateY(1px); }
+.pill-btn svg { transition: transform 0.18s ease; }
+.pill-btn:hover svg { transform: translate(2px, -2px); }
+
+/* Dark (default): bg-secondary/bg-tertiary sit too close to bg-primary's
+   near-black to read as button states on their own — add a resting border,
+   and lean on an accent-tinted mix for secondary rather than a flat tier. */
+.pill-btn-tertiary {
+  color: var(--text-secondary);
+  background: transparent;
+  border-color: var(--border-rule);
+}
+.pill-btn-tertiary:hover {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  border-color: var(--border-medium);
+}
+
+.pill-btn-secondary {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg-secondary));
+  border-color: var(--border-rule);
+}
+.pill-btn-secondary:hover {
+  color: var(--accent-cool-hover);
+  background: color-mix(in srgb, var(--accent) 24%, var(--bg-tertiary));
+  border-color: var(--border-medium);
+}
+
+/* Light: flat neutral tiers read fine at rest without the border/tint crutch. */
+:root[data-mode="light"] .pill-btn-tertiary,
+:root[data-mode="light"] .pill-btn-tertiary:hover,
+:root[data-mode="light"] .pill-btn-secondary,
+:root[data-mode="light"] .pill-btn-secondary:hover {
+  border-color: transparent;
+}
+:root[data-mode="light"] .pill-btn-secondary { background: var(--bg-secondary); }
+:root[data-mode="light"] .pill-btn-secondary:hover {
+  color: var(--accent-cool-hover);
+  background: var(--bg-tertiary);
+}
 
 /* ----- Plates (product shot gallery) ------------------------------- */
 .product-showcase {
