@@ -1358,6 +1358,28 @@ a.portfolio-link:active { opacity: 0.5; }
   border-radius: 0 0 3px 3px;
 }
 
+/* Real-desktop screenshots (macOS wallpaper + Dock already in the capture)
+   carry their own chrome, so wrapping them in the fake .device-macbook
+   bezel above would double it up -- a screenshot inside a screenshot.
+   .device-photo is the plain alternative: a simple rounded photo card,
+   sized to the image's own aspect ratio instead of a forced 16:10. */
+.device-photo {
+  position: relative;
+  width: 100%;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+}
+.device-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.device-photo img.shot-light { display: none; }
+:root[data-mode="light"] .device-photo img.shot-dark { display: none; }
+:root[data-mode="light"] .device-photo img.shot-light { display: block; }
+
 /* iPhone frame */
 .device-iphone {
   position: relative;
