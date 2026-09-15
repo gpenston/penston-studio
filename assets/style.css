@@ -1636,14 +1636,18 @@ footer {
 }
 
 /* ----- Scroll-reveal ------------------------------------------------ */
-/* [data-stagger] only plays its entrance cascade once per browsing session
-   (see the inline <head> script setting .ps-skip-reveal via sessionStorage
-   ps_hero_seen). Playing it on every internal MPA navigation raced the
-   native view-transition swap — the hero could still be caught mid-fade
-   when the next page's snapshot was taken, reading as a jitter even after
-   the whole-page crossfade itself was removed. [data-reveal] (scroll-
-   triggered, below the fold) doesn't have that conflict — it's untouched. */
-[data-reveal],
+/* Entrance animation (both [data-stagger] and any [data-reveal] element
+   that starts within/near the initial viewport — site.js reveals those
+   immediately on load, not just on scroll) only plays once per browsing
+   session: see the inline <head> script setting .ps-skip-reveal via
+   sessionStorage ps_hero_seen. Playing it on every internal MPA navigation
+   raced the native view-transition swap — content could still be caught
+   mid-fade (or briefly missing pre-reveal) when the next page's snapshot
+   was taken, reading as jitter on the hero, the catalogue tiles, and the
+   product-shot plates alike. True below-the-fold reveals (scrolled into
+   view well after the page has settled) are unaffected either way, so
+   .ps-skip-reveal gates the same for both selectors. */
+:root:not(.ps-skip-reveal) [data-reveal],
 :root:not(.ps-skip-reveal) [data-stagger] {
   opacity: 0;
   transform: translateY(16px);
