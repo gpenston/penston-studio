@@ -1636,8 +1636,15 @@ footer {
 }
 
 /* ----- Scroll-reveal ------------------------------------------------ */
+/* [data-stagger] only plays its entrance cascade once per browsing session
+   (see the inline <head> script setting .ps-skip-reveal via sessionStorage
+   ps_hero_seen). Playing it on every internal MPA navigation raced the
+   native view-transition swap — the hero could still be caught mid-fade
+   when the next page's snapshot was taken, reading as a jitter even after
+   the whole-page crossfade itself was removed. [data-reveal] (scroll-
+   triggered, below the fold) doesn't have that conflict — it's untouched. */
 [data-reveal],
-[data-stagger] {
+:root:not(.ps-skip-reveal) [data-stagger] {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
