@@ -24,16 +24,17 @@
   animation: none;
 }
 
-/* Page body fades up on arrival; old page fades out (default cross-fade) */
-@keyframes page-enter {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: none; }
-}
+/* No custom crossfade on the root: the hero and other [data-stagger]/
+   [data-reveal] content already runs its own fade-up cascade on arrival
+   (site.js). A 360ms whole-page fade layered on top of that per-element
+   animation was a second, uncoordinated entrance — the native transition
+   snapshots the new page before the JS reveal has run, so the crossfade
+   showed a blank hero that then separately popped in once site.js caught
+   up. Hard-cutting the root swap removes the duplicate motion and leaves
+   the cascade as the only arrival animation, same as before. */
+::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) page-enter;
-}
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-new(root) { animation: none; }
+  animation: none;
 }
 
 /* ----- Mode-switch transition: organic vertical gradient wipe --------
