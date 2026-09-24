@@ -235,7 +235,7 @@ A single `position: sticky` chrome row shared across all pages. CSS Grid `1fr au
 
 **On product pages** the left slot is a back-link (`<a class="... nav-mark back-link">`) with a `<` glyph SVG and `<span class="back-link-text nav-text">Penston Studio</span>`. The centre slot holds the `.product-switcher` — icon pills for each product.
 
-**`nav-text`** carries `view-transition-name: nav-text` so the wordmark is perfectly anchored across MPA page transitions — it never moves or fades between pages.
+The chrome sits outside `main`, so it stays still between pages while the content fades in (see §6).
 
 **Mobile:** `.back-link-text` is `display: none` at ≤600px. Only the glyph shows. Product switcher labels remain visible.
 
@@ -356,21 +356,33 @@ Signature block near the footer of Markedly only. Communicates the donation-link
 
 ## 6. Motion
 
+These mirror gpenston.com's `components/motion/page-transition.tsx` and `scroll-reveal.tsx`, so both sites arrive the same way. Keep them in sync with the portfolio.
+
+### Page entrance
+
+`main` fades up on every page load: `opacity: 0; translateY(8px)` → normal, 360ms `cubic-bezier(0.16, 1, 0.3, 1)`, fill `backwards`. It's pure CSS, so the page appears even if no JS runs. The chrome and footer sit outside `main` and don't move, like the portfolio's persistent Header/Footer.
+
 ### Scroll-reveal
 
-Elements with `[data-reveal]` start at `opacity: 0; transform: translateY(16px)`. Class `.is-revealed` is added via IntersectionObserver when entering viewport (600ms ease-out). Safety-net timer reveals all after 2.5s.
+`[data-reveal]` and `[data-stagger]` elements fade up 24px over 600ms `cubic-bezier(0.21, 0.47, 0.32, 0.98)` (the `reveal-up` keyframe) when `site.js`'s IntersectionObserver sees them 64px inside the viewport (`rootMargin: '-64px'`). Each reveals once, on every visit, and waits for the scroll: nothing pre-reveals and there's no reveal-everything timer.
+
+**Visible is the default.** Every hidden state:
+- is gated on `html.js` (set by the inline `<head>` script, which drops it after 3s if `site.js` never sets `.reveal-live`) and on `prefers-reduced-motion: no-preference`
+- is written as `:not(.is-revealed)`, never as a hide rule plus a later "show" override. In Sep 2026 a gated hide rule outranked `.is-revealed` on specificity and blanked the first page of every session.
+
+The reveal is a CSS animation with `backwards` fill, not a transition, so it never overrides a component's own hover `transition`/`transform` (e.g. `.project-card`).
 
 ### Stagger
 
-`[data-stagger="N"]` increments `transition-delay` by 120ms per step. Used on hero elements only.
+`--reveal-delay` sets `animation-delay`. For `[data-stagger="N"]` (hero only), it's `0.05s + N × 0.08s`. A `[data-reveal]` element opts in with an inline `--stagger-index` at `N × 0.08s` (the catalogue cards). These match the portfolio's delay cadence.
 
 ### Section label line draw
 
-`.section-label::after` (the horizontal rule) scales from `scaleX(0)` to `scaleX(1)` on `.is-revealed`. 600ms `cubic-bezier(0.16, 1, 0.3, 1)`, 200ms delay.
+`.section-label::after` (the horizontal rule) is `scaleX(0)` while its label, or a `[data-reveal]` ancestor, is pending. It draws to `scaleX(1)` over 600ms `cubic-bezier(0.16, 1, 0.3, 1)` with a 200ms delay.
 
 ### Pullquote highlight draw
 
-`.pullquote .hl` animates `background-size` from `0% 72%` to `100% 72%` on `.is-revealed`. 800ms `cubic-bezier(0.16, 1, 0.3, 1)`, 300ms delay. Second span delays an extra 250ms.
+`.pullquote .hl` is `background-size: 0% 72%` while its `[data-reveal]` ancestor is pending. It draws to `100% 72%` over 800ms `cubic-bezier(0.16, 1, 0.3, 1)` with a 300ms delay, and the second span waits an extra 250ms.
 
 ### Hero atmosphere (home only)
 
@@ -383,22 +395,15 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 `.closing-cta .app-icon` floats `translateY(0)` → `translateY(-6px)` → back, 4s ease-in-out infinite. Gated on `prefers-reduced-motion: no-preference`.
 
-### MPA page transitions (View Transitions API)
+### Page navigation — no cross-document view transition
 
-```css
-@view-transition { navigation: auto; }
-```
-
-- **`nav-text`** (`view-transition-name: nav-text`) is anchored — `animation: none` on both old and new snapshots. The wordmark never moves or fades during navigation.
-- **Root** fades up on arrival: `opacity: 0; transform: translateY(8px)` → normal over 360ms `cubic-bezier(0.16, 1, 0.3, 1)`.
-- **The nav glyph (`//` ↔ `<`) has no `view-transition-name`** — it's part of the root transition. Giving it its own name caused simultaneous old+new bitmap snapshots to appear (overlap bug). Let the root crossfade handle it.
-- All transitions killed under `prefers-reduced-motion: reduce`.
+There's deliberately no `@view-transition { navigation: auto; }`. The native swap snapshotted pages mid-entrance and fought the reveal cascade through three rounds of patches (a hard-cut root, then once-per-session reveal gates). gpenston.com has no equivalent, and the browser's paint-holding plus `main`'s CSS entrance gives the same result. The mode wipe still uses same-document `startViewTransition()`, which doesn't need the at-rule.
 
 ### General rules
 
 - **Hover transitions are 150–200ms.** Anything longer feels slow.
 - **No scroll-jacking, parallax, or scroll-tied animation.** The page scrolls like a document.
-- **`prefers-reduced-motion: reduce` kills all transitions and reveals immediately.** Non-negotiable.
+- **`prefers-reduced-motion: reduce` kills all transitions and reveals immediately.** Non-negotiable. (gpenston.com keeps an opacity-only fade under reduced motion. This site is stricter on purpose.)
 - **The atmosphere (ring + rays) is the only ambient animation on home.** Don't add floating particles, gradient sweeps, or breathing elements elsewhere.
 - **Mode toggle transition is 200ms `cubic-bezier(0.4, 0, 0.2, 1)`.** Applies to thumb translate, icon slide, and track background.
 
@@ -482,7 +487,8 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 - Don't add emoji, even in the README.
 - Don't put utility links (Support, Privacy, back-link) in the nav. They live in the unified bar / product-switcher.
 - Don't use the same accent colour for pullquote highlights as for links. The `.hl` is a cyan wash, not orange.
-- Don't give the nav glyph a `view-transition-name`. The simultaneous old+new snapshots cause an overlap bug. Let it ride with the root crossfade.
+- Don't bring back `@view-transition { navigation: auto; }` or once-per-session reveal gates. See §6 "Page navigation."
+- Don't hide reveal content with a rule that a later `.is-revealed` rule must override. Write the hidden state as `:not(.is-revealed)`. See §6 "Scroll-reveal."
 - Don't use `position: fixed` for `.sticky-chrome` — the iOS 26 Safari bleed-through fix requires `position: sticky`. See §4 for the full pattern.
 - Don't remove `pointer-events: none` from `.sticky-chrome::before` — the pseudo-element covers the entire chrome area and will silently eat button clicks without it.
 - Don't assume `theme-color` meta controls toolbar colour on iOS 26 Safari — Apple dropped that support. Keep the metas for other browsers.
