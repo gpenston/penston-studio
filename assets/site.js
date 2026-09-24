@@ -91,33 +91,6 @@
       }
     }
 
-    // Scroll-reveal — IntersectionObserver with a full-reveal fallback after 2.5s
-    var reveals = document.querySelectorAll('[data-reveal]');
-    var staggers = document.querySelectorAll('[data-stagger]');
-    staggers.forEach(function (el) {
-      el.style.setProperty('--stagger-index', el.dataset.stagger);
-      el.classList.add('is-revealed');
-    });
-    var vh = window.innerHeight;
-    reveals.forEach(function (el) {
-      var r = el.getBoundingClientRect();
-      if (r.top < vh + 200) el.classList.add('is-revealed');
-    });
-    if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('is-revealed'); obs.unobserve(e.target); }
-        });
-      }, { rootMargin: '0px 0px 100px 0px' });
-      reveals.forEach(function (el) {
-        if (!el.classList.contains('is-revealed')) obs.observe(el);
-      });
-    }
-    // Safety net: whatever hasn't revealed in 2.5s, reveal anyway.
-    setTimeout(function () {
-      reveals.forEach(function (el) { el.classList.add('is-revealed'); });
-    }, 2500);
-
     // Cross-site theme handshake: outbound links to the sister portfolio
     // (gpenston.com) carry the current mode as a ?theme= param so the
     // receiving site can pick it up on load instead of defaulting cold.

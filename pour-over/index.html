@@ -2,7 +2,7 @@
 <html lang="en" data-mode="dark" data-page="pourover">
 <head>
   <meta charset="UTF-8">
-  <script>!function(){try{var p=new URLSearchParams(location.search),i=p.get('theme');if(i==='light'||i==='dark'){localStorage.setItem('ps_mode',i);p.delete('theme');var q=p.toString();history.replaceState(null,'',location.pathname+(q?'?'+q:'')+location.hash)}}catch(e){}var s=localStorage.getItem('ps_mode');if(s===null)s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-mode',s);try{if(sessionStorage.getItem('ps_hero_seen'))document.documentElement.classList.add('ps-skip-reveal');else sessionStorage.setItem('ps_hero_seen','1')}catch(e){}}();</script>
+  <script>!function(){try{var p=new URLSearchParams(location.search),i=p.get('theme');if(i==='light'||i==='dark'){localStorage.setItem('ps_mode',i);p.delete('theme');var q=p.toString();history.replaceState(null,'',location.pathname+(q?'?'+q:'')+location.hash)}}catch(e){}var s=localStorage.getItem('ps_mode');if(s===null)s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-mode',s);var r=document.documentElement;r.classList.add('js');setTimeout(function(){if(!r.classList.contains('reveal-live'))r.classList.remove('js')},3e3)}();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Pour Over for Raindrop — Your read-later list, delivered</title>
   <meta name="description" content="A GitHub Action that brews a daily digest from your Raindrop read-later list and delivers it to your inbox.">
@@ -23,9 +23,10 @@
   <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="canonical" href="https://penston.studio/pour-over/">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css?v=78">
+  <link rel="stylesheet" href="../assets/style.css?v=80">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
-  <script defer src="../assets/site.js?v=18"></script>
+  <script defer src="../assets/reveal.js?v=1"></script>
+  <script defer src="../assets/site.js?v=20"></script>
 </head>
 <body>
   <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>
@@ -62,7 +63,7 @@
 
       <!-- Hero -->
       <section style="position: relative; overflow: hidden;">
-        <div class="hero-header" data-stagger="0">
+        <div class="hero-header" data-reveal style="--reveal-delay: 0.05s">
           <div class="app-identity">
             <div class="app-icon"><img src="../assets/pour-over-icon.png" alt="Pour Over for Raindrop"></div>
             <div>
@@ -75,12 +76,12 @@
           </ul>
         </div>
 
-        <h1 class="hero-headline" data-stagger="1">Your read-later list,<br>brewed <em>fresh daily</em>.</h1>
-        <p class="hero-sub" data-stagger="2">
+        <h1 class="hero-headline" data-reveal style="--reveal-delay: 0.1s">Your read-later list,<br>brewed <em>fresh daily</em>.</h1>
+        <p class="hero-sub" data-reveal style="--reveal-delay: 0.2s">
           Connect your <a href="https://raindrop.io" target="_blank" rel="noopener">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. No dashboard, no app. Just your inbox.
         </p>
 
-        <div class="cta-group" data-stagger="3">
+        <div class="cta-group" data-reveal style="--reveal-delay: 0.25s">
           <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="btn-primary">
             <i class="ri-github-fill btn-icon"></i>
             View on GitHub
@@ -158,7 +159,7 @@
       <!-- The idea (pullquote) -->
       <section style="padding: 48px 0 16px;" data-reveal>
         <div class="section-label" data-num="01">The idea</div>
-        <p class="pullquote">
+        <p class="pullquote" data-reveal-trigger data-reveal-amount="0.6">
           The read-later queue is a
           <span class="hl">graveyard</span>.
           You save things with the best intentions, then never go back. Pour Over fixes the loop by surfacing your most recent saves in
