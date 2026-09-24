@@ -15,13 +15,29 @@
   font-display: swap;
 }
 
-/* ----- Page navigation ----------------------------------------------
-   No cross-document view transition. The native swap raced the page's own
-   entrance (see Page entrance below), and gpenston.com has no equivalent —
-   its route changes keep the chrome still and fade only the content in.
-   The browser's paint-holding covers the gap between pages; `main`'s CSS
-   entrance does the rest. The mode wipe still uses same-document
-   startViewTransition() — it doesn't depend on this. */
+/* ----- Page navigation --------------------------------------------
+   Cross-document view transition, scoped to the product switcher only.
+   gpenston.com's header is one persistent React element, so its active nav
+   pill cross-fades (0.2s) between pages; in an MPA only a view transition
+   can do that. Everything else hard-cuts (root animation: none) and
+   `main`'s own CSS entrance plays underneath, so nothing races the page's
+   arrival the way the old whole-page transition did. Home has no switcher:
+   it fades in or out with the same 200ms. Browsers without cross-document
+   support just swap instantly. */
+@view-transition { navigation: auto; }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+.product-switcher { view-transition-name: product-switcher; }
+/* The mode wipe is a root-level transition too — keep the switcher in it */
+html.vt-mode .product-switcher { view-transition-name: none; }
+::view-transition-group(product-switcher),
+::view-transition-old(product-switcher),
+::view-transition-new(product-switcher) {
+  animation-duration: 200ms;
+  animation-timing-function: ease;
+}
 
 /* ----- Mode-switch transition: organic vertical gradient wipe --------
    Same-document JS-triggered view transition (site.js), scoped by the
@@ -1085,12 +1101,12 @@ a.nav-kicker:active { opacity: 0.5; }
 .works-with-row .ww-item {
   transition: opacity 0.35s ease-out, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.works-with-row.is-revealed .ww-item:nth-child(1) { transition-delay: 0.06s; }
-.works-with-row.is-revealed .ww-item:nth-child(2) { transition-delay: 0.12s; }
-.works-with-row.is-revealed .ww-item:nth-child(3) { transition-delay: 0.18s; }
-.works-with-row.is-revealed .ww-item:nth-child(4) { transition-delay: 0.24s; }
-.works-with-row.is-revealed .ww-item:nth-child(5) { transition-delay: 0.30s; }
-.works-with-row.is-revealed .ww-item:nth-child(6) { transition-delay: 0.36s; }
+.works-with-row[data-revealed] .ww-item:nth-child(1) { transition-delay: 0.06s; }
+.works-with-row[data-revealed] .ww-item:nth-child(2) { transition-delay: 0.12s; }
+.works-with-row[data-revealed] .ww-item:nth-child(3) { transition-delay: 0.18s; }
+.works-with-row[data-revealed] .ww-item:nth-child(4) { transition-delay: 0.24s; }
+.works-with-row[data-revealed] .ww-item:nth-child(5) { transition-delay: 0.30s; }
+.works-with-row[data-revealed] .ww-item:nth-child(6) { transition-delay: 0.36s; }
 
 
 /* ----- Callout (line-indent) ---------------------------------------- */
@@ -1143,10 +1159,7 @@ a.nav-kicker:active { opacity: 0.5; }
    secondary: visible-at-rest tinted pill for a CTA that stands alone
    ("Donate to FARA"). tertiary: transparent-at-rest, tinted-on-hover;
    only reads correctly paired beside a stronger neighbor ("Full portfolio"
-   next to the hero bio). Type selector on the base rule matches the old
-   .portfolio-link fix: [data-stagger] shares this specificity and sits
-   later in the sheet, so a bare class selector would lose its transition
-   to the cascade. ===== */
+   next to the hero bio). ===== */
 a.pill-btn {
   font-family: var(--mono);
   font-size: 12px;
@@ -1595,59 +1608,62 @@ footer {
 }
 
 /* ----- Page entrance + scroll-reveal ---------------------------------
-   Mirrors gpenston.com's motion/page-transition.tsx + scroll-reveal.tsx so
-   the two sites arrive the same way:
+   Shared with gpenston.com (app/globals.css, same block). The runtime is
+   assets/reveal.js, byte-identical to the portfolio's public/reveal.js.
 
-   - `main` fades up 8px over 360ms on every page load. Pure CSS — no JS
-     has to run for the page to appear. Chrome and footer sit outside it
-     and stay still, like the portfolio's persistent Header/Footer.
-   - [data-reveal] / [data-stagger] fade up 24px over 600ms once they're
-     64px inside the viewport (site.js), every visit, never re-hiding.
+   - `main` fades up 8px over 360ms on every page load. Pure CSS: it plays
+     at first paint and needs no JS. Chrome and footer sit outside it.
+   - [data-reveal] fades up 24px over 600ms once it's 64px inside the
+     viewport, with an optional inline --reveal-delay. [data-reveal-trigger]
+     doesn't fade; it only stages descendants (the pullquote highlighter).
+   - Reduced motion keeps the fades and drops all movement and drawing.
 
-   Visible is the default. Everything that hides is gated on `.js` (set by
-   the inline <head> script, which also drops it after 3s if site.js never
-   sets `.reveal-live`) and on no-preference motion, and expresses the
-   hidden state as `:not(.is-revealed)` — so no later "show" rule has to win
-   a specificity fight. That fight is what blanked the first page of every
-   session in Sep 2026: a gated hide rule outranked `.is-revealed`. */
-@keyframes page-enter {
-  from { opacity: 0; transform: translateY(8px); }
-}
+   Visible is the default. Every hidden state is gated on `html.js` (set by
+   the inline <head> script and dropped after 3s if reveal.js never sets
+   `.reveal-live`) and written as `:not([data-revealed])`, so no later
+   "show" rule has to win a specificity fight. That fight is what blanked
+   the first page of every session in Sep 2026. */
+@keyframes page-enter      { from { opacity: 0; transform: translateY(8px); } }
+@keyframes page-enter-fade { from { opacity: 0; } }
 @keyframes reveal-up {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translate(var(--reveal-x, 0px), var(--reveal-y, 24px)); }
 }
-/* Delays match the portfolio's cadence: hero steps 0.05s + 0.08s each,
-   grid items 0.08s each (set --stagger-index inline to opt in). */
-[data-reveal]  { --reveal-delay: calc(var(--stagger-index, 0) * 0.08s); }
-[data-stagger] { --reveal-delay: calc(0.05s + var(--stagger-index, 0) * 0.08s); }
+@keyframes reveal-fade     { from { opacity: 0; } }
+
+/* `backwards`, not `both`: once finished nothing lingers on the element,
+   so hover transforms and transitions (.project-card) keep working. */
+main {
+  animation: page-enter 360ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.js [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+.js [data-reveal][data-revealed] {
+  animation: reveal-up 600ms cubic-bezier(0.21, 0.47, 0.32, 0.98) var(--reveal-delay, 0s) backwards;
+}
+.js .works-with-row:not([data-revealed]) .ww-item {
+  opacity: 0;
+}
 
 @media (prefers-reduced-motion: no-preference) {
-  /* `backwards`, not `both`: once finished, nothing lingers on the element,
-     so hover transforms (.project-card) and transitions keep working. */
-  main {
-    animation: page-enter 360ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
-  }
-  .js [data-reveal].is-revealed,
-  .js [data-stagger].is-revealed {
-    animation: reveal-up 600ms cubic-bezier(0.21, 0.47, 0.32, 0.98) var(--reveal-delay) backwards;
-  }
-
-  /* Pending states */
-  .js [data-reveal]:not(.is-revealed),
-  .js [data-stagger]:not(.is-revealed) {
-    opacity: 0;
-  }
-  .js .section-label[data-reveal]:not(.is-revealed)::after,
-  .js [data-reveal]:not(.is-revealed) .section-label::after {
+  .js .section-label[data-reveal]:not([data-revealed])::after,
+  .js [data-reveal]:not([data-revealed]) .section-label::after {
     transform: scaleX(0);
   }
-  .js [data-reveal]:not(.is-revealed) .pullquote .hl {
+  .js .pullquote:not([data-revealed]) .hl {
     background-size: 0% 72%;
   }
-  .js .works-with-row:not(.is-revealed) .ww-item {
-    opacity: 0;
+  .js .works-with-row:not([data-revealed]) .ww-item {
     transform: translateY(6px);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main { animation-name: page-enter-fade; }
+  .js [data-reveal][data-revealed] { animation-name: reveal-fade; }
+  .section-label::after,
+  .pullquote .hl { transition: none; }
+  .ww-item { transition-property: opacity; }
 }
 
 /* ----- Closing CTA -------------------------------------------------- */

@@ -356,25 +356,24 @@ Signature block near the footer of Markedly only. Communicates the donation-link
 
 ## 6. Motion
 
-These mirror gpenston.com's `components/motion/page-transition.tsx` and `scroll-reveal.tsx`, so both sites arrive the same way. Keep them in sync with the portfolio.
+Page entrance and scroll-reveal are **shared with gpenston.com**. Both sites run the same runtime (`assets/reveal.js` here and `public/reveal.js` there, byte-identical) and the same CSS block. Change one, change both.
 
 ### Page entrance
 
-`main` fades up on every page load: `opacity: 0; translateY(8px)` → normal, 360ms `cubic-bezier(0.16, 1, 0.3, 1)`, fill `backwards`. It's pure CSS, so the page appears even if no JS runs. The chrome and footer sit outside `main` and don't move, like the portfolio's persistent Header/Footer.
+`main` fades up on every page load: `opacity: 0; translateY(8px)` → normal, 360ms `cubic-bezier(0.16, 1, 0.3, 1)`, fill `backwards`. It's pure CSS, so it plays at first paint with no JS. The chrome and footer sit outside `main` and don't move.
 
 ### Scroll-reveal
 
-`[data-reveal]` and `[data-stagger]` elements fade up 24px over 600ms `cubic-bezier(0.21, 0.47, 0.32, 0.98)` (the `reveal-up` keyframe) when `site.js`'s IntersectionObserver sees them 64px inside the viewport (`rootMargin: '-64px'`). Each reveals once, on every visit, and waits for the scroll: nothing pre-reveals and there's no reveal-everything timer.
+- **`[data-reveal]`** fades up 24px over 600ms `cubic-bezier(0.21, 0.47, 0.32, 0.98)` once it's 64px inside the viewport. Optional inline `--reveal-delay` (hero: `0.05s / 0.1s / 0.2s / 0.25s`; catalogue cards: `0.1s + 0.08s` per card). Also optional: `--reveal-x`/`--reveal-y` to change the direction.
+- **`[data-reveal-trigger]`** doesn't fade itself; it only stages descendants. Used for the pullquote highlighter.
+- **`data-reveal-amount="0.6"`** waits until that fraction is visible instead of the 64px margin. The pullquote uses it so the highlighter draws while you're looking at it.
+- `reveal.js` sets **`data-revealed`** once and never removes it. It also watches for elements added later (the portfolio's client-side navigation).
 
 **Visible is the default.** Every hidden state:
-- is gated on `html.js` (set by the inline `<head>` script, which drops it after 3s if `site.js` never sets `.reveal-live`) and on `prefers-reduced-motion: no-preference`
-- is written as `:not(.is-revealed)`, never as a hide rule plus a later "show" override. In Sep 2026 a gated hide rule outranked `.is-revealed` on specificity and blanked the first page of every session.
+- is gated on `html.js`. The inline `<head>` script adds it and drops it after 3s if `reveal.js` never sets `.reveal-live`.
+- is written as `:not([data-revealed])`, never as a hide rule plus a later "show" override. In Sep 2026 a gated hide rule outranked `.is-revealed` on specificity and blanked the first page of every session.
 
 The reveal is a CSS animation with `backwards` fill, not a transition, so it never overrides a component's own hover `transition`/`transform` (e.g. `.project-card`).
-
-### Stagger
-
-`--reveal-delay` sets `animation-delay`. For `[data-stagger="N"]` (hero only), it's `0.05s + N × 0.08s`. A `[data-reveal]` element opts in with an inline `--stagger-index` at `N × 0.08s` (the catalogue cards). These match the portfolio's delay cadence.
 
 ### Section label line draw
 
@@ -382,7 +381,11 @@ The reveal is a CSS animation with `backwards` fill, not a transition, so it nev
 
 ### Pullquote highlight draw
 
-`.pullquote .hl` is `background-size: 0% 72%` while its `[data-reveal]` ancestor is pending. It draws to `100% 72%` over 800ms `cubic-bezier(0.16, 1, 0.3, 1)` with a 300ms delay, and the second span waits an extra 250ms.
+`.pullquote .hl` is `background-size: 0% 72%` until the pullquote is revealed at 60% visibility. It draws to `100% 72%` over 800ms `cubic-bezier(0.16, 1, 0.3, 1)` with a 300ms delay, and the second span waits an extra 250ms.
+
+### Reduced motion
+
+Fades stay, movement goes: `main` and reveals switch to opacity-only keyframes (`page-enter-fade`, `reveal-fade`), and the hairline and highlighter render drawn. Same on both sites.
 
 ### Hero atmosphere (home only)
 
@@ -395,15 +398,20 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 `.closing-cta .app-icon` floats `translateY(0)` → `translateY(-6px)` → back, 4s ease-in-out infinite. Gated on `prefers-reduced-motion: no-preference`.
 
-### Page navigation — no cross-document view transition
+### Page navigation — switcher-only view transition
 
-There's deliberately no `@view-transition { navigation: auto; }`. The native swap snapshotted pages mid-entrance and fought the reveal cascade through three rounds of patches (a hard-cut root, then once-per-session reveal gates). gpenston.com has no equivalent, and the browser's paint-holding plus `main`'s CSS entrance gives the same result. The mode wipe still uses same-document `startViewTransition()`, which doesn't need the at-rule.
+`@view-transition { navigation: auto; }` with the root hard-cut (`animation: none`). Only `.product-switcher` has a `view-transition-name`, so between product pages the active pill cross-fades over 200ms, matching gpenston.com's persistent header (`.nav-link { transition: color 0.2s, background 0.2s }`). Home has no switcher, so it fades in or out. `main`'s CSS entrance plays underneath the hard-cut root.
+
+- Don't name the root or anything inside `main`. A whole-page crossfade raced the reveal cascade through three rounds of patches in Sep 2026.
+- `html.vt-mode .product-switcher` drops the name so the mode wipe stays one layer.
+- Don't give the nav glyph its own name (old/new bitmap overlap bug).
+- Browsers without cross-document support swap instantly.
 
 ### General rules
 
 - **Hover transitions are 150–200ms.** Anything longer feels slow.
 - **No scroll-jacking, parallax, or scroll-tied animation.** The page scrolls like a document.
-- **`prefers-reduced-motion: reduce` kills all transitions and reveals immediately.** Non-negotiable. (gpenston.com keeps an opacity-only fade under reduced motion. This site is stricter on purpose.)
+- **`prefers-reduced-motion: reduce` removes all movement and drawing.** Fades stay (opacity only), matching gpenston.com. Decided 2026-09-24; the older rule was "no animation at all."
 - **The atmosphere (ring + rays) is the only ambient animation on home.** Don't add floating particles, gradient sweeps, or breathing elements elsewhere.
 - **Mode toggle transition is 200ms `cubic-bezier(0.4, 0, 0.2, 1)`.** Applies to thumb translate, icon slide, and track background.
 
@@ -487,8 +495,9 @@ There's deliberately no `@view-transition { navigation: auto; }`. The native swa
 - Don't add emoji, even in the README.
 - Don't put utility links (Support, Privacy, back-link) in the nav. They live in the unified bar / product-switcher.
 - Don't use the same accent colour for pullquote highlights as for links. The `.hl` is a cyan wash, not orange.
-- Don't bring back `@view-transition { navigation: auto; }` or once-per-session reveal gates. See §6 "Page navigation."
-- Don't hide reveal content with a rule that a later `.is-revealed` rule must override. Write the hidden state as `:not(.is-revealed)`. See §6 "Scroll-reveal."
+- Don't widen the page-navigation view transition beyond `.product-switcher`, and don't bring back once-per-session reveal gates. See §6 "Page navigation."
+- Don't hide reveal content with a rule that a later "revealed" rule must override. Write the hidden state as `:not([data-revealed])`. See §6 "Scroll-reveal."
+- Don't edit `assets/reveal.js` without making the same change to gpenston-portfolio's `public/reveal.js`.
 - Don't use `position: fixed` for `.sticky-chrome` — the iOS 26 Safari bleed-through fix requires `position: sticky`. See §4 for the full pattern.
 - Don't remove `pointer-events: none` from `.sticky-chrome::before` — the pseudo-element covers the entire chrome area and will silently eat button clicks without it.
 - Don't assume `theme-color` meta controls toolbar colour on iOS 26 Safari — Apple dropped that support. Keep the metas for other browsers.

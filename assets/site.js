@@ -91,29 +91,6 @@
       }
     }
 
-    // Scroll-reveal — mirrors gpenston.com's ScrollReveal (useInView with
-    // once: true, margin: "-64px"): each element fades up once it's 64px
-    // inside the viewport, and stays revealed. No eager pre-reveal and no
-    // reveal-everything timer — below-the-fold content waits for the scroll.
-    // Hiding is CSS-gated on .js; .reveal-live tells the <head> failsafe
-    // that this script arrived, so it leaves that gate in place.
-    var reveals = document.querySelectorAll('[data-reveal], [data-stagger]');
-    document.querySelectorAll('[data-stagger]').forEach(function (el) {
-      el.style.setProperty('--stagger-index', el.dataset.stagger);
-    });
-    function reveal(el) { el.classList.add('is-revealed'); }
-    if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { reveal(e.target); obs.unobserve(e.target); }
-        });
-      }, { rootMargin: '-64px' });
-      reveals.forEach(function (el) { obs.observe(el); });
-    } else {
-      reveals.forEach(reveal);
-    }
-    root.classList.add('reveal-live');
-
     // Cross-site theme handshake: outbound links to the sister portfolio
     // (gpenston.com) carry the current mode as a ?theme= param so the
     // receiving site can pick it up on load instead of defaulting cold.
