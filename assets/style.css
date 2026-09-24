@@ -1647,27 +1647,28 @@ footer {
    product-shot plates alike. True below-the-fold reveals (scrolled into
    view well after the page has settled) are unaffected either way, so
    .ps-skip-reveal gates the same for both selectors. */
-:root:not(.ps-skip-reveal) [data-reveal],
-:root:not(.ps-skip-reveal) [data-stagger] {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+/* The hidden state excludes .is-revealed rather than relying on a later
+   `.is-revealed { opacity: 1 }` rule to override it. That override lost on
+   specificity once the :root:not(.ps-skip-reveal) gate was added — (0,3,0)
+   vs (0,2,0) — so on the first page of every session the hero, catalogue
+   and plates stayed at opacity 0 forever despite site.js revealing them;
+   only a reload (which sets .ps-skip-reveal) made the page appear. Scoping
+   the hide to no-preference also covers reduced motion without a second
+   override that could lose the same way. */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not(.ps-skip-reveal) [data-reveal],
+  :root:not(.ps-skip-reveal) [data-stagger] {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  :root:not(.ps-skip-reveal) [data-reveal]:not(.is-revealed),
+  :root:not(.ps-skip-reveal) [data-stagger]:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
 [data-stagger] { transition-delay: calc(var(--stagger-index, 0) * 0.12s); }
 /* Allow data-reveal elements to opt-in to stagger by setting --stagger-index inline */
 [data-reveal]  { transition-delay: calc(var(--stagger-index, 0) * 0.12s); }
-[data-reveal].is-revealed,
-[data-stagger].is-revealed {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal], [data-stagger] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
 
 /* ----- Closing CTA -------------------------------------------------- */
 .closing-cta {
