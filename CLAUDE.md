@@ -20,9 +20,10 @@ Static HTML/CSS website for [penston.studio](https://penston.studio), the person
 │   └── ...                 # Favicons, app icons, product screenshots
 ├── docs/
 │   └── design-system.md    # Full design system reference — read this first
-├── scripts/                # Card-generation tooling; .vercelignore'd, not deployed
+├── scripts/                # Tooling; .vercelignore'd, not deployed
 │   ├── og-card.html        # 1200×630 share-card template
-│   └── generate-og-cards.mjs
+│   ├── generate-og-cards.mjs
+│   └── test-motion.mjs     # Reveal/entrance/view-transition checks, both sites
 ├── robots.txt
 └── sitemap.xml
 ```
@@ -84,7 +85,7 @@ Shared DNA (keep in sync both ways): the warm greige/near-black palette (both si
 
 **Flowing back from the portfolio (2026-08-07).** Its editorial polish pass adopted two devices from here — `.section-label::after`'s growing hairline and `.big-h2`'s poster-scale statement type — so those are now shared DNA in both directions. Two rules it established are worth applying here too if this site ever drifts the same way: **mono is chrome at 1–3 words, never phrases** (set a sentence in Martian Mono at 11px/0.1em+ and the page reads as a spec sheet), and **arrows belong only on a primary CTA, an external link, or a directional pager** — everywhere else a drawn underline on hover carries the affordance without the chrome.
 
-**Shared DNA — page entrance + scroll-reveal (unified 2026-09-24).** Both sites run one runtime: `assets/reveal.js` here and `public/reveal.js` in the portfolio, **byte-identical, so edit both together**. Both also use the same CSS contract: `main` fades up 8px/360ms in pure CSS, `[data-reveal]` fades up 24px/600ms at 64px inside the viewport, and hidden states are gated on `html.js` and written as `:not([data-revealed])`. A 3s `<head>` failsafe shows everything if the runtime never arrives. Under reduced motion both sites keep the fades and drop the movement. The only page-navigation view transition here is on `.product-switcher`, which reproduces the portfolio's cross-fading active nav pill. Details are in `docs/design-system.md` §6.
+**Shared DNA — page entrance + scroll-reveal (unified 2026-09-24).** Both sites run one runtime: `assets/reveal.js` here and `public/reveal.js` in the portfolio, **byte-identical, so edit both together**. Both also use the same CSS contract: `main` fades up 8px/360ms in pure CSS, `[data-reveal]` fades up 24px/600ms at 64px inside the viewport, and hidden states are gated on `html.js` and written as `:not([data-revealed])`. A 3s `<head>` failsafe shows everything if the runtime never arrives. Under reduced motion both sites keep the fades and drop the movement. The only page-navigation view transition here is on `.product-switcher`, which reproduces the portfolio's cross-fading active nav pill. Details are in `docs/design-system.md` §6. **After any change to it, run `node scripts/test-motion.mjs`** (checks both live sites in Chromium + WebKit, plus `reveal.js` parity; pass `--studio-url`/`--portfolio-url` for local servers).
 
 **Deliberate divergence — mode-wipe duration.** This site stays at 680ms; the portfolio runs 540ms. Easing and direction are still identical, so they remain siblings.
 

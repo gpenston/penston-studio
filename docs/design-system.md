@@ -356,7 +356,7 @@ Signature block near the footer of Markedly only. Communicates the donation-link
 
 ## 6. Motion
 
-Page entrance and scroll-reveal are **shared with gpenston.com**. Both sites run the same runtime (`assets/reveal.js` here and `public/reveal.js` there, byte-identical) and the same CSS block. Change one, change both.
+Page entrance and scroll-reveal are **shared with gpenston.com**. Both sites run the same runtime (`assets/reveal.js` here and `public/reveal.js` there, byte-identical) and the same CSS block. Change one, change both. Then run `node scripts/test-motion.mjs`, which checks both sites in Chromium and WebKit and confirms the two `reveal.js` copies match.
 
 ### Page entrance
 
