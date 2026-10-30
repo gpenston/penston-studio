@@ -29,6 +29,14 @@ Static HTML/CSS website for [penston.studio](https://penston.studio), the person
 └── sitemap.xml
 ```
 
+## SEO and machine-readable bits
+
+- **Sitemap:** `sitemap.xml` lists every indexable page by hand. **Add a new product page here when you create it** (Pour Over was missing until 2026-10-30). `/notes/` is deliberately left out and carries `noindex, nofollow`; `robots.txt` does not `Disallow` it, because a crawler blocked by robots.txt never sees the noindex.
+- **Structured data:** JSON-LD in each page's `<head>`. Home has `Person` (shared `@id` with gpenston.com) + `WebSite`; Markedly and Pour Over each have a `SoftwareApplication` + `BreadcrumbList`. Keep names, descriptions and prices in step with the visible copy.
+- **`llms.txt`:** hand-written map of the site at the root. Update it when a project is added.
+- **`404.html`:** branded not-found page (Vercel serves it for any unknown path), so it uses absolute `/assets/...` paths and carries `noindex`.
+- **Icons:** every page links the SVG favicon, 32px and 16px PNGs and an apple-touch-icon; `vercel.json` rewrites `/favicon.ico` to the 32px PNG for crawlers that ask for it directly.
+
 ## Share Cards (Open Graph)
 
 Every page previews with a real 1200×630 bureau card in `assets/og-*.png`: `og-studio`, `og-markedly`, `og-pour-over`, and `og-notes` (shared by both notes pages). Before Aug 2026 every page pointed `og:image` at a 200×200 favicon with `twitter:card: summary`, so sharing a link produced a tiny icon or nothing — while gpenston.com, which generates a proper card, previewed fine.
