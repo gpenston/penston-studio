@@ -307,7 +307,8 @@ mix them: a pill on a nav link or a rect on a CTA breaks the rule.
   mode via a `?theme=` query param on click; the reverse also holds. See
   `docs/design-system.md` §13.
 - **Highlight.** A hand-drawn marker highlight (Accent Cool) reserved for the
-  pullquote block only.
+  pullquote block and text selection (`::selection` uses the same `--highlight`
+  wash: white text in dark, ink in light).
 - **Touch.** On coarse pointers a pseudo-element extends nav, toggle and footer
   targets to ~44px under the unchanged visible shape.
 
@@ -316,7 +317,7 @@ mix them: a pill on a nav link or a rect on a CTA breaks the rule.
 - Do use Signal Orange as a fill, ring or icon, and `--accent-text` for any
   orange text.
 - Do separate sections with whitespace and group with surface tone.
-- Do keep the highlight marker to the pullquote block.
+- Do keep the highlight marker to the pullquote block and text selection.
 - Do keep mono to one-to-two-word meta; everything that reads as a sentence or
   a control is Hanken.
 - Do maintain WCAG AA contrast (4.5:1 for normal text). Walk the rendered DOM

@@ -247,7 +247,11 @@ h1, h2, h3, h4, h5, h6 {
 a { color: var(--text-primary); text-decoration: none; transition: color 0.15s ease-out; }
 a:hover { color: var(--accent-text); }
 
-::selection { background: var(--accent); color: var(--on-accent); }
+/* Same cyan wash as the pullquote marker; solid orange read as too loud on the
+   flat palette. Dark is the default mode, so white text (#ececec on the wash
+   is 4.4:1, white clears 5:1); light keeps ink. Mirrors gpenston.com. */
+::selection { background: var(--highlight); color: #fff; }
+:root[data-mode="light"] ::selection { color: var(--text-primary); }
 *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ----- Layout -------------------------------------------------------- */
