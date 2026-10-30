@@ -18,25 +18,25 @@
   <meta name="twitter:title" content="Penston Studio">
   <meta name="twitter:description" content="George Penston is a Principal Product Designer and maker. Penston Studio is home to his side projects, including Markedly and Pour Over for Raindrop.">
   <meta name="twitter:image" content="https://penston.studio/assets/og-studio.png">
-  <meta name="theme-color" content="#0c0b08" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
-  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#ffffff':'#0a0a0a';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="canonical" href="https://penston.studio/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css?v=80">
+  <link rel="stylesheet" href="assets/style.css?v=81">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
   <script defer src="assets/reveal.js?v=1"></script>
-  <script defer src="assets/site.js?v=20"></script>
+  <script defer src="assets/site.js?v=21"></script>
 </head>
 <body>
   <!-- Safari 26 toolbar tint — fixed position so Safari reads its background-color
        for the status-bar glass tint. Updated via syncThemeColor() in site.js. -->
-  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>
+  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0a0a0a"></div>
   <div class="container">
 
-    <div class="sticky-chrome">
+    <header class="sticky-chrome">
       <div class="unified-bar">
-        <a href="#" class="instr-kicker nav-kicker nav-mark" aria-label="Penston Studio — scroll to top"><svg class="nav-glyph" aria-hidden="true" width="11" height="10" viewBox="0 0 11 10" fill="none"><path d="M1 9.5L4.5 0.5M6.5 9.5L10 0.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg><span class="nav-text">Penston Studio</span></a>
+        <a href="#" class="nav-mark" aria-label="Penston Studio — scroll to top"><svg class="nav-glyph" aria-hidden="true" width="11" height="10" viewBox="0 0 11 10" fill="none"><path d="M1 9.5L4.5 0.5M6.5 9.5L10 0.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg><span class="nav-text">Penston Studio</span></a>
         <div aria-hidden="true"></div>
         <div class="unified-actions">
           <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
@@ -45,7 +45,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </header>
 
     <main>
       <section class="instr-hero">
@@ -71,11 +71,6 @@
           </g>
         </svg>
         <div class="disc-ring"></div>
-
-        <div class="instr-kickrow" data-reveal style="--reveal-delay: 0.05s">
-          <span class="hero-chapter">00</span>
-          <span class="instr-kicker">Bureau · Chapter 03</span>
-        </div>
         <h1 class="hero-name" data-reveal style="--reveal-delay: 0.1s">George Penston</h1>
         <p class="hero-bio" data-reveal style="--reveal-delay: 0.2s">
           Principal product designer and maker. I turn big ideas into real products and sweat the details that make them worth using.
@@ -83,14 +78,11 @@
         </p>
         <a href="https://gpenston.com" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary" data-reveal style="--reveal-delay: 0.25s">
           Full portfolio
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/>
-          </svg>
         </a>
       </section>
 
-      <section style="padding: 24px 0 24px;">
-        <div class="section-label" data-num="01" data-reveal>Catalogue</div>
+      <section class="section-block">
+        <h2 class="section-label" data-reveal>Catalogue</h2>
 
         <a href="markedly/" class="project-card" data-color="markedly" data-reveal style="--reveal-delay: 0.1s">
           <div class="project-icon"><img src="assets/markedly-icon.png" alt="Markedly"></div>
@@ -100,7 +92,6 @@
           </div>
           <div class="project-meta">
             <span class="project-badge">macOS</span>
-            <i class="ri-arrow-right-line project-arrow" aria-hidden="true"></i>
           </div>
         </a>
 
@@ -112,14 +103,13 @@
           </div>
           <div class="project-meta">
             <span class="project-badge">GitHub Action</span>
-            <i class="ri-arrow-right-line project-arrow" aria-hidden="true"></i>
           </div>
         </a>
       </section>
 
-      <section style="padding: 48px 0 24px;">
-        <div class="section-label" data-num="02" data-reveal>The Studio</div>
-        <h2 class="big-h2" data-reveal>Purpose-built.<br>Small and <em>considered</em>.</h2>
+      <section class="section-block">
+        <h2 class="section-label" data-reveal>The Studio</h2>
+        <h2 class="big-h2" data-reveal>Purpose-built. <span class="nowrap">Small and <em>considered</em>.</span></h2>
         <p class="studio-body" data-reveal>
           Penston Studio is a one-person practice in product design and development. I build the tools I actually want to exist and put them out into the world. Born from curiosity, made with intention.
         </p>
@@ -129,7 +119,6 @@
     <footer>
       <div class="footer-inner">
         <div class="footer-left">
-          <span class="footer-est">EST. 2010</span>
           <span class="footer-copy">© 2026 George Penston</span>
         </div>
         <ul class="footer-links">

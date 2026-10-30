@@ -18,23 +18,23 @@
   <meta name="twitter:title" content="Pour Over for Raindrop — Your read-later list, delivered">
   <meta name="twitter:description" content="A GitHub Action that brews a daily digest from your Raindrop read-later list and delivers it to your inbox.">
   <meta name="twitter:image" content="https://penston.studio/assets/og-pour-over.png">
-  <meta name="theme-color" content="#0c0b08" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
-  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#ffffff':'#0a0a0a';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="canonical" href="https://penston.studio/pour-over/">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css?v=80">
+  <link rel="stylesheet" href="../assets/style.css?v=81">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
   <script defer src="../assets/reveal.js?v=1"></script>
-  <script defer src="../assets/site.js?v=20"></script>
+  <script defer src="../assets/site.js?v=21"></script>
 </head>
 <body>
-  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>
+  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0a0a0a"></div>
   <div class="container">
 
-    <div class="sticky-chrome">
+    <header class="sticky-chrome">
       <div class="unified-bar">
-        <a href="../" class="back-link nav-mark">
+        <a href="../" class="back-link nav-mark" aria-label="Penston Studio">
           <i class="ri-arrow-left-s-line nav-glyph" aria-hidden="true"></i>
           <span class="back-link-text nav-text">Penston Studio</span>
         </a>
@@ -57,7 +57,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </header>
 
     <main>
 
@@ -76,22 +76,18 @@
           </ul>
         </div>
 
-        <h1 class="hero-headline" data-reveal style="--reveal-delay: 0.1s">Your read-later list,<br>brewed <em>fresh daily</em>.</h1>
+        <h1 class="hero-headline" data-reveal style="--reveal-delay: 0.1s">Your read-later list, brewed <em>fresh daily</em>.</h1>
         <p class="hero-sub" data-reveal style="--reveal-delay: 0.2s">
           Connect your <a href="https://raindrop.io" target="_blank" rel="noopener">Raindrop.io</a> read-later collection and get a beautifully formatted email digest, with optional article recommendations, delivered on your schedule. No dashboard, no app. Just your inbox.
         </p>
 
         <div class="cta-group" data-reveal style="--reveal-delay: 0.25s">
-          <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="btn-primary">
-            <i class="ri-github-fill btn-icon"></i>
+          <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="pill-btn pill-btn-primary">
+            <i class="ri-github-fill cta-btn-icon"></i>
             View on GitHub
-            <i class="ri-arrow-right-line mono-arrow"></i>
           </a>
-          <a href="https://github.com/gpenston/pour-over-for-raindrop/fork" target="_blank" rel="noopener" class="btn-secondary">
+          <a href="https://github.com/gpenston/pour-over-for-raindrop/fork" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary">
             Fork and set up
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/>
-            </svg>
           </a>
         </div>
       </section>
@@ -101,7 +97,6 @@
         <div class="plates-mac">
 
           <div class="plate plate-hero">
-            <div class="plate-num">PL. 01 / MAIL CLIENT</div>
             <div class="plate-body">
               <div class="device-frame">
                 <div class="device-macbook">
@@ -117,7 +112,6 @@
 
           <div class="plates-row">
             <div class="plate plate-small">
-              <div class="plate-num">PL. 02</div>
               <div class="plate-body">
                 <div class="device-iphone">
                   <div class="screen">
@@ -129,7 +123,6 @@
             </div>
 
             <div class="plate plate-small">
-              <div class="plate-num">PL. 03</div>
               <div class="plate-body">
                 <div class="device-iphone">
                   <div class="screen">
@@ -141,7 +134,6 @@
             </div>
 
             <div class="plate plate-small">
-              <div class="plate-num">PL. 04</div>
               <div class="plate-body">
                 <div class="device-iphone">
                   <div class="screen">
@@ -157,8 +149,8 @@
       </section>
 
       <!-- The idea (pullquote) -->
-      <section style="padding: 48px 0 16px;" data-reveal>
-        <div class="section-label" data-num="01">The idea</div>
+      <section class="section-block" data-reveal>
+        <h2 class="section-label">The idea</h2>
         <p class="pullquote" data-reveal-trigger data-reveal-amount="0.6">
           The read-later queue is a
           <span class="hl">graveyard</span>.
@@ -169,8 +161,8 @@
       </section>
 
       <!-- Features (spec rows) -->
-      <section style="padding: 32px 0 8px;">
-        <div class="section-label" data-num="02" data-reveal>What it does</div>
+      <section class="section-block">
+        <h2 class="section-label" data-reveal>What it does</h2>
 
         <div class="features" data-reveal>
           <div class="feature">
@@ -197,8 +189,8 @@
       </section>
 
       <!-- Works With -->
-      <section style="padding: 32px 0 16px;">
-        <div class="section-label" data-num="03" data-reveal>Works with</div>
+      <section class="section-block">
+        <h2 class="section-label" data-reveal>Works with</h2>
         <div class="works-with-row" data-reveal>
           <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-raindrop.jpg" alt=""><span class="ww-name">Raindrop.io</span></div>
           <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-github.jpg" alt=""><span class="ww-name">GitHub Actions</span></div>
@@ -210,9 +202,8 @@
       </section>
 
       <!-- FARA -->
-      <section style="padding: 40px 0 16px;" data-reveal>
+      <section class="section-block" data-reveal>
         <div class="callout-card">
-          <div class="callout-label">Built with purpose</div>
           <h2 class="callout-heading">Supporting Friedreich’s Ataxia research</h2>
           <p class="callout-body">
             Pour Over is free, and always will be. In place of a price tag, there’s a donation link to the
@@ -220,32 +211,29 @@
             a nonprofit funding research into a progressive neurological condition with no known cure that directly impacts my family.
             If this project saves you time, consider passing it forward.
           </p>
-          <a href="https://give.curefa.org/campaign/785456/donate?pour-over" target="_blank" rel="noopener" class="pill-btn pill-btn-secondary">
+          <a href="https://give.curefa.org/campaign/785456/donate?pour-over" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary">
             Donate to FARA
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M5 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M8 2h4m0 0v4m0-4L6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
           </a>
         </div>
       </section>
 
       <!-- Support -->
-      <section style="padding: 40px 0 16px;" id="support">
-        <div class="section-label" data-num="04" data-reveal>Support</div>
+      <section class="section-block" id="support">
+        <h2 class="section-label" data-reveal>Support</h2>
         <div class="support-links" data-reveal>
           <a href="https://github.com/gpenston/pour-over-for-raindrop/issues/new" target="_blank" rel="noopener" class="support-link-item">
             <div>
               <div class="support-link-label">Report an issue</div>
               <div class="support-link-sub">GitHub Issues — file a bug or request a feature</div>
             </div>
-            <i class="ri-arrow-right-line support-link-arrow" aria-hidden="true"></i>
+            <i class="ri-arrow-right-up-line support-link-arrow" aria-hidden="true"></i>
           </a>
           <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="support-link-item">
             <div>
               <div class="support-link-label">View source</div>
               <div class="support-link-sub">MIT licensed — fork it, modify it, make it yours</div>
             </div>
-            <i class="ri-arrow-right-line support-link-arrow" aria-hidden="true"></i>
+            <i class="ri-arrow-right-up-line support-link-arrow" aria-hidden="true"></i>
           </a>
         </div>
       </section>
@@ -254,19 +242,15 @@
         <div class="app-icon">
           <img src="../assets/pour-over-icon.png" alt="Pour Over for Raindrop">
         </div>
-        <h2 class="closing-cta-headline">Free to use.<br>Fork and go.</h2>
+        <h2 class="closing-cta-headline">Free to use. Fork and go.</h2>
         <p class="closing-cta-sub">No server, no dashboard, no subscription. Just your inbox.</p>
         <div class="cta-group" style="justify-content: center;">
-          <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="btn-primary">
-            <i class="ri-github-fill btn-icon"></i>
+          <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="pill-btn pill-btn-primary">
+            <i class="ri-github-fill cta-btn-icon"></i>
             View on GitHub
-            <i class="ri-arrow-right-line mono-arrow"></i>
           </a>
-          <a href="https://github.com/gpenston/pour-over-for-raindrop/fork" target="_blank" rel="noopener" class="btn-secondary">
+          <a href="https://github.com/gpenston/pour-over-for-raindrop/fork" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary">
             Fork and set up
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/>
-            </svg>
           </a>
         </div>
       </section>
@@ -275,7 +259,6 @@
     <footer>
       <div class="footer-inner">
         <div class="footer-left">
-          <span class="footer-est">EST. 2010</span>
           <span class="footer-copy">© 2026 George Penston</span>
         </div>
         <ul class="footer-links">
