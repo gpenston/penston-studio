@@ -22,7 +22,7 @@
 --bg-primary:     #0a0a0a;
 --bg-secondary:   #141414;   /* card / panel */
 --bg-tertiary:    #1c1c1c;   /* hover / pressed / selected */
---text-primary:   #ececec;
+--text-primary:   #ececea;
 --text-secondary: #b3b3b3;
 --text-tertiary:  #8f8f8f;   /* meta, 6.12:1 on bg-primary */
 --border-light:   rgba(255,255,255,0.08);
@@ -40,7 +40,7 @@
 ```css
 --bg-primary:     #ffffff;
 --bg-secondary:   #f6f6f5;
---bg-tertiary:    #ececec;
+--bg-tertiary:    #ececea;
 --text-primary:   #141414;
 --text-secondary: #555555;
 --text-tertiary:  #6b6b6b;   /* 5.33:1 on white, 4.93:1 on bg-secondary.

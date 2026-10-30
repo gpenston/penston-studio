@@ -14,7 +14,7 @@ colors:
   surface: "#0a0a0a"
   surface-raised: "#141414"
   surface-overlay: "#1c1c1c"
-  on-surface: "#ececec"
+  on-surface: "#ececea"
   on-surface-muted: "#b3b3b3"
   on-surface-faint: "#8f8f8f"
   border-subtle: "rgba(255,255,255,0.08)"
@@ -22,7 +22,7 @@ colors:
   on-primary: "#0a0a0a"
   light-surface: "#ffffff"
   light-surface-raised: "#f6f6f5"
-  light-surface-overlay: "#ececec"
+  light-surface-overlay: "#ececea"
   light-on-surface: "#141414"
   light-on-surface-muted: "#555555"
   light-on-surface-faint: "#6b6b6b"
@@ -183,7 +183,7 @@ Neutral grays with a single evocative accent. Values below are the **dark
   mode: `#3d6b68`.
 - **Surface — Near-Black (#0a0a0a):** The page background. Raised (`#141414`)
   and overlay (`#1c1c1c`) layers carry cards and chips.
-- **On-Surface (#ececec):** Primary text and headlines.
+- **On-Surface (#ececea):** Primary text and headlines.
 - **On-Surface Muted (#b3b3b3):** Body copy asides, secondary text.
 - **On-Surface Faint (#8f8f8f):** Meta and metadata. 6.12:1 on the page.
 - **Borders:** white at 8% (subtle) and 18% (medium) alpha. Used on the hairline
@@ -193,7 +193,7 @@ Neutral grays with a single evocative accent. Values below are the **dark
   white or black, never a tinted neutral.
 
 **Light theme (flat white, 2026-10-29):** surface `#ffffff` / `#f6f6f5` /
-`#ececec`, on-surface `#141414`, muted `#555555`, faint `#6b6b6b` (5.33:1 on
+`#ececea`, on-surface `#141414`, muted `#555555`, faint `#6b6b6b` (5.33:1 on
 white, 4.93:1 on raised, 4.51:1 on overlay, so keep it off the overlay tier),
 borders `rgba(20,20,20,0.08 / 0.18)`, `--on-accent` `#141414`. **Per-page
 accent override:** Pour Over swaps Primary to amber, `#f0a830` in dark. Light
