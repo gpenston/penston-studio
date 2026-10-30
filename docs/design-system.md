@@ -1,6 +1,6 @@
 # Penston Studio — Design System
 
-> **The short version.** The site is an **instrument**, not an album cover. Bureau lineage: Dieter Rams / Braun / Eames Office via Walkie. Monochrome canvas, one saturated accent, tabular mono numerics, numbered chapter headings, restrained atmosphere. Keep the drama dialed down; let composition and typography carry the weight.
+> **The short version.** The site is an **instrument**, not an album cover. Bureau lineage: Dieter Rams / Braun / Eames Office via Walkie. Neutral canvas (flat white or near-black), one saturated accent, Hanken sentence-case chrome with a little mono meta, surface-tone cards instead of rules, restrained atmosphere. Keep the drama dialed down; let composition and typography carry the weight. Both palettes and the type, shape and interaction rules were ported from gpenston.com on 2026-10-29 (see its CLAUDE.md for the source of truth).
 
 ---
 
@@ -8,7 +8,7 @@
 
 - **Confident, not marketing-fluffy.** "A one-person practice in product design and development." Not "I'm passionate about crafting delightful experiences."
 - **Maker-first.** Written by the person who builds the things.
-- **Editorial cadence.** Numbered chapters (`01 —`, `02 —`), pullquotes, system labels. Reads like a trade journal, not a SaaS page.
+- **Editorial cadence.** Plain section headings, pullquotes, short meta chips. Reads like a trade journal, not a SaaS page. No numbered chapters, eyebrows or kickers (removed 2026-10-29 as AI tells).
 - **Smart quotes.** `'` `"` — never straight `' "`.
 - **Em dashes** — not hyphens — for parentheticals. Use sparingly; don't stack two in one sentence.
 
@@ -16,69 +16,70 @@
 
 ## 2. Color
 
-### Dark mode (default)
+### Dark mode (default, neutral since 2026-10-29)
 
 ```css
---bg-primary:     #0c0b08;   /* near-black, warm */
---bg-secondary:   #17150f;   /* card / panel */
---bg-tertiary:    #1f1c14;   /* inset / hover */
---text-primary:   #e8e2cf;   /* bone / cream */
---text-secondary: #9c9687;   /* muted */
---text-tertiary:  #5a5547;   /* labels, system chrome */
---border-light:   #1f1c14;
---border-medium:  #2a2620;
---border-rule:    #e8e2cf;
---accent:         #eb5a00;   /* signal orange */
---accent-hover:   #ff7a2e;
---accent-cool:    #7aa9a3;   /* faded teal — used for <em> emphasis only */
+--bg-primary:     #0a0a0a;
+--bg-secondary:   #141414;   /* card / panel */
+--bg-tertiary:    #1c1c1c;   /* hover / pressed / selected */
+--text-primary:   #ececec;
+--text-secondary: #b3b3b3;
+--text-tertiary:  #8f8f8f;   /* meta, 6.12:1 on bg-primary */
+--border-light:   rgba(255,255,255,0.08);
+--border-medium:  rgba(255,255,255,0.18);
+--accent:         #eb5a00;   /* signal orange — fills, rings, icons */
+--accent-text:    var(--accent);   /* 5.65:1 on bg-primary */
+--accent-text-hover: #ff7a33;
+--accent-cool:    #7aa9a3;   /* faded teal — <em> emphasis only */
+--image-outline:  oklch(1 0 0 / 0.1);
 --highlight:      rgba(64,220,228,0.52);  /* pullquote .hl — bright cyan wash */
 ```
 
-### Light mode
+### Light mode (flat white, 2026-10-29)
 
 ```css
---bg-primary:     #f2f1ec;   /* greige paper — was #efece4 bone paper, see below */
---bg-secondary:   #e8e6df;   /* was #e5e1d4 */
---bg-tertiary:    #dbd9d0;   /* was #d9d3c2 */
---text-primary:   #1a1810;   /* warm near-black */
---text-secondary: #5a5547;
---text-tertiary:  #6d6752;   /* was #7d765f — only 3.84:1 on old bone paper /
-                                 4.01:1 on greige, below the 4.5:1 floor for
-                                 small mono chrome. Darkened to clear 5.00:1. */
---border-light:   #dad7ca;   /* was #dcd5c2 — pulled toward neutral in step
-                                 with the bg desaturation */
---border-medium:  #c4c1b5;   /* was #c8c0ac */
---border-rule:    #1a1810;
---accent:         #d94f00;   /* slightly deeper for contrast on paper */
---accent-hover:   #a53600;
+--bg-primary:     #ffffff;
+--bg-secondary:   #f6f6f5;
+--bg-tertiary:    #ececec;
+--text-primary:   #141414;
+--text-secondary: #555555;
+--text-tertiary:  #6b6b6b;   /* 5.33:1 on white, 4.93:1 on bg-secondary.
+                                Not for use on bg-tertiary (4.51:1). */
+--border-light:   rgba(20,20,20,0.08);
+--border-medium:  rgba(20,20,20,0.18);
+--accent:         #eb5a00;   /* same orange as dark: 3.50:1 on white */
+--accent-text:    #b23f00;   /* rust: 5.83:1 on white, 5.39:1 on bg-secondary */
+--accent-text-hover: #963500; /* 7.48:1 on white */
 --accent-cool:    #3d6b68;
---highlight:      rgba(0,175,190,0.30);  /* pullquote .hl — muted teal wash */
+--on-accent:      #141414;   /* 5.26:1 on #eb5a00; white would be 3.50:1 */
+--image-outline:  oklch(0 0 0 / 0.1);
+--highlight:      rgba(0,175,190,0.30);
 ```
 
-**2026-07-21 — greige repaint.** The light bg tokens were desaturated and
-lifted a touch (ported from gpenston-portfolio's light-mode rework) to read
-as "paper" rather than "beige." This closes what had been a deliberate
-sibling divergence — until this pass, the portfolio used this desaturated
-greige while this site kept the warmer original bone paper. They're back in
-sync now. `--text-tertiary` was darkened in the same pass to actually clear
-WCAG AA (it had quietly been failing on bone paper too — not a regression
-introduced by the repaint, just caught while in the area). Dark mode is
-untouched. `--border-light`/`--border-medium` and `--on-accent` moved with
-the bg; all other light tokens (text-primary/secondary, accent family,
-highlight) are unchanged.
+**2026-10-29 — flat white and neutral dark.** The greige (`#f2f1ec`, itself a
+2026-07-21 repaint of the bone paper) still read as beige, and the warm
+bone-on-black dark read as a different system next to gpenston.com. Both are
+now neutral, matching the portfolio. Teal and orange hues are unchanged.
+**`--accent` is not a small-text color in light mode**: use `--accent-text`
+(and `--accent-text-hover`) for any body-sized orange, such as inline links and
+`.cost-amount`. Measure after touching any of them: walk the rendered DOM and
+compare each text node against its nearest painted ancestor, as in the
+portfolio's CLAUDE.md. As of the port, axe reports 0 violations on all five
+pages in both modes at 1280, 375 and 320px.
 
 ### Per-page accent overrides
 
-- **Pour Over** (`[data-page="pourover"]`): `--accent: #f0a830` (warm amber), `--accent-hover: #f7c060`. The orange global accent is too murky for the coffee theme.
+- **Pour Over** (`[data-page="pourover"]`): amber. Dark: `--accent` and `--accent-text` `#f0a830`, hover `#f7c060`. Light has to be darkened well past the brand value (`#c88a1e` is only 2.95:1 on white): `--accent` `#b87a00`, `--accent-text` `#8a5a00` (5.93:1 on white, 5.48:1 on bg-secondary), `--accent-text-hover` `#6e4500`. Re-measure if the surfaces move.
 
 ### Rules
 
 - **One accent at a time.** `--accent` is the only saturated color on the page.
 - **`--accent-cool` is a whisper.** Use it for one word in a headline and nowhere else.
-- **Background grid is default.** Every page has a faint mono grid backdrop (`background-size: 48px 48px`, ~11% opacity lines in dark, ~6% in light). It reads as graph paper.
-- **Paper grain is always on.** A `body::before` fixed pseudo-element adds a ~3% feTurbulence SVG grain for organic texture. Dark: 3% opacity, Light: 2%. Never remove it.
+- **Background grid is default.** Every page has a faint dot grid (`background-size: 48px 48px`, white 8% in dark, ink 3.5% in light) over a worn graph-paper line grid. Fainter than before the port.
+- **Paper grain is always on.** A `body::before` fixed pseudo-element adds a ~3% feTurbulence SVG grain for organic texture. Dark: 2.2%, Light: 1.8%. Never remove it.
 - **No gradients.** The site is flat. (The old orange disc gradient and the hero horizon glow were removed in the June 2026 cleanup — don't reintroduce decorative gradients.)
-- **Light mode is not dark-mode-inverted.** It's a distinct paper aesthetic. Recalibrate, don't swap.
+- **Light mode is not dark-mode-inverted.** Recalibrate each token against its own surfaces, don't swap.
+- **Studio texture stays.** The worn graph paper and atmosphere rays remain studio-only; the portfolio's dot grid and registration ticks are its own.
 
 ---
 
@@ -88,19 +89,17 @@ highlight) are unchanged.
 
 ```css
 --font-display: 'Hanken Grotesk', system-ui, sans-serif;  /* headlines, name */
---font-body:    'Hanken Grotesk', system-ui, sans-serif;  /* body copy */
---mono:         'Martian Mono', ui-monospace, monospace;  /* system chrome, labels */
---font-flavor:  'D-DIN Condensed', 'Martian Mono', sans-serif; /* numeric accents only */
+--font-body:    'Hanken Grotesk', system-ui, sans-serif;  /* body, nav, buttons, footer */
+--mono:         'Martian Mono', ui-monospace, monospace;  /* tiny meta only */
 ```
 
-Hanken Grotesk and Martian Mono load via Google Fonts. **D-DIN Condensed is
-self-hosted** at `assets/fonts/D-DINCondensed-Bold.woff2` (DIN 1451 digitization,
-OFL) — served from Vercel's edge like any static asset. See the full rationale in
-`DESIGN.md` (root) and `docs/superpowers/specs/2026-07-10-type-system-refresh-design.md`.
+Both load via Google Fonts. **D-DIN Condensed was removed 2026-10-29** (and
+`assets/fonts/D-DINCondensed-Bold.woff2` with it): it only styled section
+numbers, the hero chapter marker and the footer `EST.` mark. When those went
+it was a font loaded for nothing. Don't add a font without a rendered use.
 
-Hanken does display **and** body (one warm humanist family). Martian Mono is the
-technical chrome. D-DIN Condensed is a flavor accent used **only** for numeric
-moments — never for body or headings.
+Hanken does display, body **and chrome**. Martian Mono is for one-to-two-word
+meta only.
 
 ### Scale
 
@@ -110,10 +109,12 @@ moments — never for body or headings.
 | `hero-headline` | `clamp(44px, 7vw, 84px)` | 800 | Product h1 — "Convert anything to Markdown." |
 | `big-h2` | `clamp(36px, 6vw, 56px)` | 700 | Section headlines |
 | `pullquote` | `clamp(22px, 3.2vw, 34px)` | 700 | Editorial pullquote (carries the highlight marker) |
-| `body-lg` | 17px / 1.7 | Hero bios, long paragraphs |
-| `body` | 15px / 1.6 | Default paragraph |
-| `body-sm` | 13px | Meta, captions |
-| `mono-label` | 10–11px, 0.08em tracking, uppercase | System chrome, section labels, captions |
+| `section-heading` | `clamp(18px, 1.02rem + 0.45vw, 22px)` | 700 | `.section-label` (an `h2`) |
+| `body-lead` | 17px / 1.55 | 400 | Hero bios, intro paragraphs |
+| `body` | 16px / 1.6 | 400 | Long-form body, privacy and FAQ prose |
+| `body-sm` | 14–15px / 1.5 | 400 | Card text, captions, footer |
+| `control` | 15px | 500–600 | Nav links (500), buttons (600) |
+| `meta` | 11px mono, 0.06em tracking, uppercase | 500 | Chips and file-type tags only |
 
 ### Rules
 
@@ -122,17 +123,14 @@ moments — never for body or headings.
   ```html
   <h2>Small and <em>considered</em>.</h2>
   ```
-- **Mono is for system, not body.** Never use Martian Mono for paragraphs.
-- **Mono labels are always uppercase, tracked, with tabular numbers.**
-- **D-DIN is for numeric accents only** — the hero chapter marker, section-label numbers, feature-row numbers, and the footer `EST.` mark. Never for body or headings.
-- **Section labels carry a chapter number.** `data-num="02"` renders the number in condensed D-DIN (signal orange) before the mono label text via CSS `::before`.
+- **Mono is meta, not chrome.** One-to-two-word chips and file types (`macOS`, `DOCX`), inline `code`. Never a phrase, never a control. Nav, buttons, section headings, the footer and form labels are Hanken sentence case.
+- **No numerals.** No `data-num`, no chapter marker, no plate or figure numbers.
 - **The highlight marker (`.hl`, accent-cool) is reserved for the pullquote block** — the single expressive flourish per page. Don't scatter it per section.
-- **`text-wrap: pretty`** on all paragraphs and headlines by default.
-- **11px is the floor.** No text — including mono labels, badges, and captions — goes below 11px. The faint chrome color (`--text-tertiary`) is tuned to clear WCAG AA (4.5:1) at these small sizes.
+- **`text-wrap: balance`** on headline-like elements (`h1`–`h6`, `.hero-name`, `.hero-headline`, `.big-h2`, `.pullquote`, `.callout-heading`, `.closing-cta-headline`, `.section-label`); **`pretty`** on prose. Button labels are `nowrap`. Cap big type in `px`, never `ch`, and avoid hard `<br>`s. Where a break matters, wrap the tail in `.nowrap` (applies from 640px up).
+- **Line height by role:** lead 1.55, long-form body 1.6, 15px small text 1.5.
+- **11px is the floor.** No text goes below 11px. `--text-tertiary` clears WCAG AA (4.5:1) on `--bg-primary` and `--bg-secondary`.
 
-> **Type direction (resolved 2026-07-10):** Hanken Grotesk + Martian Mono + D-DIN
-> Condensed, chosen after the v6–v12 exploration. Extending it to the Markedly/Pour
-> Over apps and gpenston.com is a later, separate effort.
+> **Type direction.** Chapter 03 (Hanken Grotesk + Martian Mono + D-DIN) was resolved 2026-07-10. D-DIN and the mono-everywhere chrome were dropped in the 2026-10-29 pass; see `DESIGN.md`.
 
 ---
 
@@ -148,8 +146,8 @@ moments — never for body or headings.
 
 ### Vertical rhythm
 
-- Section padding: `48px 0 24px` standard, `80px 0 32px` for major breaks.
-- The Catalogue section on the home page uses `24px 0 24px` — tighter because the hero leads directly into it.
+- Sections use `.section-block` (`padding-top: 64px`, 48px under 600px). Whitespace is the only separator: no rules, dividers or numbering.
+- Heading to content is 16px.
 - Between paragraphs: 1.2em.
 - Never use `<br>` for spacing — use margins.
 
@@ -215,29 +213,29 @@ The following are in place as belt-and-suspenders for other browsers and to be r
 
 ### Unified bar (sticky nav — all pages)
 
-A single `position: sticky` chrome row shared across all pages. CSS Grid `1fr auto 1fr` keeps the centre content anchored while the left and right slots adapt per page.
+A single `position: sticky` `<header class="sticky-chrome">` (a landmark) shared across all pages. CSS Grid `1fr auto 1fr` keeps the centre content anchored while the left and right slots adapt per page. No bottom rule.
 
 ```html
-<div class="sticky-chrome">
+<header class="sticky-chrome">
   <div class="unified-bar">
     <!-- Left: home = scroll-to-top anchor; product pages = back-link -->
-    <a href="#" class="instr-kicker nav-kicker nav-mark" aria-label="Scroll to top">
+    <a href="#" class="nav-mark" aria-label="Penston Studio — scroll to top">
       <svg class="nav-glyph"><!-- // glyph --></svg>
       <span class="nav-text">Penston Studio</span>
     </a>
-    <!-- Centre: home = empty div; product pages = .product-switcher -->
+    <!-- Centre: home = empty div; product pages = .product-switcher; notes = .page-util-links -->
     <div aria-hidden="true"></div>
     <!-- Right: mode toggle -->
     <div class="unified-actions"><!-- mode-toggle button --></div>
   </div>
-</div>
+</header>
 ```
 
-**On product pages** the left slot is a back-link (`<a class="... nav-mark back-link">`) with a `<` glyph SVG and `<span class="back-link-text nav-text">Penston Studio</span>`. The centre slot holds the `.product-switcher` — icon pills for each product.
+The wordmark is Hanken 15px/600 in `--text-primary`. **On product pages** the left slot is a back-link (`<a class="back-link nav-mark" aria-label="Penston Studio">`) with a chevron glyph and `<span class="back-link-text nav-text">`. The label is on the link because the text is hidden at ≤600px.
+
+**Navigational controls are 8px rects** (switcher items, util links, back link, mode toggle). Hover and selected are instant (`transition: none`, overriding the global `a` colour transition), pressed uses the selected tone. On coarse pointers a pseudo-element extends each target to ~44px.
 
 The chrome sits outside `main`, so it stays still between pages while the content fades in (see §6).
-
-**Mobile:** `.back-link-text` is `display: none` at ≤600px. Only the glyph shows. Product switcher labels remain visible.
 
 ### Product switcher (product pages only)
 
@@ -258,11 +256,11 @@ The chrome sits outside `main`, so it stays still between pages while the conten
 </ul>
 ```
 
-Active item is a `<span>` (not a link), dimmed, non-interactive. Inactive items are `<a>` links.
+Items are Hanken 15px/500 in 8px rects. The active item is a `<span>` (not a link) on the `--bg-tertiary` tone, non-interactive. Inactive items are `<a>` links: hover `--bg-secondary`, pressed `--bg-tertiary`. Labels are text only.
 
 ### Mode toggle — flat sun/moon icon button
 
-A flat icon button — no track, thumb, or skeuomorphic depth (the old Dieter Rams I/O pill was removed in the June 2026 cleanup as out of place). CSS-driven entirely from `[data-mode]` on `<html>`: the button shows the icon of the mode you'll switch *to* — the sun in dark mode (tap for light), the moon in light mode (tap for dark). 32px hit target, `--text-secondary` resting, `--accent` on hover. A tooltip appears after a 0.6s hover delay.
+A flat icon button — no track, thumb, or skeuomorphic depth (the old Dieter Rams I/O pill was removed in the June 2026 cleanup as out of place). CSS-driven entirely from `[data-mode]` on `<html>`: the button shows the icon of the mode you'll switch *to* — the sun in dark mode (tap for light), the moon in light mode (tap for dark). 32px, 8px radius, `--text-secondary` resting, `--text-primary` on a `--bg-secondary` rect on hover (instant), `--bg-tertiary` pressed. A tooltip appears after a 0.6s hover delay.
 
 ```html
 <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
@@ -273,7 +271,7 @@ A flat icon button — no track, thumb, or skeuomorphic depth (the old Dieter Ra
 
 - **Dark mode active:** sun icon visible (`.mode-toggle-i` shown, `.mode-toggle-o` hidden).
 - **Light mode active:** moon icon visible (`.mode-toggle-o` shown, `.mode-toggle-i` hidden).
-- **Tooltip:** CSS `::after` on `.mode-toggle` — content set via `:root[data-mode]` attribute selector. Mono font, right-aligned, fades in after 0.6s.
+- **Tooltip:** CSS `::after` on `.mode-toggle` — content set via `:root[data-mode]` attribute selector. Hanken 13px, right-aligned, fades in after 0.6s.
 - **Click sound:** `playClick()` in `site.js` fires on toggle — keep it.
 - **FOUC prevention:** Inline `<script>` in `<head>` reads `localStorage['ps_mode']`, falls back to `prefers-color-scheme`, sets `data-mode` synchronously before any paint.
 
@@ -288,38 +286,43 @@ Both animate when `prefers-reduced-motion: no-preference` — see §6 Motion.
 
 ### Portfolio link (home only)
 
-A styled call-to-action link below the hero bio, pointing to `gpenston.com`. Uses `.portfolio-link` class with external arrow SVG.
+A tertiary pill button ("Full portfolio") below the hero bio, pointing to `gpenston.com`. No arrow.
+
+### Buttons
+
+Two tiers, both pills (`a.pill-btn`), Hanken 15px/600, `nowrap`, symmetric `9px 18px` padding. **Primary** (`.pill-btn-primary`): solid ink pill, `--text-primary` fill, `--bg-primary` label, hover mixes the fill 10% toward the page. **Tertiary** (`.pill-btn-tertiary`): hairline pill (`--border-medium`) in both modes, `--bg-secondary` on hover. Press is `scale(0.97)` over 150ms, `transform` only, off under reduced motion. The old accent-filled `.btn-primary`, text-only `.btn-secondary` and tinted `.pill-btn-secondary` were retired. A button never carries an arrow; the Mac App Store badge keeps its own `:active` press.
 
 ### Project card (home)
 
-Row-based card with icon tile, name + description, platform badge, arrow. **No shadow, ever** — rest or hover. Hover is a flat, deliberate state: border + icon border shift to the card accent, background lifts `--bg-secondary` → `--bg-tertiary`, the name shifts to the accent, the arrow slides, and the whole card lifts 1px (no box-shadow).
+Icon tile, name + description, platform chip. A 4px-radius card on `--bg-secondary`, no border, no shadow, no lift. Hover and press step to `--bg-tertiary` in 150ms and draw a 1px underline under the name (`background-size: 0% → 100%`, since `text-decoration` doesn't animate). No arrow: internal cards don't get one.
 
-### Section label
+### Section heading
 
 ```html
-<div class="section-label" data-num="02">The Studio</div>
+<h2 class="section-label" data-reveal>The Studio</h2>
 ```
 
-Mono, uppercase, tracked. The `data-num` renders as `02 —` in `--text-tertiary` before the label text. An `::after` pseudo-element draws a horizontal rule that animates in on scroll-reveal.
+An ordinary `h2` (so heading order is valid), Hanken 700 on the section-heading step, 16px above its content. No numeral and no drawn rule. The class name is kept for the reveal and selector history.
 
 ### Big H2 (section headline)
 
-Hanken Grotesk, weight 700, `clamp(36px, 6vw, 58px)` (see §3 Scale — `big-h2`). Usually has one `<em>` word in `--accent-cool`.
+Hanken Grotesk, weight 700, `clamp(36px, 6vw, 56px)` (see §3 Scale — `big-h2`), `text-wrap: balance`, `max-width: 640px`. Usually has one `<em>` word in `--accent-cool`. No hard breaks.
 
-### Spec row (product features)
+### Feature tiles (product features)
 
-Four-column grid: number · icon · body · (flex spacer). Thin divider between rows. Used for "What it does" feature lists.
+`.features` is a 2-up grid with a 12px gap. Each `.feature` is a 4px-radius card on `--bg-secondary` (28px padding): a 24px `--accent` icon, a Hanken subhead, a 15px/1.5 paragraph. No hairlines, no borders.
 
 ### Inline links
 
 Links in body copy use a consistent treatment:
-- Default: `--accent` color, no underline
-- Hover: `--accent-hover` with underline
+- Default: `--accent-text` color, underline
+- Hover: `--accent-text-hover`, wider offset
 - Active: slight opacity drop
+- Never `--accent` for text in light mode (3.50:1).
 
 ### Plate / device frame
 
-Every product screenshot sits in a `.plate` with a caption label (`PL. 01 / MAIN WINDOW`) above. Plates come in two sizes: `.plate-hero` (full-width) and `.plate-small` (grid cell). Inside, a `.device-macbook` wrapper provides the bezel. On mobile the bezel strips away to a clean full-bleed screenshot.
+Every product screenshot sits in a `.plate` with an optional plain-text caption beneath (`.plate-cap`, Hanken 14px, no rule). **No plate numbers** (`PL. 01` is gone). Plates come in two sizes: `.plate-hero` (full-width) and `.plate-small` (grid cell). Real-desktop captures use `.device-photo` (4px radius, inset `--image-outline`); app mocks use `.device-macbook` / `.device-iphone` / `.device-ipad` with a 1px `--border-medium` bezel and an inset-outlined screen. Images carry the outline instead of a border. On mobile the macbook bezel strips away to a clean full-bleed screenshot.
 
 ### Pullquote
 
@@ -332,25 +335,13 @@ Editorial quote block with `.hl` spans highlighting key phrases. Used once per p
 </p>
 ```
 
-### Works With (prose)
+### Works With
 
-A single sentence naming tools, rendered as body copy. Not a grid or icon row.
-
-```html
-<section style="padding: 32px 0 16px;">
-  <div class="section-label" data-num="04" data-reveal>Works with</div>
-  <p class="works-with-prose" data-reveal>
-    Made for <strong>Obsidian</strong>, <strong>Bear</strong>, and <strong>Notion</strong> —
-    and feeds cleanly into <strong>Claude</strong>, <strong>ChatGPT</strong>, and <strong>Gemini</strong>.
-  </p>
-</section>
-```
-
-`.works-with-prose`: 17px Hanken Grotesk, `--text-secondary`, max-width 580px, line-height 1.7. `strong` in `--text-primary`.
+A 3-up grid (2-up on mobile) of `.ww-item` cards on `--bg-secondary`, 12px gap, 4px radius. Each holds a 38px real app icon (inset `--image-outline`) and the name in Hanken 500.
 
 ### FARA card
 
-Signature block near the footer of Markedly only. Communicates the donation-link commitment. Never removed, never shortened.
+Signature block near the footer of Markedly and Pour Over: a `--bg-secondary` card (4px radius, no accent bar, no label above the heading) with a heading, a short paragraph and a tertiary "Donate to FARA" pill. Communicates the donation-link commitment. Never removed, never shortened.
 
 ---
 
@@ -374,10 +365,6 @@ Page entrance and scroll-reveal are **shared with gpenston.com**. Both sites run
 - is written as `:not([data-revealed])`, never as a hide rule plus a later "show" override. In Sep 2026 a gated hide rule outranked `.is-revealed` on specificity and blanked the first page of every session.
 
 The reveal is a CSS animation with `backwards` fill, not a transition, so it never overrides a component's own hover `transition`/`transform` (e.g. `.project-card`).
-
-### Section label line draw
-
-`.section-label::after` (the horizontal rule) is `scaleX(0)` while its label, or a `[data-reveal]` ancestor, is pending. It draws to `scaleX(1)` over 600ms `cubic-bezier(0.16, 1, 0.3, 1)` with a 200ms delay.
 
 ### Pullquote highlight draw
 
@@ -420,7 +407,7 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 ## 7. Iconography
 
 - **Remixicon via CDN** for feature icons. `<i class="ri-drag-drop-line"></i>`.
-- Icons always in icon cells with a subtle background tint — never floating unanchored.
+- **Arrows earn their place.** Only external links (`ri-arrow-right-up-line` in the footer and support list) and directional pagers. No button, internal card or row carries one.
 - **No emoji.** The mono-label style covers anywhere you'd be tempted.
 - **Never draw proprietary logos in SVG.** Use Remixicon's brand glyphs (`ri-github-line`) or real asset files.
 
@@ -432,6 +419,7 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 - **App icons live at `assets/<app>-icon.png`.** Rounded-square, always 120×120px or larger source.
 - **Works With icons live at `assets/app-icon-<name>.jpg`.** Real app icons, not drawn substitutes.
 - **Badges** (App Store, GitHub): keep vendor-provided SVGs in `assets/`. Don't redraw.
+- **Image edges are an inset 1px `--image-outline`,** not a border (pure black/white at 10%, never a tinted neutral).
 - **If an image doesn't exist, use a dashed placeholder** with a caption `(PLACEHOLDER)`. Never ship a half-drawn SVG mockup.
 
 ---
@@ -442,7 +430,7 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 - **One `assets/style.css` with clear section banners** in declaration order: tokens, reset, typography, chrome, components, utilities, responsive, motion.
 - **One `assets/site.js`** for mode toggle, scroll-reveal, and any small interactive bits. No modules, no imports.
 - **JS is defensive.** Every query wrapped in null checks. Feature-detect `IntersectionObserver`. Always provide a fallback.
-- **`?v=N` cache-busters on CSS/JS links** are incremented in committed code on every change to force fresh loads on Vercel's CDN edge. When making changes, bump the version in all three HTML files.
+- **`?v=N` cache-busters on CSS/JS links** are incremented in committed code on every change to force fresh loads on Vercel's CDN edge. When making changes, bump the version in all five HTML pages (home, Markedly, Pour Over, and the two notes).
 - **CSS custom properties for all theme-able values.** No hardcoded hex in components.
 - **Avoid `!important`.** If you need it, your selector order is wrong.
 - **All three pages get the same `<head>` meta additions** — viewport-fit, theme-color, etc. Don't update one and forget the others.
@@ -453,24 +441,17 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 ```css
 :root {
-  /* Type — Chapter 03 system, resolved 2026-07-10 (see §3). This block had
-     drifted to the pre-refresh Space Grotesk/Inter/JetBrains Mono names —
-     corrected 2026-07-21 to match assets/style.css and §3 above. */
   --font-display: 'Hanken Grotesk', system-ui, sans-serif;
   --font-body:    'Hanken Grotesk', system-ui, sans-serif;
   --mono:         'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --font-flavor:  'D-DIN Condensed', 'Martian Mono', sans-serif;
 
   /* Space */
   --container-max: 880px;
   --container-pad: 32px;
-  --section-y:     48px;
-  --section-y-lg:  80px;
 
-  /* Radii */
+  /* Radius tiers: 4 content/media, 8 controls and hover surfaces, 999px pills */
   --r-sm: 4px;
   --r-md: 8px;
-  --r-lg: 12px;
 
   /* Motion */
   --t-fast: 150ms ease-out;
@@ -486,9 +467,14 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 - Don't add a system rail / status bar at the top of pages. We tried it — it added visual noise without earning its keep.
 - Don't add a gradient hero background — or any decorative gradient. The site is flat (June 2026 cleanup).
 - Don't bring back the orange hero disc, the hero horizon line/glow, the coffee-ring stain, or the skeuomorphic sliding mode switch. They were removed deliberately.
-- Don't put shadows on the catalogue cards — the hover state is flat (border + background + accent), never a drop-shadow.
+- Don't put shadows on the catalogue cards — the hover state is flat (a step in surface tone), never a drop-shadow.
 - Don't use Inter Tight, Satoshi, General Sans, or any "designer" substitute for Hanken Grotesk — they're all trying too hard.
-- Don't make the accent orange darker "to be tasteful." The orange is the signal.
+- Don't make the accent orange darker "to be tasteful." The orange is the signal. (Small orange *text* in light mode is the exception: it uses the rust `--accent-text`.)
+- Don't reintroduce eyebrows, kickers, `data-num` numbering, chapter numerals, plate/figure numbers, the drawn section rule, hairline dividers or image borders (all removed 2026-10-29).
+- Don't set nav, buttons, section headings, the footer or form labels in uppercase mono. Mono is for one-to-two-word meta.
+- Don't put a pill on navigation, or an 8px rect on an action button.
+- Don't add a third button tier or an arrow to a button.
+- Don't add D-DIN (or any font) back without a rendered use.
 - Don't add a "Get in touch" CTA section. There's LinkedIn in the footer, that's enough.
 - Don't put a newsletter signup anywhere.
 - Don't write copy in second-person marketing voice ("You'll love…"). First-person maker voice only ("I build…").
@@ -510,15 +496,17 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 When adding a new product page or section:
 
-1. Start with the page chrome: sticky-chrome with unified-bar (back-link glyph + nav-text + product-switcher + mode toggle).
-2. Hero: app-identity block (icon + name + platform), headline, sub, CTA group.
+1. Start with the page chrome: `<header class="sticky-chrome">` with unified-bar (back-link glyph + nav-text + product-switcher + mode toggle).
+2. Hero: app-identity block (icon + name + platform), headline, sub, CTA group (one primary pill at most).
 3. Product showcase: plates with device frames (skip if no screenshots yet).
-4. "The idea": pullquote section — one per page, `data-num="01"`.
-5. "What it does": section-label `02 —` + spec-rows.
-6. "Works with": prose sentence (`works-with-prose`), `data-num="03"` or `"04"`.
+4. "The idea": a `.section-label` `h2` plus the pullquote, one per page.
+5. "What it does": a `.section-label` `h2` plus `.features` tiles.
+6. "Works with": a `.section-label` `h2` plus the `.works-with-row` grid.
 7. FARA card (Markedly only).
 8. Support section (+ Privacy if App Store app — Privacy before Support in both nav and page order).
 9. Footer.
+
+Sections take `class="section-block"`, not inline padding, and are never numbered.
 
 Not every section is required, but they should appear **in this order** when present. The narrative is: *what is it → show me → the idea → what does it do → how does it fit my world → who's behind it → where do I go next.*
 
