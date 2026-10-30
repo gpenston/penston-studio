@@ -281,7 +281,12 @@ main { position: relative; overflow-x: clip; }
   -webkit-tap-highlight-color: transparent;
   transition: none;
 }
-.mode-toggle:hover { color: var(--text-primary); background: var(--bg-secondary); }
+/* Hover fills on the nav controls are gated by (hover: hover): on iOS and iPadOS
+   a tap leaves :hover stuck until you tap elsewhere, so the fill lingered.
+   Touch keeps the :active press tone. Mirrors gpenston.com. */
+@media (hover: hover) {
+  .mode-toggle:hover { color: var(--text-primary); background: var(--bg-secondary); }
+}
 .mode-toggle:active { color: var(--text-primary); background: var(--bg-tertiary); }
 .icon-sun,
 .icon-moon {
@@ -323,11 +328,17 @@ main { position: relative; overflow-x: clip; }
   transition: opacity var(--t-fast), transform var(--t-fast);
   z-index: 10;
 }
-.mode-toggle:hover::after,
 .mode-toggle:focus-visible::after {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.6s;
+}
+@media (hover: hover) {
+  .mode-toggle:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+  }
 }
 :root[data-mode="dark"] .mode-toggle::after  { content: "Switch to light mode"; }
 :root[data-mode="light"] .mode-toggle::after { content: "Switch to dark mode"; }
@@ -385,7 +396,9 @@ main { position: relative; overflow-x: clip; }
   white-space: nowrap;
   transition: none;
 }
-.unified-bar .nav-mark:hover .nav-glyph { opacity: 0.85; }
+@media (hover: hover) {
+  .unified-bar .nav-mark:hover .nav-glyph { opacity: 0.85; }
+}
 
 .hero-name {
   font-family: var(--font-display);
@@ -646,7 +659,9 @@ main { position: relative; overflow-x: clip; }
   white-space: nowrap;
   transition: none; /* instant, overriding the global `a` colour transition */
 }
-.page-util-links a:hover { color: var(--text-primary); background: var(--bg-secondary); }
+@media (hover: hover) {
+  .page-util-links a:hover { color: var(--text-primary); background: var(--bg-secondary); }
+}
 .page-util-links a:active { color: var(--text-primary); background: var(--bg-tertiary); }
 
 /* ----- Hero header row (app identity + page util links) ------------- */
@@ -685,9 +700,11 @@ main { position: relative; overflow-x: clip; }
   white-space: nowrap;
   transition: none; /* instant, overriding the global `a` colour transition */
 }
-.product-switcher-item > a:hover {
-  color: var(--text-primary);
-  background: var(--bg-secondary);
+@media (hover: hover) {
+  .product-switcher-item > a:hover {
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+  }
 }
 .product-switcher-item > a:active {
   color: var(--text-primary);
@@ -721,15 +738,19 @@ main { position: relative; overflow-x: clip; }
   margin: -5px -10px;
   transition: none;
 }
-.unified-bar .nav-mark.back-link:hover {
-  background: var(--bg-secondary);
+@media (hover: hover) {
+  .unified-bar .nav-mark.back-link:hover {
+    background: var(--bg-secondary);
+  }
 }
 .unified-bar .nav-mark.back-link:active {
   background: var(--bg-tertiary);
 }
-.unified-bar .nav-mark.back-link:hover .nav-glyph {
-  opacity: 1;
-  transform: translateX(-3px);
+@media (hover: hover) {
+  .unified-bar .nav-mark.back-link:hover .nav-glyph {
+    opacity: 1;
+    transform: translateX(-3px);
+  }
 }
 
 .app-identity {
