@@ -18,23 +18,23 @@
   <meta name="twitter:title" content="Markedly — Convert files to Markdown">
   <meta name="twitter:description" content="A free macOS app that converts documents, PDFs, spreadsheets, and images to Markdown. Everything stays on your Mac.">
   <meta name="twitter:image" content="https://penston.studio/assets/og-markedly.png">
-  <meta name="theme-color" content="#0c0b08" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
-  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#ffffff':'#0a0a0a';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="canonical" href="https://penston.studio/markedly/">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css?v=80">
+  <link rel="stylesheet" href="../assets/style.css?v=81">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
   <script defer src="../assets/reveal.js?v=1"></script>
-  <script defer src="../assets/site.js?v=20"></script>
+  <script defer src="../assets/site.js?v=21"></script>
 </head>
 <body>
-  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>
+  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0a0a0a"></div>
   <div class="container">
 
-    <div class="sticky-chrome">
+    <header class="sticky-chrome">
       <div class="unified-bar">
-        <a href="../" class="back-link nav-mark">
+        <a href="../" class="back-link nav-mark" aria-label="Penston Studio">
           <i class="ri-arrow-left-s-line nav-glyph" aria-hidden="true"></i>
           <span class="back-link-text nav-text">Penston Studio</span>
         </a>
@@ -57,7 +57,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </header>
 
     <main>
 
@@ -78,7 +78,7 @@
           </ul>
         </div>
 
-        <h1 class="hero-headline" data-reveal style="--reveal-delay: 0.1s">Convert anything<br>to <em>Markdown</em>.</h1>
+        <h1 class="hero-headline" data-reveal style="--reveal-delay: 0.1s">Convert anything to <em>Markdown</em>.</h1>
         <p class="hero-sub" data-reveal style="--reveal-delay: 0.2s">
           Drop in a Word doc, PDF, spreadsheet, or image. Get clean Markdown
           back. Everything happens on your Mac — nothing leaves your machine.
@@ -95,7 +95,6 @@
       <section class="product-showcase" data-reveal>
         <div class="plates-mac">
           <div class="plate plate-hero">
-            <div class="plate-num">PL. 01 / MAIN WINDOW</div>
             <div class="plate-body">
               <div class="device-frame">
                 <div class="device-photo">
@@ -108,7 +107,6 @@
 
           <div class="plates-row">
             <div class="plate plate-small">
-              <div class="plate-num">PL. 02</div>
               <div class="plate-body">
                 <div class="device-frame">
                   <div class="device-photo">
@@ -120,7 +118,6 @@
               <div class="plate-cap">Drag &amp; drop</div>
             </div>
             <div class="plate plate-small">
-              <div class="plate-num">PL. 03</div>
               <div class="plate-body">
                 <div class="device-frame">
                   <div class="device-photo">
@@ -132,7 +129,6 @@
               <div class="plate-cap">Batch complete</div>
             </div>
             <div class="plate plate-small">
-              <div class="plate-num">PL. 04</div>
               <div class="plate-body">
                 <div class="device-frame">
                   <div class="device-photo">
@@ -148,8 +144,8 @@
       </section>
 
       <!-- Why (pullquote) -->
-      <section style="padding: 48px 0 16px;" data-reveal>
-        <div class="section-label" data-num="01">Why Markdown</div>
+      <section class="section-block" data-reveal>
+        <h2 class="section-label">Why Markdown</h2>
         <p class="pullquote" data-reveal-trigger data-reveal-amount="0.6">
           Markdown is the plain-text format that
           <span class="hl">Obsidian, Bear, and Notion natively speak</span>
@@ -160,8 +156,8 @@
       </section>
 
       <!-- Features (spec rows) -->
-      <section style="padding: 32px 0 8px;">
-        <div class="section-label" data-num="02" data-reveal>What it does</div>
+      <section class="section-block">
+        <h2 class="section-label" data-reveal>What it does</h2>
 
         <div class="features" data-reveal>
           <div class="feature">
@@ -188,8 +184,8 @@
       </section>
 
       <!-- Formats -->
-      <section style="padding: 48px 0 16px;">
-        <div class="section-label" data-num="03" data-reveal>Supported formats</div>
+      <section class="section-block">
+        <h2 class="section-label" data-reveal>Supported formats</h2>
         <div class="format-grid" data-reveal>
           <div class="format-row">
             <div class="format-cat">Documents</div>
@@ -234,8 +230,8 @@
       </section>
 
       <!-- Works With -->
-      <section style="padding: 32px 0 16px;">
-        <div class="section-label" data-num="04" data-reveal>Works with</div>
+      <section class="section-block">
+        <h2 class="section-label" data-reveal>Works with</h2>
         <div class="works-with-row" data-reveal>
           <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-obsidian.jpg" alt=""><span class="ww-name">Obsidian</span></div>
           <div class="ww-item"><img class="ww-icon" src="../assets/app-icon-bear.jpg" alt=""><span class="ww-name">Bear</span></div>
@@ -247,9 +243,8 @@
       </section>
 
       <!-- FARA -->
-      <section style="padding: 40px 0 16px;" data-reveal>
+      <section class="section-block" data-reveal>
         <div class="callout-card">
-          <div class="callout-label">Built with purpose</div>
           <h2 class="callout-heading">Supporting Friedreich’s Ataxia research</h2>
           <p class="callout-body">
             Markedly is free, and always will be. In place of a price tag, there’s a donation link to the
@@ -257,18 +252,15 @@
             — a nonprofit funding research into a progressive neurological condition with no known cure that directly impacts my family.
             If Markedly saves you time, consider passing it forward.
           </p>
-          <a href="https://give.curefa.org/campaign/785456/donate?markedly" target="_blank" rel="noopener" class="pill-btn pill-btn-secondary">
+          <a href="https://give.curefa.org/campaign/785456/donate?markedly" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary">
             Donate to FARA
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M5 2H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1V9M8 2h4m0 0v4m0-4L6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
           </a>
         </div>
       </section>
 
       <!-- Privacy -->
-      <section style="padding: 40px 0 16px;" id="privacy">
-        <div class="section-label" data-num="05" data-reveal>Privacy</div>
+      <section class="section-block" id="privacy">
+        <h2 class="section-label" data-reveal>Privacy</h2>
         <div class="privacy-content" data-reveal>
           <h2>Privacy Policy</h2>
 
@@ -300,8 +292,8 @@
       </section>
 
       <!-- Tips & FAQ -->
-      <section style="padding: 40px 0 16px;" id="faq">
-        <div class="section-label" data-num="06" data-reveal>Tips &amp; FAQ</div>
+      <section class="section-block" id="faq">
+        <h2 class="section-label" data-reveal>Tips &amp; FAQ</h2>
         <div class="privacy-content" data-reveal>
           <h3>Why didn’t my Word document’s table convert?</h3>
           <p>Markedly reads the structure Word gives it, and Word’s own file format doesn’t hand over table structure the way it does for headings, bold text, or links. I flatten what I get rather than guess at a table’s shape. A real fix means writing a parser for Word’s raw format, which I’m considering for a future release.</p>
@@ -327,15 +319,15 @@
       </section>
 
       <!-- Support -->
-      <section style="padding: 40px 0 16px;" id="support">
-        <div class="section-label" data-num="07" data-reveal>Support</div>
+      <section class="section-block" id="support">
+        <h2 class="section-label" data-reveal>Support</h2>
         <div class="support-links" data-reveal>
           <a href="https://github.com/gpenston/penston-studio/issues/new?labels=markedly" target="_blank" rel="noopener" class="support-link-item">
             <div>
               <div class="support-link-label">Report an issue</div>
               <div class="support-link-sub">GitHub Issues — bugs, questions, or feature requests</div>
             </div>
-            <i class="ri-arrow-right-line support-link-arrow" aria-hidden="true"></i>
+            <i class="ri-arrow-right-up-line support-link-arrow" aria-hidden="true"></i>
           </a>
         </div>
       </section>
@@ -344,7 +336,7 @@
         <div class="app-icon">
           <img src="../assets/markedly-icon.png" alt="Markedly">
         </div>
-        <h2 class="closing-cta-headline">Free on the<br>Mac App Store.</h2>
+        <h2 class="closing-cta-headline">Free on the Mac App Store.</h2>
         <p class="closing-cta-sub">Everything runs locally. No account. No catch.</p>
         <a href="https://apps.apple.com/app/markedly/id6760626933" target="_blank" rel="noopener" class="badge-app-store">
           <img src="../assets/badge-mac-app-store.svg" alt="Download on the Mac App Store" width="156" height="40">
@@ -355,7 +347,6 @@
     <footer>
       <div class="footer-inner">
         <div class="footer-left">
-          <span class="footer-est">EST. 2010</span>
           <span class="footer-copy">© 2026 George Penston</span>
         </div>
         <ul class="footer-links">

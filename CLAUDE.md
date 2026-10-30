@@ -14,8 +14,9 @@ Static HTML/CSS website for [penston.studio](https://penston.studio), the person
 ├── pour-over/
 │   └── index.html          # Pour Over for Raindrop landing page
 ├── assets/
-│   ├── style.css           # Shared styles for all pages
+│   ├── style.css           # Shared styles for all pages (palette, type, shape rules ported from gpenston.com 2026-10-29)
 │   ├── site.js             # Mode toggle, click sound, smooth anchors
+│   │                        # (theme-color values here and in each page <head> must match --bg-primary)
 │   ├── reveal.js           # Scroll-reveal runtime — identical copy in gpenston-portfolio
 │   └── ...                 # Favicons, app icons, product screenshots
 ├── docs/
@@ -37,11 +38,11 @@ Regenerate with `node scripts/generate-og-cards.mjs` after changing a card's wor
 **Two constraints worth not undoing:**
 
 - **No `package.json`.** Playwright is borrowed from a sibling checkout (`../gpenston-portfolio/node_modules`, override with `PLAYWRIGHT_FROM`). Adding a `package.json` here would make Vercel stop treating this as static files and start looking for a build.
-- **The template copies the palette rather than linking `style.css`.** It renders from `file://` where the site's relative paths don't resolve, and a share card should be frozen anyway — every platform that scrapes it caches it, so it must not silently change when the site's CSS does. If the dark palette moves, update `scripts/og-card.html` by hand and re-render.
+- **The template copies the palette rather than linking `style.css`.** It renders from `file://` where the site's relative paths don't resolve, and a share card should be frozen anyway — every platform that scrapes it caches it, so it must not silently change when the site's CSS does. If the dark palette moves, update `scripts/og-card.html` by hand and re-render. The cards carry no kicker, chapter numeral or D-DIN since 2026-10-29. With no `package.json` here, point the generator at any Playwright install with `PLAYWRIGHT_FROM=$(npm root -g)`.
 
 ## Markedly Page Section Order
 
-`markedly/index.html` uses numbered `.section-label` sections (`data-num`): 01 Why Markdown, 02 What it does, 03 Supported formats, 04 Works with, 05 Privacy, 06 Tips & FAQ, 07 Support. Keep this numbering contiguous when adding/removing sections — anchors (`#privacy`, `#faq`, `#support`) are linked from the top nav (`.page-util-links`), so update both together. The Tips & FAQ section reuses the existing `.privacy-content` (`h3`/`p`) pattern rather than a new component; there's no dedicated FAQ/accordion CSS.
+`markedly/index.html` sections, in order: Why Markdown, What it does, Supported formats, Works with, Privacy, Tips & FAQ, Support. **Sections are no longer numbered** (the `data-num` / `01–07` scheme and its "keep contiguous" rule were removed 2026-10-29), so adding or removing one needs no renumbering. Anchors (`#privacy`, `#faq`, `#support`) are linked from the top nav (`.page-util-links`), so update both together. Each section is `<section class="section-block">` with an `h2.section-label`. The Tips & FAQ section reuses the existing `.privacy-content` (`h3`/`p`) pattern rather than a new component; there's no dedicated FAQ/accordion CSS.
 
 **Keep "Supported formats" in sync with the app.** The format-tag grid must match what Markedly's app actually supports — it previously advertised `XLS` after that format was dropped in the app (v1.1), which meant the site promised something that would fail. When Markedly's own format support changes (see the Markedly repo's `CLAUDE.md`/`ROADMAP.md`), check this grid too.
 
@@ -49,11 +50,13 @@ Regenerate with `node scripts/generate-og-cards.mjs` after changing a card's wor
 
 Defined in `assets/style.css`. Default mode is **dark**. See `docs/design-system.md` for the full token reference. Key values:
 
-- **Accent**: `#eb5a00` (orange, dark) / `#d94f00` (slightly deeper, light)
-- **Pour Over accent override**: `#f0a830` (warm amber)
-- **Backgrounds (dark)**: `#0c0b08` primary · `#17150f` secondary · `#1f1c14` tertiary
-- **Backgrounds (light)**: `#f2f1ec` primary · `#e8e6df` secondary · `#dbd9d0` tertiary — "greige paper", updated 2026-07-21 (was bone paper `#efece4`/`#e5e1d4`/`#d9d3c2`; ported from gpenston-portfolio's rework, closing what had been a sibling divergence — both sites now share this light palette). See `DESIGN.md` + `docs/design-system.md` §2.
-- **Fonts**: Hanken Grotesk (headings + body) · Martian Mono (labels, system chrome) · D-DIN Condensed (numeric accents only — self-hosted in `assets/fonts/`). Chosen 2026-07-10; see `DESIGN.md` and `docs/superpowers/specs/2026-07-10-type-system-refresh-design.md`.
+- **Accent**: `#eb5a00` in both modes (fills, rings, icons). Small orange *text* uses `--accent-text`: rust `#b23f00` (hover `#963500`) in light, the accent itself in dark. Never `--accent` for body-sized text in light (3.50:1).
+- **Pour Over accent override**: amber `#f0a830` (dark); light is darkened to fill `#b87a00` / text `#8a5a00` / hover `#6e4500` to clear AA on white.
+- **Backgrounds (dark)**: `#0a0a0a` primary · `#141414` secondary · `#1c1c1c` tertiary — neutral, no warm tint.
+- **Backgrounds (light)**: `#ffffff` primary · `#f6f6f5` secondary · `#ececec` tertiary — flat white. Both palettes ported from gpenston-portfolio 2026-10-29 (the greige and warm bone-on-black are gone). See `DESIGN.md` + `docs/design-system.md` §2.
+- **Fonts**: Hanken Grotesk (display, body, nav, buttons, footer — sentence case) · Martian Mono (tiny meta only: 1–2 word chips, file types, `code`). **D-DIN Condensed was removed 2026-10-29** along with the numerals it styled.
+- **Shape**: radius tiers 4px (content and media) / 8px (controls: nav links, toggle, chips) / full (pills). Navigation is 8px rects, actions are pills. Two button tiers only: solid ink primary, hairline tertiary. Image edges are an inset `--image-outline`, not a border.
+- **Removed 2026-10-29, don't reintroduce:** eyebrows/kickers, section numbering, chapter numerals, plate/figure numbers, the drawn section rule, hairline dividers, button arrows.
 - Icons use [Remixicon](https://remixicon.com/) via CDN (product pages only)
 
 ## Mode Toggle
@@ -79,11 +82,11 @@ Hosted at `penston.studio` via **Vercel** (migrated from GitHub Pages, June 2026
 
 ## Sister Site
 
-**gpenston-portfolio** (gpenston.com, `~/Projects/gpenston-portfolio`, github.com/gpenston/gpenston-portfolio) is the sibling portfolio site — **Next.js 16 + React 19 + Tailwind v4 + Framer Motion** (not Framer/HTML). This repo is the design source of truth: `DESIGN.md` + `docs/design-system.md` are the canonical spec, and the portfolio implements the same "bureau" language in its `app/globals.css` `@theme`.
+**gpenston-portfolio** (gpenston.com, `~/Projects/gpenston-portfolio`, github.com/gpenston/gpenston-portfolio) is the sibling portfolio site — **Next.js 16 + React 19 + Tailwind v4**, no animation library (not Framer/HTML). Design rules now flow from the portfolio's 2026-10-29 de-slop pass, which this site adopted the same week: its `CLAUDE.md` sections (Design Tokens, Fonts, Shape system, Interaction feel, Line-height by role, Text wrapping) are the reference, and `app/globals.css` is the implementation. This repo's `DESIGN.md` + `docs/design-system.md` record the studio's version.
 
-Shared DNA (keep in sync both ways): the warm greige/near-black palette (both sites now share the same light-mode greige as of 2026-07-21 — see Style & Design Tokens above), orange (+ cool-teal) accents, 880px container, mono section labels, dot-grid + grain, and the Chapter 03 type system (Hanken Grotesk + Martian Mono + D-DIN Condensed — synced 2026-07-11). Sibling-distinct by design: content structure and per-site ornament (this site's worn graph-paper texture vs. the portfolio's dot-grid/registration-ticks). **When you change tokens, the type system, or a shared component here, mirror it in the portfolio and update both CLAUDE.md files the same session** — they've drifted before.
+Shared DNA (keep in sync both ways): the flat-white and neutral near-black palettes, the orange (+ cool-teal) accents with a rust text shade in light, the 880px container, Hanken sentence-case chrome with mono limited to tiny meta, the radius tiers and button tiers, and no eyebrows/numbering/dividers. Sibling-distinct by design: content structure and per-site ornament (this site's worn graph-paper texture and atmosphere rays vs. the portfolio's dot-grid/registration-ticks), the Pour Over amber override, and the work-tile pull-back hover, which has no equivalent here because this site has no cover images. **When you change tokens, the type system, or a shared component here, mirror it in the portfolio and update both CLAUDE.md files the same session** — they've drifted before.
 
-**Flowing back from the portfolio (2026-08-07).** Its editorial polish pass adopted two devices from here — `.section-label::after`'s growing hairline and `.big-h2`'s poster-scale statement type — so those are now shared DNA in both directions. Two rules it established are worth applying here too if this site ever drifts the same way: **mono is chrome at 1–3 words, never phrases** (set a sentence in Martian Mono at 11px/0.1em+ and the page reads as a spec sheet), and **arrows belong only on a primary CTA, an external link, or a directional pager** — everywhere else a drawn underline on hover carries the affordance without the chrome.
+**Flowing back from the portfolio (2026-08-07).** Its editorial polish pass adopted two devices from here — `.section-label::after`'s growing hairline and `.big-h2`'s poster-scale statement type — so those were shared DNA in both directions until 2026-10-29, when the drawn rule and the numerals were removed from both. Two rules it established are worth applying here too if this site ever drifts the same way: **mono is chrome at 1–3 words, never phrases** (set a sentence in Martian Mono at 11px/0.1em+ and the page reads as a spec sheet), and **arrows belong only on a primary CTA, an external link, or a directional pager** — everywhere else a drawn underline on hover carries the affordance without the chrome.
 
 **Shared DNA — page entrance + scroll-reveal (unified 2026-09-24).** Both sites run one runtime: `assets/reveal.js` here and `public/reveal.js` in the portfolio, **byte-identical, so edit both together**. Both also use the same CSS contract: `main` fades up 8px/360ms in pure CSS, `[data-reveal]` fades up 24px/600ms at 64px inside the viewport, and hidden states are gated on `html.js` and written as `:not([data-revealed])`. A 3s `<head>` failsafe shows everything if the runtime never arrives. Under reduced motion both sites keep the fades and drop the movement. The only page-navigation view transition here is on `.product-switcher`, which reproduces the portfolio's cross-fading active nav pill. Details are in `docs/design-system.md` §6. **After any change to it, run `node scripts/test-motion.mjs`** (checks both live sites in Chromium + WebKit, plus `reveal.js` parity; pass `--studio-url`/`--portfolio-url` for local servers).
 

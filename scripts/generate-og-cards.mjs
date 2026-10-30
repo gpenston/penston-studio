@@ -45,16 +45,12 @@ const { chromium } = createRequire(join(modules, "noop.js"))("playwright");
 const CARDS = [
   {
     out: "og-studio.png",
-    chapter: "00",
-    kicker: "Bureau · Chapter 03",
     title: "Penston Studio",
     sub: "A one-person practice in product design and development. The side projects live here.",
     foot: "George Penston",
   },
   {
     out: "og-markedly.png",
-    chapter: "01",
-    kicker: "Catalogue · macOS",
     title: "Markedly",
     sub: "Convert documents and images to Markdown — locally, instantly, for free.",
     foot: "Penston Studio",
@@ -62,8 +58,6 @@ const CARDS = [
   },
   {
     out: "og-pour-over.png",
-    chapter: "02",
-    kicker: "Catalogue · GitHub Action",
     title: "Pour Over",
     sub: "Your Raindrop read-later list, delivered to your inbox as a daily digest.",
     foot: "Penston Studio",
@@ -71,8 +65,6 @@ const CARDS = [
   },
   {
     out: "og-notes.png",
-    chapter: "03",
-    kicker: "Notes",
     title: "Notes",
     sub: "Working notes on building and hosting small sites.",
     foot: "Penston Studio",

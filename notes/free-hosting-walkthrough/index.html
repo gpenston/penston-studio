@@ -17,17 +17,17 @@
   <meta property="og:image:alt" content="Penston Studio notes">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://penston.studio/assets/og-notes.png">
-  <meta name="theme-color" content="#0c0b08" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
-  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#ffffff':'#0a0a0a';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/style.css?v=80">
+  <link rel="stylesheet" href="../../assets/style.css?v=81">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script defer src="../../assets/reveal.js?v=1"></script>
-  <script defer src="../../assets/site.js?v=20"></script>
+  <script defer src="../../assets/site.js?v=21"></script>
   <style>
     /* Scoped to this note — copy-paste-able command/prompt blocks. No block-code
        component exists in style.css (only inline .privacy-content code), so this
@@ -36,12 +36,9 @@
        button stay in the site's own Martian Mono so they still read as chrome. */
     .cmd-label {
       display: block;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
       margin: 20px 0 6px;
     }
     .cmd-label:first-child { margin-top: 0; }
@@ -51,10 +48,9 @@
       font-size: 13px;
       line-height: 1.65;
       color: var(--text-primary);
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-medium);
+      background: var(--bg-secondary);
       border-radius: var(--r-sm);
-      padding: 14px 52px 14px 16px;
+      padding: 14px 64px 14px 16px;
       margin: 0 0 16px;
       overflow-x: auto;
       white-space: pre;
@@ -63,45 +59,32 @@
     .cmd--ask {
       white-space: pre-wrap;
       color: var(--text-secondary);
-      background: var(--bg-secondary);
+      background: var(--bg-tertiary);
       overflow-x: visible;
     }
     .cmd-copy {
       position: absolute;
       top: 8px;
       right: 8px;
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-      background: transparent;
-      border: 1px solid var(--border-medium);
-      border-radius: var(--r-sm);
-      padding: 4px 8px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-tertiary);
+      border: 0;
+      border-radius: var(--r-md);
+      padding: 4px 10px;
       cursor: pointer;
-      transition: color 0.15s ease, border-color 0.15s ease;
+      transition: color 150ms ease-out, transform 150ms ease-out;
     }
     .cmd-copy:hover,
     .cmd-copy:focus-visible {
-      color: var(--accent);
-      border-color: var(--accent);
+      color: var(--text-primary);
     }
-    .kicker-crumb {
-      color: inherit;
-      text-decoration: none;
-    }
-    .kicker-crumb:hover {
-      color: var(--accent-cool-hover);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
+    .cmd-copy:active { transform: scale(0.97); }
     .feature h3 .tag-optional {
-      font-family: var(--mono);
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.04em;
       color: var(--text-tertiary);
     }
     /* .features is a 2x2 grid site-wide; this section only has 3 cards, so the
@@ -129,12 +112,12 @@
   </style>
 </head>
 <body>
-  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>
+  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0a0a0a"></div>
   <div class="container">
 
-    <div class="sticky-chrome">
+    <header class="sticky-chrome">
       <div class="unified-bar">
-        <a href="../../" class="back-link nav-mark">
+        <a href="../../" class="back-link nav-mark" aria-label="Penston Studio">
           <i class="ri-arrow-left-s-line nav-glyph" aria-hidden="true"></i>
           <span class="back-link-text nav-text">Penston Studio</span>
         </a>
@@ -150,15 +133,12 @@
           </button>
         </div>
       </div>
-    </div>
+    </header>
 
     <main>
 
       <!-- Hero -->
-      <section style="position: relative; overflow: hidden;">
-        <div class="hero-header" data-reveal style="--reveal-delay: 0.05s">
-          <span class="instr-kicker">Notes / <a href="../free-hosting-setup/" class="kicker-crumb">Setup</a> / Walkthrough</span>
-        </div>
+      <section style="position: relative; overflow: hidden; padding-top: 40px;">
 
         <h1 class="hero-headline" data-reveal style="--reveal-delay: 0.1s">Go <em>live</em> with your site, in an hour or so.</h1>
         <p class="hero-sub" data-reveal style="--reveal-delay: 0.2s">
@@ -169,8 +149,8 @@
       </section>
 
       <!-- What you need first -->
-      <section style="padding: 40px 0 16px;" id="accounts">
-        <div class="section-label" data-num="01" data-reveal>What you need first</div>
+      <section class="section-block" id="accounts">
+        <h2 class="section-label" data-reveal>What you need first</h2>
         <p class="studio-body" data-reveal>
           Two accounts, both free, both take about a minute. This is the one part nobody can do
           for you — an AI tool can’t sign a Terms of Service on your behalf.
@@ -196,8 +176,8 @@
       </section>
 
       <!-- Point your AI tool at them -->
-      <section style="padding: 48px 0 16px;" id="connect">
-        <div class="section-label" data-num="02" data-reveal>Point your AI tool at them</div>
+      <section class="section-block" id="connect">
+        <h2 class="section-label" data-reveal>Point your AI tool at them</h2>
         <p class="studio-body" data-reveal>
           This is the part that turns your AI tool from something that talks about code into
           something that can actually push it. MCP (Model Context Protocol) lets it talk to
@@ -235,9 +215,8 @@ claude mcp add --transport http github https://api.githubcopilot.com/mcp/</span>
       </section>
 
       <!-- Callout -->
-      <section style="padding: 32px 0 16px;" data-reveal>
+      <section class="section-block" data-reveal>
         <div class="callout-card">
-          <div class="callout-label">Worth knowing</div>
           <h2 class="callout-heading">DNS changes are the one thing to make by hand.</h2>
           <p class="callout-body">
             Everything above is safe to let an AI tool drive on its own. Pointing a live domain
@@ -248,8 +227,8 @@ claude mcp add --transport http github https://api.githubcopilot.com/mcp/</span>
       </section>
 
       <!-- Get it online -->
-      <section style="padding: 32px 0 16px;" id="online">
-        <div class="section-label" data-num="03" data-reveal>Get it online</div>
+      <section class="section-block" id="online">
+        <h2 class="section-label" data-reveal>Get it online</h2>
         <p class="studio-body" data-reveal>
           From here it’s the same three moves every time: your files go into a GitHub
           repository, that repository gets connected to a Vercel project, and Vercel publishes
@@ -282,8 +261,8 @@ npx vercel --prod</span>
       </section>
 
       <!-- Add your own domain -->
-      <section style="padding: 32px 0 16px;" id="domain">
-        <div class="section-label" data-num="04" data-reveal>Add your own domain</div>
+      <section class="section-block" id="domain">
+        <h2 class="section-label" data-reveal>Add your own domain</h2>
         <p class="studio-body" data-reveal>
           The shape of this step is the same everywhere, even though every registrar’s
           dashboard looks different: you add the domain in Vercel, Vercel tells you exactly one
@@ -315,8 +294,8 @@ npx vercel domains inspect yourdomain.com</span>
       </section>
 
       <!-- What tripped me up -->
-      <section style="padding: 40px 0 16px;" id="gotchas">
-        <div class="section-label" data-num="05" data-reveal>What tripped me up</div>
+      <section class="section-block" id="gotchas">
+        <h2 class="section-label" data-reveal>What tripped me up</h2>
         <div class="privacy-content" data-reveal>
           <h3>Old records block new ones</h3>
           <p>Anything still pointed at your previous host has to be deleted before a new record can take over the same name. If you’ve migrated through more than one host over the years, expect to find more leftover records than you’d guess.</p>
@@ -339,7 +318,7 @@ npx vercel domains inspect yourdomain.com</span>
       </section>
 
       <!-- Close -->
-      <section style="padding: 40px 0 16px;">
+      <section class="section-block">
         <p class="studio-body" data-reveal>
           That’s the whole thing, start to finish. If any of this still feels abstract, the
           short version, and the reasoning behind it, is back on the overview.
@@ -350,7 +329,7 @@ npx vercel domains inspect yourdomain.com</span>
               <div class="support-link-label">Back to the overview</div>
               <div class="support-link-sub">The setup — what this is and why it’s free</div>
             </div>
-            <i class="ri-arrow-right-line support-link-arrow" aria-hidden="true"></i>
+            <i class="ri-arrow-right-up-line support-link-arrow" aria-hidden="true"></i>
           </a>
         </div>
       </section>
@@ -360,7 +339,6 @@ npx vercel domains inspect yourdomain.com</span>
     <footer>
       <div class="footer-inner">
         <div class="footer-left">
-          <span class="footer-est">EST. 2010</span>
           <span class="footer-copy">© 2026 George Penston</span>
         </div>
         <ul class="footer-links">

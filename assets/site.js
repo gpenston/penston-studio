@@ -36,7 +36,7 @@
   // Safari 26 toolbar tint is handled entirely in CSS via color-scheme
   // on [data-mode] selectors — no JS intervention needed.
   function syncThemeColor() {
-    var color = document.documentElement.dataset.mode === 'dark' ? '#0c0b08' : '#f2f1ec';
+    var color = document.documentElement.dataset.mode === 'dark' ? '#0a0a0a' : '#ffffff';
     document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
       m.setAttribute('content', color);
     });

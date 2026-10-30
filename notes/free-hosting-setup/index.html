@@ -17,19 +17,19 @@
   <meta property="og:image:alt" content="Penston Studio notes">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://penston.studio/assets/og-notes.png">
-  <meta name="theme-color" content="#0c0b08" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
-  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#f2f1ec':'#0c0b08';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <script>!function(){var c=document.documentElement.dataset.mode==='light'?'#ffffff':'#0a0a0a';document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){t.setAttribute('content',c);t.removeAttribute('media')});}();</script>
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/style.css?v=80">
+  <link rel="stylesheet" href="../../assets/style.css?v=81">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
   <script defer src="../../assets/reveal.js?v=1"></script>
-  <script defer src="../../assets/site.js?v=20"></script>
+  <script defer src="../../assets/site.js?v=21"></script>
   <style>
-    /* Scoped to this note — a divided cost list in the same hairline language as .features */
+    /* Scoped to this note — a cost list on the same surface tone as .features */
     .cost-list {
-      border: 1px solid var(--border-light);
-      border-radius: var(--r-lg);
+      background: var(--bg-secondary);
+      border-radius: var(--r-sm);
       overflow: hidden;
     }
     .cost-row {
@@ -38,10 +38,7 @@
       justify-content: space-between;
       gap: 16px;
       padding: 16px 22px;
-      background: var(--bg-primary);
-      border-bottom: 1px solid var(--border-light);
     }
-    .cost-row:last-child { border-bottom: none; }
     .cost-item {
       font-family: var(--font-display);
       font-size: 15px;
@@ -51,26 +48,24 @@
       font-family: var(--mono);
       font-size: 13px;
       letter-spacing: 0.01em;
-      color: var(--accent);
+      color: var(--accent-text);
       white-space: nowrap;
     }
     .cost-amount.is-muted { color: var(--text-tertiary); }
     .feature h3 .tag-optional {
-      font-family: var(--mono);
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.04em;
       color: var(--text-tertiary);
     }
   </style>
 </head>
 <body>
-  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0c0b08"></div>
+  <div id="safari-toolbar-tint" aria-hidden="true" style="background-color:#0a0a0a"></div>
   <div class="container">
 
-    <div class="sticky-chrome">
+    <header class="sticky-chrome">
       <div class="unified-bar">
-        <a href="../../" class="back-link nav-mark">
+        <a href="../../" class="back-link nav-mark" aria-label="Penston Studio">
           <i class="ri-arrow-left-s-line nav-glyph" aria-hidden="true"></i>
           <span class="back-link-text nav-text">Penston Studio</span>
         </a>
@@ -87,17 +82,14 @@
           </button>
         </div>
       </div>
-    </div>
+    </header>
 
     <main>
 
       <!-- Hero -->
-      <section style="position: relative; overflow: hidden;">
-        <div class="hero-header" data-reveal style="--reveal-delay: 0.05s">
-          <span class="instr-kicker">Notes / Setup</span>
-        </div>
+      <section style="position: relative; overflow: hidden; padding-top: 40px;">
 
-        <h1 class="hero-headline" data-reveal style="--reveal-delay: 0.1s">Build it, back it up, and serve it,<br>all for <em>free</em>.</h1>
+        <h1 class="hero-headline" data-reveal style="--reveal-delay: 0.1s">Build it, back it up, and serve it, all for <em>free</em>.</h1>
         <p class="hero-sub" data-reveal style="--reveal-delay: 0.2s">
           Here’s the recipe: an AI tool writes the code, GitHub keeps every version safe, and Vercel
           puts it on the internet under your own domain. There’s no server to maintain and nothing
@@ -107,8 +99,8 @@
       </section>
 
       <!-- The Setup -->
-      <section style="padding: 40px 0 16px;" id="setup">
-        <div class="section-label" data-num="01" data-reveal>The Setup</div>
+      <section class="section-block" id="setup">
+        <h2 class="section-label" data-reveal>The Setup</h2>
 
         <div class="features" data-reveal>
           <div class="feature">
@@ -135,9 +127,8 @@
       </section>
 
       <!-- Callout -->
-      <section style="padding: 48px 0 16px;" data-reveal>
+      <section class="section-block" data-reveal>
         <div class="callout-card">
-          <div class="callout-label">Worth noting</div>
           <h2 class="callout-heading">It comes off professional with no badging or watermarks.</h2>
           <p class="callout-body">
             Both Vercel and GitHub Pages let you hook up a custom domain for free, with zero of
@@ -149,8 +140,8 @@
       </section>
 
       <!-- Cost breakdown -->
-      <section style="padding: 40px 0 16px;" id="cost">
-        <div class="section-label" data-num="02" data-reveal>What it actually costs</div>
+      <section class="section-block" id="cost">
+        <h2 class="section-label" data-reveal>What it actually costs</h2>
         <div class="cost-list" data-reveal>
           <div class="cost-row">
             <span class="cost-item">AI tool to build/edit the site</span>
@@ -172,8 +163,8 @@
       </section>
 
       <!-- Ready to try it -->
-      <section style="padding: 40px 0 16px;" id="try-it">
-        <div class="section-label" data-num="03" data-reveal>Ready to try it</div>
+      <section class="section-block" id="try-it">
+        <h2 class="section-label" data-reveal>Ready to try it</h2>
         <p class="studio-body" data-reveal>
           The overview above is the pitch. If you want the actual steps, including exactly what
           to ask your AI tool at each one, the walkthrough covers it end to end.
@@ -184,14 +175,14 @@
               <div class="support-link-label">The Walkthrough</div>
               <div class="support-link-sub">Accounts, connecting your AI tool, going live, and your own domain</div>
             </div>
-            <i class="ri-arrow-right-line support-link-arrow" aria-hidden="true"></i>
+            <i class="ri-arrow-right-up-line support-link-arrow" aria-hidden="true"></i>
           </a>
         </div>
       </section>
 
       <!-- FAQ -->
-      <section style="padding: 40px 0 16px;" id="faq">
-        <div class="section-label" data-num="04" data-reveal>Common questions</div>
+      <section class="section-block" id="faq">
+        <h2 class="section-label" data-reveal>Common questions</h2>
         <div class="privacy-content" data-reveal>
           <h3>So when would I actually have to pay?</h3>
           <p>Vercel’s free “Hobby” tier is built for personal, non-commercial sites, which covers a portfolio, a blog, most side projects. It’s the same infrastructure real companies run production sites on, so it’s fast and ad-free with no catch, just plenty of bandwidth and build minutes for that use case. You’d outgrow it if the site starts making you money directly (Vercel asks commercial projects to move to a paid plan), or if traffic gets big enough to blow past the usage caps, which is a good problem to have and not something a personal site runs into by accident. GitHub Pages works the same way: free for reasonable personal use, with soft limits behind it.</p>
@@ -215,7 +206,6 @@
     <footer>
       <div class="footer-inner">
         <div class="footer-left">
-          <span class="footer-est">EST. 2010</span>
           <span class="footer-copy">© 2026 George Penston</span>
         </div>
         <ul class="footer-links">
