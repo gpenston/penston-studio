@@ -352,6 +352,20 @@ main { position: relative; overflow-x: clip; }
   flex-shrink: 0;
 }
 
+/* One fixed glyph slot on home (the // svg) and product pages (the chevron
+   icon font), so "Penston Studio" sits at the same x and y on both. They used
+   to differ by ~6px across and 2px down, which showed as a jump when the back
+   link navigated home. The chevron is wider than the slot and overflows it
+   evenly. */
+.unified-bar .nav-mark .nav-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 11px;
+  height: 18px;
+  line-height: 1;
+}
+
 /* Authoritative box model — identical on home (a) and product (a.back-link) */
 .unified-bar .nav-mark {
   display: inline-flex;
@@ -599,7 +613,10 @@ main { position: relative; overflow-x: clip; }
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   padding: 12px 0;
-  gap: 12px;
+  gap: 12px;  /* Product pages carry the 36px switcher pills, home only the 32px toggle.
+     Without a shared floor the bar was 4px taller on product pages and the
+     back link's text dropped 2px between them. */
+  min-height: 60px;
 }
 
 
@@ -651,7 +668,7 @@ main { position: relative; overflow-x: clip; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 4px;
   list-style: none;
 }
 .product-switcher-item > a,
@@ -1603,7 +1620,7 @@ main {
   .plates .plate:nth-child(3) { width: 100%; max-width: 100%; }
 
   /* Sticky chrome tightens on mobile */
-  .unified-bar { padding: 10px 0; gap: 8px; }
+  .unified-bar { padding: 10px 0; gap: 8px; min-height: 56px; }
 
   /* Product switcher: restore gap for labels, keep padding tighter than
      desktop but comfortable — 4px 6px read cramped, especially on the
