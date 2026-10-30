@@ -1,0 +1,13 @@
+# Penston Studio
+
+> Penston Studio is the side-project home of George Penston, a Principal Product Designer at LinkedIn. A one-person practice in product design and development, building small, considered tools. Everything here is free.
+
+## Projects
+- [Markedly](https://penston.studio/markedly/): a free macOS app that converts documents, PDFs, spreadsheets, and images to Markdown. Everything stays on your Mac. Available on the Mac App Store.
+- [Pour Over for Raindrop](https://penston.studio/pour-over/): a GitHub Action that brews a daily digest from your Raindrop read-later list and delivers it to your inbox. Open source.
+
+## About the maker
+- [George Penston's portfolio](https://gpenston.com): case studies, writing, and resume
+- [llms.txt for gpenston.com](https://gpenston.com/llms.txt)
+- [GitHub](https://github.com/gpenston)
+- [LinkedIn](https://linkedin.com/in/gpenston)
