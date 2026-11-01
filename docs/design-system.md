@@ -228,11 +228,10 @@ A single `position: sticky` `<header class="sticky-chrome">` (a landmark) shared
 ```html
 <header class="sticky-chrome">
   <div class="unified-bar">
-    <!-- Left: home = scroll-to-top anchor; product pages = back-link -->
-    <a href="#" class="nav-mark" aria-label="Penston Studio — scroll to top">
-      <svg class="nav-glyph"><!-- // glyph --></svg>
-      <span class="nav-text">Penston Studio</span>
-    </a>
+    <!-- Left: home = an empty cell (the hero leads with "Penston Studio", so the
+         bar carries no wordmark; the cell keeps the toggle on the right);
+         product pages = back-link -->
+    <div aria-hidden="true"></div>
     <!-- Centre: home = empty div; product pages = .product-switcher; notes = .page-util-links -->
     <div aria-hidden="true"></div>
     <!-- Right: mode toggle -->
@@ -241,7 +240,7 @@ A single `position: sticky` `<header class="sticky-chrome">` (a landmark) shared
 </header>
 ```
 
-The wordmark is Archivo 15px/700 (width 115, inherited from `<html>`) in `--text-primary`, the same face as the name on gpenston.com. **On product pages** the left slot is a back-link (`<a class="back-link nav-mark" aria-label="Penston Studio">`) with a chevron glyph and `<span class="back-link-text nav-text">`. The label is on the link because the text is hidden at ≤600px.
+**The home page has no wordmark in the bar** (changed 2026-10-31): the hero already leads with "Penston Studio" (h1) and a small `.hero-byline` "George Penston" beneath it. The "// Penston Studio" mark (`.nav-mark` with a `//` glyph) is gone from `index.html`; the 404 page still has it. The wordmark text, wherever it appears, is Archivo 15px/700 (width 115, inherited from `<html>`) in `--text-primary`, the same face as the name on gpenston.com. **On product pages** the left slot is a back-link (`<a class="back-link nav-mark" aria-label="Penston Studio">`) with a chevron glyph and `<span class="back-link-text nav-text">`. The label is on the link because the text is hidden at ≤600px.
 
 **Navigational controls are 8px rects** (switcher items, util links, back link, mode toggle). Hover and selected are instant (`transition: none`, overriding the global `a` colour transition), pressed uses the selected tone. On coarse pointers a pseudo-element extends each target to ~44px.
 

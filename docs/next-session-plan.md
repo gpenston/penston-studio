@@ -4,6 +4,25 @@ _Written 2026-07-11, after a `/design-critique` pass on the homepage, Markedly, 
 
 ---
 
+## Status — 2026-10-31
+
+**Shipped since the sections below were written** (the critique findings and workstreams that follow are historical; the de-slop pass of 2026-10-29/30 and the type system of 2026-10-31 reshaped most of what they describe, e.g. there are no more numbered plates or `PL. 01` captions):
+
+- The 2026-10-29 palette and de-slop port from gpenston.com (flat white and neutral near-black, no eyebrows/numbering/dividers), the SEO pass, branded 404, icons, `llms.txt` (#58).
+- **The two-family type system** (#59): Archivo for headings (width 115) and narrow labels (width 75), Hanken for body, nav and buttons, no mono webfont, OG cards regenerated.
+- **Follow-ups** (#60, #61): header wordmark in Archivo; the home hero leads with "Penston Studio" plus a small "George Penston" byline and the home bar has no wordmark; pullquotes in Hanken 700; "Catalogue" renamed "Projects"; "View full portfolio ↗" (labels start with a verb; only buttons that leave the site carry the arrow). Rules are in `DESIGN.md` and `docs/design-system.md` §3 and §5.
+
+**Open, in rough priority:**
+
+1. **Real-screen review of every studio page** in both modes on a phone and an iPad (Safari overscroll, tap/press states, the product switcher, the home hero at 375px and in dark mode). Not done after the type change; George has only reviewed the headline pages live.
+2. **Checks skipped on the type work:** `node scripts/test-motion.mjs` (from this checkout; tests both sites), Lighthouse on `/`, `/markedly/` and `/pour-over/`, and a VoiceOver pass on the new home hero order (h1, byline, bio, button).
+3. **Archivo's font weight.** The `@import` pulls the full width range (62–125) for only two uses (75 and 115). If Lighthouse flags it, self-host a subset; the studio has no build step, so that means committing a `woff2` under `assets/fonts/` and an `@font-face` instead of the Google `@import`.
+4. **Carried over from 2026-09-14 (not touched since; re-check before trusting):** the Markedly plate restage in both modes, and the page-transition jitter (Option 3).
+5. **Cache-buster:** `style.css?v=85` was not bumped for the 2026-10-31 CSS changes. It doesn't matter on Vercel (`cache-control: max-age=0, must-revalidate` plus an ETag means browsers revalidate every time), but bump it if the host or a CDN in front ever changes.
+6. **Mirror the portfolio's homepage lineup change** only if the studio ever grows a "featured work" list; today it has none.
+
+---
+
 ## Carried over — 2026-09-14
 
 1. **Markedly plates were staged inconsistently and need a real restage, both modes.** The macOS 27 desktop-context restage (`ac38fd0`) replaced all four Markedly plates but only produced one capture per plate — `markedly-shot-{open,drag,complete,quickaction}-dark.png` and their `-light` counterparts are byte-identical duplicates, so the light/dark swap (`.device-photo img.shot-light`, `assets/style.css:1391-1393`) is currently a no-op. And the one capture that exists is itself mismatched: dark desktop wallpaper/context behind a light-mode Markedly app window. Next time, stage two clean, mode-consistent captures per plate — dark wallpaper + dark app for `-dark`, light wallpaper + light app for `-light` — not just fill in the missing half.

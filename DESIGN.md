@@ -60,6 +60,20 @@ typography:
     fontWeight: 700
     lineHeight: 1.3
     letterSpacing: -0.01em
+  byline:
+    # "George Penston" under the home h1; the section-heading step, muted ink.
+    fontFamily: Archivo
+    fontSize: 22px
+    fontWeight: 700
+    lineHeight: 1.3
+    letterSpacing: -0.015em
+  pullquote:
+    # Hanken, not Archivo: a multi-sentence statement, not a headline.
+    fontFamily: Hanken Grotesk
+    fontSize: 34px
+    fontWeight: 700
+    lineHeight: 1.28
+    letterSpacing: -0.02em
   body-lead:
     fontFamily: Hanken Grotesk
     fontSize: 17px
@@ -162,7 +176,14 @@ meta labels are a separate, narrow face (see below).
 **2026-10-31 pass (ported from gpenston.com).** Three families became two.
 Archivo, a grotesque with a width axis, takes the headings and the small
 labels; Hanken Grotesk stays for body, nav and buttons; Martian Mono is gone.
-The studio's own type sizes did not change.
+The studio's own type sizes did not change. Follow-ups the same day: the header
+wordmark is Archivo 700; pullquotes and citations are Hanken (a multi-sentence
+statement reads as a wall of heavy letters in the wide cut); the home hero leads
+with **Penston Studio** (h1) and a small "George Penston" byline, and the home
+bar carries no wordmark; the section title "Catalogue" became **Projects**
+(plain over clever); and the portfolio button reads **View full portfolio** with
+the up-right arrow (labels start with a verb, and only a button that leaves the
+site carries an arrow).
 
 The site is **dual-mode**. Dark is the default; light is flat white. Mode is a
 manual toggle (sun/moon), persisted locally, applied before paint to avoid a
