@@ -129,6 +129,10 @@ html.vt-mode.vt-to-light::view-transition-new(root) {
      Hanken Grotesk = body, nav and buttons. --mono is a system stack for real
      code only; there is no mono webfont. */
   --font-display: 'Archivo', system-ui, sans-serif;
+  /* Archivo is the display face (2026-11-01): h1, the hero lockup, short
+     section headings and short statements. Everything under a section
+     heading, and anything sentence-length, is Hanken. */
+  --font-heading: 'Hanken Grotesk', system-ui, sans-serif;
   --font-label:   'Archivo', system-ui, sans-serif;
   --font-body:    'Hanken Grotesk', system-ui, sans-serif;
   --mono: ui-monospace, 'SF Mono', Menlo, monospace;
@@ -252,12 +256,20 @@ body::after {
   mask-size: 420px 420px;
 }
 
+/* Headings default to Hanken. Archivo is opted into (h1 below, the hero
+   lockup, .section-label, a few short statements): a subhead, a card title
+   or an FAQ question is text, and a long one in the wide cut reads as a wall
+   of heavy letters, worst on a phone. */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.1;
   color: var(--text-primary);
   text-wrap: balance;
+}
+
+h1 {
+  font-family: var(--font-display);
 }
 
 a { color: var(--text-primary); text-decoration: none; transition: color 0.15s ease-out; }
@@ -565,7 +577,7 @@ main { position: relative; overflow-x: clip; }
 
 .project-info { min-width: 0; }
 .project-name {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -590,7 +602,7 @@ main { position: relative; overflow-x: clip; }
 .project-badge {
   font-family: var(--font-label);
   font-stretch: var(--label-stretch);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: var(--label-weight);
   letter-spacing: var(--label-tracking);
   text-transform: uppercase;
@@ -912,7 +924,7 @@ main { position: relative; overflow-x: clip; }
   margin-bottom: 16px;
 }
 .feature h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -939,7 +951,7 @@ main { position: relative; overflow-x: clip; }
    (Hanken), like a long citation. */
 .pullquote {
   font-family: var(--font-body);
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(22px, 3.2vw, 34px);
   line-height: 1.28;
   letter-spacing: -0.02em;
@@ -994,7 +1006,7 @@ main { position: relative; overflow-x: clip; }
 .format-ocr {
   font-family: var(--font-label);
   font-stretch: var(--label-stretch);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: var(--label-weight);
   letter-spacing: var(--label-tracking);
   text-transform: uppercase;
@@ -1011,7 +1023,7 @@ main { position: relative; overflow-x: clip; }
 .format-tag {
   font-family: var(--font-label);
   font-stretch: var(--label-stretch);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: var(--label-weight);
   letter-spacing: var(--label-tracking);
   text-transform: uppercase;
@@ -1077,7 +1089,7 @@ main { position: relative; overflow-x: clip; }
   padding: 32px;
 }
 .callout-heading {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -1423,20 +1435,13 @@ footer {
   /* Text sits directly on the drafting surface — no inset box. */
   padding: 0;
 }
-.privacy-content h2 {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  margin-bottom: 8px;
-}
 .privacy-updated {
   font-size: 14px;
   color: var(--text-tertiary);
   margin-bottom: 24px;
 }
 .privacy-content h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 17px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -1454,7 +1459,7 @@ footer {
   font-size: 15px;
   color: var(--text-secondary);
   line-height: 1.6;
-  padding-left: 16px;
+  padding-left: 24px; /* the em dash marker is ~16px wide: 16px indent made it touch the text */
   position: relative;
 }
 .privacy-content ul li::before {
@@ -1639,7 +1644,7 @@ main {
   .works-with-row { gap: 8px; }
   .ww-item { padding: 12px 10px; gap: 7px; }
   .ww-icon { width: 26px; height: 26px; border-radius: 7px; }
-  .ww-name { font-size: 12.5px; line-height: 1.2; }
+  .ww-name { font-size: 13px; line-height: 1.2; } /* the 13px floor */
   /* Allow negative-margin full-bleed sections to extend to viewport edges
      (product pages only — homepage has no .product-showcase and needs the
      clip to keep .atm-rays from causing horizontal scroll/wiggle) */

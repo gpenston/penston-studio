@@ -103,13 +103,14 @@ with `--label-stretch`. Martian Mono was removed; **D-DIN Condensed was removed
 2026-10-29** (and `assets/fonts/D-DINCondensed-Bold.woff2` with it). Don't add
 a font without a rendered use.
 
-**The rule: Archivo for anything headline-like, Hanken for anything you read as
-running text or press.** Bold, dark ink, set as a heading → Archivo;
-regular-weight running text or a control → Hanken. A citation of someone else's
-published work is running text at any length (a long title in the wide cut reads
-as a wall of heavy letters), so it is Hanken too. So is the **pullquote**
-(Hanken 700): a multi-sentence statement, not a headline. Labels are Archivo narrow,
-one to three words, never a phrase.
+**The rule (2026-11-01): Archivo is the display face, short and big and few.**
+h1s, the hero lockup, short section headings (`.section-label`), short poster
+statements (8 words or fewer), the wordmark and product names. **Everything h3
+and below, and anything sentence-length, is Hanken** (`--font-heading`, bold):
+project names, feature and callout headings, FAQ questions, privacy
+sub-headings. A citation of published work is Hanken at any length. The
+**pullquote** is Hanken 600. Labels are Archivo narrow, one to three words,
+never a phrase.
 
 ### Scale
 
@@ -118,13 +119,13 @@ one to three words, never a phrase.
 | `hero-name` | `clamp(44px, 6.5vw, 84px)` | 800 | Home h1 — "Penston Studio" (the studio leads; "George Penston" is the small `.hero-byline` beneath it, on the section-heading step, and the home page carries no wordmark in the bar) |
 | `hero-headline` | `clamp(44px, 7vw, 84px)` | 800 | Product h1 — "Convert anything to Markdown." |
 | `big-h2` | `clamp(36px, 6vw, 56px)` | 700 | Section headlines |
-| `pullquote` | `clamp(22px, 3.2vw, 34px)` | 700 | Editorial pullquote (carries the highlight marker); Hanken, not Archivo |
+| `pullquote` | `clamp(22px, 3.2vw, 34px)` | 600 | Editorial pullquote (carries the highlight marker); Hanken, not Archivo |
 | `section-heading` | `clamp(18px, 1.02rem + 0.45vw, 22px)` | 700 | `.section-label` (an `h2`) |
 | `body-lead` | 17px / 1.55 | 400 | Hero bios, intro paragraphs |
 | `body` | 16px / 1.6 | 400 | Long-form body, privacy and FAQ prose |
 | `body-sm` | 14–15px / 1.5 | 400 | Card text, captions, footer |
 | `control` | 15px | 500–600 | Nav links (500), buttons (600) |
-| `meta` | 12px Archivo width 75, 0.09em tracking, uppercase | 600 | Chips and file-type tags only (11px for the OCR tag) |
+| `meta` | 13px Archivo width 75, 0.09em tracking, uppercase | 600 | Chips and file-type tags only |
 
 ### Rules
 
@@ -138,7 +139,7 @@ one to three words, never a phrase.
 - **The highlight marker (`.hl`, accent-cool) is reserved for the pullquote block** — the single expressive flourish per page. Don't scatter it per section.
 - **`text-wrap: balance`** on headline-like elements (`h1`–`h6`, `.hero-name`, `.hero-headline`, `.big-h2`, `.pullquote`, `.callout-heading`, `.closing-cta-headline`, `.section-label`); **`pretty`** on prose. Button labels are `nowrap`. Cap big type in `px`, never `ch`, and avoid hard `<br>`s. Where a break matters, wrap the tail in `.nowrap` (applies from 640px up).
 - **Line height by role:** lead 1.55, long-form body 1.6, 15px small text 1.5.
-- **11px is the floor.** No text goes below 11px. `--text-tertiary` clears WCAG AA (4.5:1) on `--bg-primary` and `--bg-secondary`.
+- **13px is the floor; dates and secondary lines are 14px.** No text goes below 13px. `--text-tertiary` clears WCAG AA (4.5:1) on `--bg-primary` and `--bg-secondary`.
 
 > **Type direction.** Chapter 03 (Hanken Grotesk + Martian Mono + D-DIN) was resolved 2026-07-10. D-DIN and the mono-everywhere chrome were dropped in the 2026-10-29 pass. Archivo (headings and narrow labels) + Hanken replaced Hanken + Martian Mono on 2026-10-31, ported from gpenston.com; see `DESIGN.md`.
 
