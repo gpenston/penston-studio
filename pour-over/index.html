@@ -27,9 +27,10 @@
   <link rel="icon" href="../assets/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon-pour-over.png">
   <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pour Over for Raindrop","description":"A GitHub Action that brews a daily digest from your Raindrop read-later list and delivers it to your inbox.","url":"https://penston.studio/pour-over/","applicationCategory":"DeveloperApplication","operatingSystem":"Any (runs on GitHub Actions)","image":"https://penston.studio/assets/pour-over-icon.png","sameAs":["https://github.com/gpenston/pour-over-for-raindrop"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@id":"https://gpenston.com/#person"},"publisher":{"@id":"https://gpenston.com/#person"},"inLanguage":"en-US"},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Penston Studio","item":"https://penston.studio/"},{"@type":"ListItem","position":2,"name":"Pour Over for Raindrop","item":"https://penston.studio/pour-over/"}]}]</script>
-  <link rel="stylesheet" href="../assets/style.css?v=85">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
-  <script defer src="../assets/reveal.js?v=1"></script>
+  <link rel="preload" href="../assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/style.css?v=86">
+    <script defer src="../assets/reveal.js?v=1"></script>
   <script defer src="../assets/site.js?v=21"></script>
 </head>
 <body>
@@ -39,7 +40,7 @@
     <header class="sticky-chrome">
       <div class="unified-bar">
         <a href="../" class="back-link nav-mark" aria-label="Penston Studio">
-          <i class="ri-arrow-left-s-line nav-glyph" aria-hidden="true"></i>
+          <i class="ri-icon nav-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"/></svg></i>
           <span class="back-link-text nav-text">Penston Studio</span>
         </a>
         <ul class="product-switcher">
@@ -56,8 +57,8 @@
         </ul>
         <div class="unified-actions">
           <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
-            <i class="ri-sun-line icon-sun" aria-hidden="true"></i>
-            <i class="ri-moon-line icon-moon" aria-hidden="true"></i>
+            <i class="ri-icon icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/></svg></i>
+            <i class="ri-icon icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z"/></svg></i>
           </button>
         </div>
       </div>
@@ -69,7 +70,7 @@
       <section style="position: relative; overflow: hidden;">
         <div class="hero-header" data-reveal style="--reveal-delay: 0.05s">
           <div class="app-identity">
-            <div class="app-icon"><img src="../assets/pour-over-icon.png" alt="Pour Over for Raindrop"></div>
+            <div class="app-icon"><img src="../assets/pour-over-icon-128.webp" alt="Pour Over for Raindrop"></div>
             <div>
               <div class="app-name">Pour Over for Raindrop</div>
               <div class="app-platform">GitHub Action · Free</div>
@@ -87,7 +88,7 @@
 
         <div class="cta-group" data-reveal style="--reveal-delay: 0.25s">
           <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="pill-btn pill-btn-primary">
-            <i class="ri-github-fill cta-btn-icon"></i>
+            <i class="ri-icon cta-btn-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"/></svg></i>
             View on GitHub
           </a>
           <a href="https://github.com/gpenston/pour-over-for-raindrop/fork" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary">
@@ -170,22 +171,22 @@
 
         <div class="features" data-reveal>
           <div class="feature">
-            <i class="ri-bookmark-line feature-icon"></i>
+            <i class="ri-icon feature-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 2H19C19.5523 2 20 2.44772 20 3V22.1433C20 22.4194 19.7761 22.6434 19.5 22.6434C19.4061 22.6434 19.314 22.6168 19.2344 22.5669L12 18.0313L4.76559 22.5669C4.53163 22.7136 4.22306 22.6429 4.07637 22.4089C4.02647 22.3293 4 22.2373 4 22.1433V3C4 2.44772 4.44772 2 5 2ZM18 4H6V19.4324L12 15.6707L18 19.4324V4Z"/></svg></i>
             <h3>Recent bookmarks</h3>
             <p>Pulls your latest saves from Raindrop’s Read Later collection, with cover images, tags, and source metadata.</p>
           </div>
           <div class="feature">
-            <i class="ri-sparkling-2-line feature-icon"></i>
+            <i class="ri-icon feature-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.0007 1.20825 18.3195 3.68108 20.7923 4.99992 18.3195 6.31876 17.0007 8.79159 15.6818 6.31876 13.209 4.99992 15.6818 3.68108 17.0007 1.20825ZM10.6673 9.33325 15.6673 11.9999 10.6673 14.6666 8.00065 19.6666 5.33398 14.6666.333984 11.9999 5.33398 9.33325 8.00065 4.33325 10.6673 9.33325ZM11.4173 11.9999 9.18905 10.8115 8.00065 8.58325 6.81224 10.8115 4.58398 11.9999 6.81224 13.1883 8.00065 15.4166 9.18905 13.1883 11.4173 11.9999ZM19.6673 16.3333 18.0007 13.2083 16.334 16.3333 13.209 17.9999 16.334 19.6666 18.0007 22.7916 19.6673 19.6666 22.7923 17.9999 19.6673 16.3333Z"/></svg></i>
             <h3>Smart recommendations</h3>
             <p>Analyzes your archive tags and surfaces related articles via NewsAPI — optional, but worth enabling.</p>
           </div>
           <div class="feature">
-            <i class="ri-mail-open-line feature-icon"></i>
+            <i class="ri-icon feature-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.24283 6.85435L11.4895 1.3086C11.8062 1.11865 12.2019 1.11872 12.5185 1.30878L21.7573 6.85433C21.9079 6.9447 22 7.10743 22 7.28303V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V7.28315C2 7.10748 2.09218 6.94471 2.24283 6.85435ZM4 8.13261V19H20V8.13214L12.0037 3.33237L4 8.13261ZM12.0597 13.6983L17.3556 9.23532L18.6444 10.7647L12.074 16.3017L5.36401 10.7717L6.63599 9.2283L12.0597 13.6983Z"/></svg></i>
             <h3>Beautiful emails</h3>
             <p>Responsive design that feels like a real editorial newsletter. Native dark and light mode support for macOS and iOS Mail.</p>
           </div>
           <div class="feature">
-            <i class="ri-loop-right-line feature-icon"></i>
+            <i class="ri-icon feature-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 4C14.7486 4 17.1749 5.38626 18.6156 7.5H16V9.5H22V3.5H20V5.99936C18.1762 3.57166 15.2724 2 12 2C6.47715 2 2 6.47715 2 12H4C4 7.58172 7.58172 4 12 4ZM20 12C20 16.4183 16.4183 20 12 20C9.25144 20 6.82508 18.6137 5.38443 16.5H8V14.5H2V20.5H4V18.0006C5.82381 20.4283 8.72764 22 12 22C17.5228 22 22 17.5228 22 12H20Z"/></svg></i>
             <h3>Fully automated</h3>
             <p>Runs on a configurable schedule via GitHub Actions. Daily, weekly, or specific days — no server, no babysitting.</p>
           </div>
@@ -230,14 +231,14 @@
               <div class="support-link-label">Report an issue</div>
               <div class="support-link-sub">GitHub Issues — file a bug or request a feature</div>
             </div>
-            <i class="ri-arrow-right-up-line support-link-arrow" aria-hidden="true"></i>
+            <i class="ri-icon support-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></i>
           </a>
           <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="support-link-item">
             <div>
               <div class="support-link-label">View source</div>
               <div class="support-link-sub">MIT licensed — fork it, modify it, make it yours</div>
             </div>
-            <i class="ri-arrow-right-up-line support-link-arrow" aria-hidden="true"></i>
+            <i class="ri-icon support-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></i>
           </a>
         </div>
       </section>
@@ -250,7 +251,7 @@
         <p class="closing-cta-sub">No server, no dashboard, no subscription. Just your inbox.</p>
         <div class="cta-group" style="justify-content: center;">
           <a href="https://github.com/gpenston/pour-over-for-raindrop" target="_blank" rel="noopener" class="pill-btn pill-btn-primary">
-            <i class="ri-github-fill cta-btn-icon"></i>
+            <i class="ri-icon cta-btn-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"/></svg></i>
             View on GitHub
           </a>
           <a href="https://github.com/gpenston/pour-over-for-raindrop/fork" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary">

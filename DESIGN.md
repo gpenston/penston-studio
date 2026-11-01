@@ -340,7 +340,7 @@ mix them: a pill on a nav link or a rect on a CTA breaks the rule.
 - **Section heading.** A plain `h2`: Archivo 700 on the 18–22px step, 16px above
   its content. No numeral, no rule.
 - **Callout.** A raised-tone card, no accent bar.
-- **Mode toggle.** Sun/moon icons (Remixicon) with an opacity+rotation
+- **Mode toggle.** Sun/moon icons (inline SVG, Remixicon paths) with an opacity+rotation
   crossfade; reduced-motion falls back to opacity only. Drives `[data-mode]` on
   `<html>`. The switch triggers a same-document View Transition: a soft, wide
   gradient band sweeps the new mode in — darkness descending from the top

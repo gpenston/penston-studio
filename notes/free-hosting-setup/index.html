@@ -24,9 +24,10 @@
   <link rel="icon" href="../../assets/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="../../assets/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
-  <link rel="stylesheet" href="../../assets/style.css?v=85">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
-  <script defer src="../../assets/reveal.js?v=1"></script>
+  <link rel="preload" href="../../assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css?v=86">
+    <script defer src="../../assets/reveal.js?v=1"></script>
   <script defer src="../../assets/site.js?v=21"></script>
   <style>
     /* Scoped to this note — a cost list on the same surface tone as .features */
@@ -71,7 +72,7 @@
     <header class="sticky-chrome">
       <div class="unified-bar">
         <a href="../../" class="back-link nav-mark" aria-label="Penston Studio">
-          <i class="ri-arrow-left-s-line nav-glyph" aria-hidden="true"></i>
+          <i class="ri-icon nav-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"/></svg></i>
           <span class="back-link-text nav-text">Penston Studio</span>
         </a>
         <ul class="page-util-links">
@@ -82,8 +83,8 @@
         </ul>
         <div class="unified-actions">
           <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
-            <i class="ri-sun-line icon-sun" aria-hidden="true"></i>
-            <i class="ri-moon-line icon-moon" aria-hidden="true"></i>
+            <i class="ri-icon icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/></svg></i>
+            <i class="ri-icon icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z"/></svg></i>
           </button>
         </div>
       </div>
@@ -109,22 +110,22 @@
 
         <div class="features" data-reveal>
           <div class="feature">
-            <i class="ri-chat-3-line feature-icon"></i>
+            <i class="ri-icon feature-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7.29117 20.8242L2 22L3.17581 16.7088C2.42544 15.3056 2 13.7025 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C10.2975 22 8.6944 21.5746 7.29117 20.8242ZM7.58075 18.711L8.23428 19.0605C9.38248 19.6745 10.6655 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 13.3345 4.32549 14.6175 4.93949 15.7657L5.28896 16.4192L4.63416 19.3658L7.58075 18.711Z"/></svg></i>
             <h3>Build <span class="tag-optional">(optional)</span></h3>
             <p>Talk to it in plain language, the same way you’d brief a person. “Make the headline bigger,” “add a contact page,” “swap this color.” When it looks right, just ask it to commit, merge, and deploy. Easy peasy.</p>
           </div>
           <div class="feature">
-            <i class="ri-git-branch-line feature-icon"></i>
+            <i class="ri-icon feature-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7.10508 15.2101C8.21506 15.6501 9 16.7334 9 18C9 19.6569 7.65685 21 6 21C4.34315 21 3 19.6569 3 18C3 16.6938 3.83481 15.5825 5 15.1707V8.82929C3.83481 8.41746 3 7.30622 3 6C3 4.34315 4.34315 3 6 3C7.65685 3 9 4.34315 9 6C9 7.30622 8.16519 8.41746 7 8.82929V11.9996C7.83566 11.3719 8.87439 11 10 11H14C15.3835 11 16.5482 10.0635 16.8949 8.78991C15.7849 8.34988 15 7.26661 15 6C15 4.34315 16.3431 3 18 3C19.6569 3 21 4.34315 21 6C21 7.3332 20.1303 8.46329 18.9274 8.85392C18.5222 11.2085 16.4703 13 14 13H10C8.61653 13 7.45179 13.9365 7.10508 15.2101ZM6 17C5.44772 17 5 17.4477 5 18C5 18.5523 5.44772 19 6 19C6.55228 19 7 18.5523 7 18C7 17.4477 6.55228 17 6 17ZM6 5C5.44772 5 5 5.44772 5 6C5 6.55228 5.44772 7 6 7C6.55228 7 7 6.55228 7 6C7 5.44772 6.55228 5 6 5ZM18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"/></svg></i>
             <h3>Save <span class="tag-optional">(optional)</span></h3>
             <p>Every change gets saved as a snapshot in GitHub. Unlimited undo for the whole site, plus a free backup that isn’t sitting on one laptop. Break something? Roll back to yesterday’s version in a click. Skip it and everything you’ve built lives in exactly one place, which is fine until the day it isn’t.</p>
           </div>
           <div class="feature">
-            <i class="ri-rocket-2-line feature-icon"></i>
+            <i class="ri-icon feature-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.5018 20.0048C14.8432 21.5841 13.5794 22.848 12 23.5066C10.4206 22.848 9.15679 21.5841 8.49816 20.0048H10.7575C11.0838 20.4934 11.5051 20.9171 12 21.248C12.4949 20.9171 12.9162 20.4934 13.2425 20.0048H15.5018ZM18 14.8095L20 17.0777V19.0048H4V17.0777L6 14.8095V9.00478C6 5.52153 8.50442 2.55822 12 1.45999C15.4956 2.55822 18 5.52153 18 9.00478V14.8095ZM17.2692 17.0048L16 15.5653V9.00478C16 6.68694 14.4292 4.57431 12 3.58384C9.57078 4.57431 8 6.68694 8 9.00478V15.5653L6.73076 17.0048H17.2692ZM12 11.0048C10.8954 11.0048 10 10.1093 10 9.00478C10 7.90021 10.8954 7.00478 12 7.00478C13.1046 7.00478 14 7.90021 14 9.00478C14 10.1093 13.1046 11.0048 12 11.0048Z"/></svg></i>
             <h3>Ship</h3>
             <p>Vercel watches that GitHub folder and publishes automatically. Save a change, and the live site updates within seconds. Point your own domain at it and you’re done — plus real analytics for free, no extra install, no extra cookie banner.</p>
           </div>
           <div class="feature">
-            <i class="ri-price-tag-3-line feature-icon"></i>
+            <i class="ri-icon feature-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"/></svg></i>
             <h3>What it costs</h3>
             <p>Basically nothing. The AI tool, GitHub, and Vercel all have free tiers generous enough for a personal site. The one real cost is the domain name itself, and you’d pay that no matter who’s hosting.</p>
           </div>
@@ -180,7 +181,7 @@
               <div class="support-link-label">The Walkthrough</div>
               <div class="support-link-sub">Accounts, connecting your AI tool, going live, and your own domain</div>
             </div>
-            <i class="ri-arrow-right-up-line support-link-arrow" aria-hidden="true"></i>
+            <i class="ri-icon support-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg></i>
           </a>
         </div>
       </section>
