@@ -55,7 +55,7 @@ typography:
     lineHeight: 1.3
     letterSpacing: -0.015em
   title:
-    fontFamily: Archivo
+    fontFamily: Hanken Grotesk
     fontSize: 18px
     fontWeight: 700
     lineHeight: 1.3
@@ -96,7 +96,7 @@ typography:
     lineHeight: 1.4
   meta:
     fontFamily: Archivo
-    fontSize: 12px
+    fontSize: 13px
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 0.09em
@@ -232,13 +232,14 @@ hover `#6e4500`.
 
 ## Typography
 
-Two families, each with a strict job. **The rule: Archivo for anything
-headline-like, Hanken for anything you read as running text or press.** Bold,
-dark ink, set as a heading: Archivo. Regular-weight running text or a control:
-Hanken. A citation of someone else's published work is running text at any
-length, so it is Hanken too. So is a **pullquote**: it is a multi-sentence
-statement, not a headline, and in the wide cut it reads as a wall of heavy
-letters, so it is set in Hanken 700.
+Two families, each with a strict job. **The rule: Archivo is the display face,
+short and big and few. Everything h3 and below, and anything sentence-length,
+is Hanken.** Archivo: h1s, the hero lockup, short section headings (the
+`.section-label` h2s), short poster statements of 8 words or fewer, wordmark
+and product names. Hanken (`--font-heading`, bold): project names, feature and
+callout headings, FAQ questions, privacy sub-headings, citations of published
+work. The **pullquote** is Hanken 600. Metadata is 14px (dates, secondary
+lines) or 13px (labels, chips); 13px is the floor.
 
 - **Archivo — headings and labels.** A grotesque with a width axis, loaded once
   as a variable font. Headings (the poster-scale hero name at 800, hero
@@ -247,7 +248,7 @@ letters, so it is set in Hanken 700.
   inherited; Hanken has no width axis, so body copy ignores it.
 - **Archivo, narrow — labels.** One-to-three-word chips and file-type tags
   (`macOS`, `GitHub Action`, `DOCX`). The recipe is `--font-label` at
-  `--label-stretch` (75%), weight 600, 12px, uppercase, `--label-tracking`
+  `--label-stretch` (75%), weight 600, 13px, uppercase, `--label-tracking`
   (0.09em). **A label is never a phrase and never a control.** Set a sentence
   in it and the page reads as a spec sheet.
 - **Hanken Grotesk — body, nav, buttons.** Long-form body (400), nav links
