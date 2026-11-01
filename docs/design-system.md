@@ -107,17 +107,18 @@ a font without a rendered use.
 running text or press.** Bold, dark ink, set as a heading → Archivo;
 regular-weight running text or a control → Hanken. A citation of someone else's
 published work is running text at any length (a long title in the wide cut reads
-as a wall of heavy letters), so it is Hanken too. Labels are Archivo narrow,
+as a wall of heavy letters), so it is Hanken too. So is the **pullquote**
+(Hanken 700): a multi-sentence statement, not a headline. Labels are Archivo narrow,
 one to three words, never a phrase.
 
 ### Scale
 
 | Token | Size | Weight | Usage |
 |---|---|---|---|
-| `hero-name` | `clamp(44px, 6.5vw, 84px)` | 800 | Home h1 — "George Penston" |
+| `hero-name` | `clamp(44px, 6.5vw, 84px)` | 800 | Home h1 — "Penston Studio" (the studio leads; "George Penston" is the small `.hero-byline` beneath it, on the section-heading step, and the home page carries no wordmark in the bar) |
 | `hero-headline` | `clamp(44px, 7vw, 84px)` | 800 | Product h1 — "Convert anything to Markdown." |
 | `big-h2` | `clamp(36px, 6vw, 56px)` | 700 | Section headlines |
-| `pullquote` | `clamp(22px, 3.2vw, 34px)` | 700 | Editorial pullquote (carries the highlight marker) |
+| `pullquote` | `clamp(22px, 3.2vw, 34px)` | 700 | Editorial pullquote (carries the highlight marker); Hanken, not Archivo |
 | `section-heading` | `clamp(18px, 1.02rem + 0.45vw, 22px)` | 700 | `.section-label` (an `h2`) |
 | `body-lead` | 17px / 1.55 | 400 | Hero bios, intro paragraphs |
 | `body` | 16px / 1.6 | 400 | Long-form body, privacy and FAQ prose |
@@ -295,7 +296,7 @@ Both animate when `prefers-reduced-motion: no-preference` — see §6 Motion.
 
 ### Portfolio link (home only)
 
-A tertiary pill button ("Full portfolio") below the hero bio, pointing to `gpenston.com`. No arrow.
+A tertiary pill button ("View full portfolio") below the hero bio, pointing to `gpenston.com`. It leaves the site, so it ends in the 14px up-right arrow (`.pill-btn-out`, trailing padding trimmed to 14px) and carries an `aria-label` that says it opens in a new tab. Button labels start with a verb.
 
 ### Buttons
 
@@ -364,7 +365,7 @@ Page entrance and scroll-reveal are **shared with gpenston.com**. Both sites run
 
 ### Scroll-reveal
 
-- **`[data-reveal]`** fades up 24px over 600ms `cubic-bezier(0.21, 0.47, 0.32, 0.98)` once it's 64px inside the viewport. Optional inline `--reveal-delay` (hero: `0.05s / 0.1s / 0.2s / 0.25s`; catalogue cards: `0.1s + 0.08s` per card). Also optional: `--reveal-x`/`--reveal-y` to change the direction.
+- **`[data-reveal]`** fades up 24px over 600ms `cubic-bezier(0.21, 0.47, 0.32, 0.98)` once it's 64px inside the viewport. Optional inline `--reveal-delay` (hero: `0.05s / 0.1s / 0.2s / 0.25s`; project cards: `0.1s + 0.08s` per card). Also optional: `--reveal-x`/`--reveal-y` to change the direction.
 - **`[data-reveal-trigger]`** doesn't fade itself; it only stages descendants. Used for the pullquote highlighter.
 - **`data-reveal-amount="0.6"`** waits until that fraction is visible instead of the 64px margin. The pullquote uses it so the highlighter draws while you're looking at it.
 - `reveal.js` sets **`data-revealed`** once and never removes it. It also watches for elements added later (the portfolio's client-side navigation).
@@ -416,7 +417,7 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 ## 7. Iconography
 
 - **Remixicon via CDN** for feature icons. `<i class="ri-drag-drop-line"></i>`.
-- **Arrows earn their place.** Only external links (`ri-arrow-right-up-line` in the footer and support list) and directional pagers. No button, internal card or row carries one.
+- **Arrows earn their place.** Only external links (`ri-arrow-right-up-line` in the footer and support list) and directional pagers. A button that leaves the site carries the arrow too (`.pill-btn-out`); no internal button, card or row does.
 - **No emoji.** The narrow label style covers anywhere you'd be tempted.
 - **Never draw proprietary logos in SVG.** Use Remixicon's brand glyphs (`ri-github-line`) or real asset files.
 
@@ -479,7 +480,7 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 - Don't add a system rail / status bar at the top of pages. We tried it — it added visual noise without earning its keep.
 - Don't add a gradient hero background — or any decorative gradient. The site is flat (June 2026 cleanup).
 - Don't bring back the orange hero disc, the hero horizon line/glow, the coffee-ring stain, or the skeuomorphic sliding mode switch. They were removed deliberately.
-- Don't put shadows on the catalogue cards — the hover state is flat (a step in surface tone), never a drop-shadow.
+- Don't put shadows on the project cards — the hover state is flat (a step in surface tone), never a drop-shadow.
 - Don't use Inter Tight, Satoshi, General Sans, or any "designer" substitute for Hanken Grotesk — they're all trying too hard.
 - Don't make the accent orange darker "to be tasteful." The orange is the signal. (Small orange *text* in light mode is the exception: it uses the rust `--accent-text`.)
 - Don't reintroduce eyebrows, kickers, `data-num` numbering, chapter numerals, plate/figure numbers, the drawn section rule, hairline dividers or image borders (all removed 2026-10-29).

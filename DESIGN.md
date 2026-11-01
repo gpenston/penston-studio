@@ -215,11 +215,13 @@ Two families, each with a strict job. **The rule: Archivo for anything
 headline-like, Hanken for anything you read as running text or press.** Bold,
 dark ink, set as a heading: Archivo. Regular-weight running text or a control:
 Hanken. A citation of someone else's published work is running text at any
-length, so it is Hanken too.
+length, so it is Hanken too. So is a **pullquote**: it is a multi-sentence
+statement, not a headline, and in the wide cut it reads as a wall of heavy
+letters, so it is set in Hanken 700.
 
 - **Archivo — headings and labels.** A grotesque with a width axis, loaded once
   as a variable font. Headings (the poster-scale hero name at 800, hero
-  headlines, section headings 18–22px/700, titles, the pullquote) run at
+  headlines, section headings 18–22px/700, titles, the home byline) run at
   **width 115**. The width is `font-stretch: 115%`, set once on `<html>` and
   inherited; Hanken has no width axis, so body copy ignores it.
 - **Archivo, narrow — labels.** One-to-three-word chips and file-type tags
@@ -297,8 +299,9 @@ mix them: a pill on a nav link or a rect on a CTA breaks the rule.
 
 ## Components
 
-- **Buttons.** Two tiers, both pills, Hanken 15px/600, nowrap, symmetric padding
-  (no button carries an arrow). *Primary:* a solid ink pill (`--text-primary`
+- **Buttons.** Two tiers, both pills, Hanken 15px/600, nowrap, symmetric padding.
+  Labels start with a verb. Only a button that leaves the site carries an arrow
+  (up-right, trailing padding trimmed to 14px). *Primary:* a solid ink pill (`--text-primary`
   fill, `--bg-primary` label; hover mixes 10% toward the page). *Tertiary:* a
   hairline pill (`--border-medium`) in both modes. Press is `scale(0.97)` over
   150ms, `transform` only, off under reduced motion. The Mac App Store badge is
