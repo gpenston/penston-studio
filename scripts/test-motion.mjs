@@ -142,7 +142,11 @@ async function testSite(key, engine) {
     });
     await sleep(1200);
     const scrolled = await page.evaluate(() => {
-      const els = [...document.querySelectorAll("[data-reveal]")];
+      // display:none elements (the portfolio's hero rail below 860px) never
+      // intersect, so they can't reveal; they aren't visible to skip.
+      const els = [...document.querySelectorAll("[data-reveal]")].filter(
+        (e) => getComputedStyle(e).display !== "none",
+      );
       return {
         total: els.length,
         revealed: els.filter((e) => e.hasAttribute("data-revealed")).length,
