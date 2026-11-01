@@ -94,7 +94,7 @@ pages in both modes at 1280, 375 and 320px.
 --mono:         ui-monospace, 'SF Mono', Menlo, monospace; /* real code only */
 ```
 
-Both load via Google Fonts (one `@import` in `assets/style.css`). **Two families
+Both are self-hosted in `assets/fonts/` (latin subset, `@font-face` at the top of `assets/style.css`, preloaded in each page's `<head>`; no Google Fonts request). **Two families
 since 2026-10-31.** Archivo is a variable font with a width axis; the wide cut
 (115) is for headings and the narrow cut (75) for labels, switched with CSS
 `font-stretch`. It is set once on `<html>` (`--display-stretch`) and inherited:
@@ -416,10 +416,10 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 ## 7. Iconography
 
-- **Remixicon via CDN** for feature icons. `<i class="ri-drag-drop-line"></i>`.
+- **Inline SVG icons** (Remixicon paths) for feature icons: `<i class="ri-icon feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor">…</svg></i>`. Sized by the wrapper's `font-size`, coloured by `currentColor`. No icon font, no CDN.
 - **Arrows earn their place.** Only external links (`ri-arrow-right-up-line` in the footer and support list) and directional pagers. A button that leaves the site carries the arrow too (`.pill-btn-out`); no internal button, card or row does.
 - **No emoji.** The narrow label style covers anywhere you'd be tempted.
-- **Never draw proprietary logos in SVG.** Use Remixicon's brand glyphs (`ri-github-line`) or real asset files.
+- **Never draw proprietary logos in SVG.** Use Remixicon's brand glyph paths (github-fill) or real asset files.
 
 ---
 

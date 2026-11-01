@@ -4,7 +4,52 @@
    on <html>. Default mode is dark.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+/* Fonts are self-hosted (latin subset, variable). They used to arrive through a
+   Google Fonts @import, which made the stylesheet chain HTML -> style.css ->
+   googleapis CSS -> woff2 and held the first paint behind two extra round
+   trips. Archivo carries weight 100-900 and width 62-125 in one file; Hanken
+   has no width axis. The key files are preloaded in each page's <head>. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('fonts/archivo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('fonts/hanken-grotesk-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/hanken-grotesk-italic-latin.woff') format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Inline SVG icons (Remixicon paths, 24px grid). Replaced the Remixicon icon
+   font: its CDN stylesheet blocked render and its 175 KB font file served
+   about twenty glyphs. The <i> wrapper keeps the old sizing contract, so an
+   icon is still sized by its font-size and coloured by its text colour. */
+.ri-icon {
+  display: inline-block;
+  font-style: normal;
+  line-height: 1;
+}
+.ri-icon > svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
 
 /* ----- Page navigation --------------------------------------------
    Cross-document view transition, scoped to the product switcher only.
