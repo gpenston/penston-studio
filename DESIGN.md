@@ -214,7 +214,8 @@ hover `#6e4500`.
 Two families, each with a strict job. **The rule: Archivo for anything
 headline-like, Hanken for anything you read as running text or press.** Bold,
 dark ink, set as a heading: Archivo. Regular-weight running text or a control:
-Hanken.
+Hanken. A citation of someone else's published work is running text at any
+length, so it is Hanken too.
 
 - **Archivo — headings and labels.** A grotesque with a width axis, loaded once
   as a variable font. Headings (the poster-scale hero name at 800, hero

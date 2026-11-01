@@ -105,7 +105,9 @@ a font without a rendered use.
 
 **The rule: Archivo for anything headline-like, Hanken for anything you read as
 running text or press.** Bold, dark ink, set as a heading → Archivo;
-regular-weight running text or a control → Hanken. Labels are Archivo narrow,
+regular-weight running text or a control → Hanken. A citation of someone else's
+published work is running text at any length (a long title in the wide cut reads
+as a wall of heavy letters), so it is Hanken too. Labels are Archivo narrow,
 one to three words, never a phrase.
 
 ### Scale
@@ -238,7 +240,7 @@ A single `position: sticky` `<header class="sticky-chrome">` (a landmark) shared
 </header>
 ```
 
-The wordmark is Hanken 15px/600 in `--text-primary`. **On product pages** the left slot is a back-link (`<a class="back-link nav-mark" aria-label="Penston Studio">`) with a chevron glyph and `<span class="back-link-text nav-text">`. The label is on the link because the text is hidden at ≤600px.
+The wordmark is Archivo 15px/700 (width 115, inherited from `<html>`) in `--text-primary`, the same face as the name on gpenston.com. **On product pages** the left slot is a back-link (`<a class="back-link nav-mark" aria-label="Penston Studio">`) with a chevron glyph and `<span class="back-link-text nav-text">`. The label is on the link because the text is hidden at ≤600px.
 
 **Navigational controls are 8px rects** (switcher items, util links, back link, mode toggle). Hover and selected are instant (`transition: none`, overriding the global `a` colour transition), pressed uses the selected tone. On coarse pointers a pseudo-element extends each target to ~44px.
 
