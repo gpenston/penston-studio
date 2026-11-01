@@ -399,10 +399,12 @@ main { position: relative; overflow-x: clip; }
   align-items: center;
   gap: 6px;
   justify-self: start;      /* prevent 1fr column stretching the element */
-  font-family: var(--font-body);
+  /* The wordmark is the site's name, so it wears the display face (width 115
+     is inherited from <html>), like the name on gpenston.com. */
+  font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.005em;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   color: var(--text-primary);
   text-decoration: none;
   padding: 0;
