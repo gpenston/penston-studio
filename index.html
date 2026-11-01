@@ -40,7 +40,10 @@
 
     <header class="sticky-chrome">
       <div class="unified-bar">
-        <a href="#" class="nav-mark" aria-label="Penston Studio — scroll to top"><svg class="nav-glyph" aria-hidden="true" width="11" height="10" viewBox="0 0 11 10" fill="none"><path d="M1 9.5L4.5 0.5M6.5 9.5L10 0.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg><span class="nav-text">Penston Studio</span></a>
+        <!-- The hero leads with "Penston Studio", so the home page carries no
+             wordmark in the bar. This empty cell holds the left column of the
+             grid, which keeps the mode toggle on the right. -->
+        <div aria-hidden="true"></div>
         <div aria-hidden="true"></div>
         <div class="unified-actions">
           <button class="mode-toggle" type="button" aria-label="Toggle color mode" data-mode-toggle>
@@ -75,18 +78,19 @@
           </g>
         </svg>
         <div class="disc-ring"></div>
-        <h1 class="hero-name" data-reveal style="--reveal-delay: 0.1s">George Penston</h1>
+        <h1 class="hero-name" data-reveal style="--reveal-delay: 0.1s">Penston Studio</h1>
+        <p class="hero-byline" data-reveal style="--reveal-delay: 0.15s">George Penston</p>
         <p class="hero-bio" data-reveal style="--reveal-delay: 0.2s">
           Principal product designer and maker. I turn big ideas into real products and sweat the details that make them worth using.
           This is where the side projects live.
         </p>
-        <a href="https://gpenston.com" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary" data-reveal style="--reveal-delay: 0.25s">
-          Full portfolio
+        <a href="https://gpenston.com" target="_blank" rel="noopener" class="pill-btn pill-btn-tertiary pill-btn-out" aria-label="View full portfolio on gpenston.com (opens in new tab)" data-reveal style="--reveal-delay: 0.25s">
+          View full portfolio<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"/></svg>
         </a>
       </section>
 
       <section class="section-block">
-        <h2 class="section-label" data-reveal>Catalogue</h2>
+        <h2 class="section-label" data-reveal>Projects</h2>
 
         <a href="markedly/" class="project-card" data-color="markedly" data-reveal style="--reveal-delay: 0.1s">
           <div class="project-icon"><img src="assets/markedly-icon.png" alt="Markedly"></div>
