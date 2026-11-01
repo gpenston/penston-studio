@@ -27,34 +27,37 @@ colors:
   light-on-surface-muted: "#555555"
   light-on-surface-faint: "#6b6b6b"
 typography:
+  # Archivo is one variable file: display, headline, section-heading and title
+  # run at width 115 (CSS font-stretch, set once on <html>); meta runs at width
+  # 75. Hanken Grotesk has no width axis. See the Typography section.
   display:
-    fontFamily: Hanken Grotesk
+    fontFamily: Archivo
     fontSize: 84px
     fontWeight: 800
     lineHeight: 0.92
     letterSpacing: -0.03em
   headline-lg:
-    fontFamily: Hanken Grotesk
+    fontFamily: Archivo
     fontSize: 56px
     fontWeight: 700
     lineHeight: 1.02
     letterSpacing: -0.022em
   headline-md:
-    fontFamily: Hanken Grotesk
+    fontFamily: Archivo
     fontSize: 30px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -0.015em
   section-heading:
-    fontFamily: Hanken Grotesk
+    fontFamily: Archivo
     fontSize: 22px
     fontWeight: 700
     lineHeight: 1.3
     letterSpacing: -0.015em
   title:
-    fontFamily: Hanken Grotesk
+    fontFamily: Archivo
     fontSize: 18px
-    fontWeight: 600
+    fontWeight: 700
     lineHeight: 1.3
     letterSpacing: -0.01em
   body-lead:
@@ -78,11 +81,11 @@ typography:
     fontWeight: 600
     lineHeight: 1.4
   meta:
-    fontFamily: Martian Mono
-    fontSize: 11px
-    fontWeight: 500
+    fontFamily: Archivo
+    fontSize: 12px
+    fontWeight: 600
     lineHeight: 1
-    letterSpacing: 0.06em
+    letterSpacing: 0.09em
 rounded:
   sm: 4px
   md: 8px
@@ -153,8 +156,13 @@ together: the greige light theme became flat white, the warm bone-on-black dark
 theme became neutral, and the devices that read as AI tells were removed —
 eyebrows and kickers, numbered section labels and chapter numerals, hairline
 dividers and image borders. Whitespace separates sections; surface tone groups
-cards. Nav, buttons, section headings, footer and form labels are Hanken
-sentence case; Martian Mono is kept only for tiny meta.
+cards. Nav, buttons, footer and form labels are Hanken sentence case; the tiny
+meta labels are a separate, narrow face (see below).
+
+**2026-10-31 pass (ported from gpenston.com).** Three families became two.
+Archivo, a grotesque with a width axis, takes the headings and the small
+labels; Hanken Grotesk stays for body, nav and buttons; Martian Mono is gone.
+The studio's own type sizes did not change.
 
 The site is **dual-mode**. Dark is the default; light is flat white. Mode is a
 manual toggle (sun/moon), persisted locally, applied before paint to avoid a
@@ -203,17 +211,26 @@ hover `#6e4500`.
 
 ## Typography
 
-Two families, each with a strict job.
+Two families, each with a strict job. **The rule: Archivo for anything
+headline-like, Hanken for anything you read as running text or press.** Bold,
+dark ink, set as a heading: Archivo. Regular-weight running text or a control:
+Hanken.
 
-- **Hanken Grotesk — display, body, and chrome.** A humanist grotesque with a
-  tall, even x-height. It carries the poster-scale hero name (800), long-form
-  body (400), and, since the 2026-10-29 pass, nav links (15px/500), button
-  labels (15px/600), section headings (18–22px/700), the footer and form
-  labels, all in sentence case.
-- **Martian Mono — meta only.** One-to-two-word chips and file-type tags
-  (`macOS`, `GitHub Action`, `DOCX`), inline `code`. Uppercase with 0.06em
-  tracking. **Mono is a label face: never a phrase, never a control.** Set a
-  sentence in it and the page reads as a spec sheet.
+- **Archivo — headings and labels.** A grotesque with a width axis, loaded once
+  as a variable font. Headings (the poster-scale hero name at 800, hero
+  headlines, section headings 18–22px/700, titles, the pullquote) run at
+  **width 115**. The width is `font-stretch: 115%`, set once on `<html>` and
+  inherited; Hanken has no width axis, so body copy ignores it.
+- **Archivo, narrow — labels.** One-to-three-word chips and file-type tags
+  (`macOS`, `GitHub Action`, `DOCX`). The recipe is `--font-label` at
+  `--label-stretch` (75%), weight 600, 12px, uppercase, `--label-tracking`
+  (0.09em). **A label is never a phrase and never a control.** Set a sentence
+  in it and the page reads as a spec sheet.
+- **Hanken Grotesk — body, nav, buttons.** Long-form body (400), nav links
+  (15px/500), button labels (15px/600), the footer and form text, all in
+  sentence case. The quieter face under Archivo's firmer headings.
+- **No mono webfont.** `--mono` is a system stack (`ui-monospace`) for real
+  code only (inline `code`, the notes' command blocks).
 
 **D-DIN Condensed was removed 2026-10-29.** It only styled the section numbers,
 the hero chapter marker and the footer "EST." mark. Once those went it was a
@@ -292,9 +309,9 @@ mix them: a pill on a nav link or a rect on a CTA breaks the rule.
 - **Project cards (home).** Icon, name, description and a mono chip on the
   raised tone, 4px radius. Hover steps to the overlay tone and draws an
   underline under the name. No arrow: arrows are kept for external links.
-- **Feature tiles.** Raised-tone cards (4px radius, 12px gap): icon, Hanken
+- **Feature tiles.** Raised-tone cards (4px radius, 12px gap): icon, Archivo
   subhead, one short paragraph.
-- **Section heading.** A plain `h2`: Hanken 700 on the 18–22px step, 16px above
+- **Section heading.** A plain `h2`: Archivo 700 on the 18–22px step, 16px above
   its content. No numeral, no rule.
 - **Callout.** A raised-tone card, no accent bar.
 - **Mode toggle.** Sun/moon icons (Remixicon) with an opacity+rotation
@@ -318,8 +335,9 @@ mix them: a pill on a nav link or a rect on a CTA breaks the rule.
   orange text.
 - Do separate sections with whitespace and group with surface tone.
 - Do keep the highlight marker to the pullquote block and text selection.
-- Do keep mono to one-to-two-word meta; everything that reads as a sentence or
-  a control is Hanken.
+- Do keep the narrow label style to one-to-three-word meta; everything that
+  reads as a sentence or a control is Hanken, and everything headline-like is
+  Archivo.
 - Do maintain WCAG AA contrast (4.5:1 for normal text). Walk the rendered DOM
   rather than trusting token names.
 - Do paint image edges with the inset `--image-outline`.

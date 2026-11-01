@@ -1,6 +1,6 @@
 # Penston Studio — Design System
 
-> **The short version.** The site is an **instrument**, not an album cover. Bureau lineage: Dieter Rams / Braun / Eames Office via Walkie. Neutral canvas (flat white or near-black), one saturated accent, Hanken sentence-case chrome with a little mono meta, surface-tone cards instead of rules, restrained atmosphere. Keep the drama dialed down; let composition and typography carry the weight. Both palettes and the type, shape and interaction rules were ported from gpenston.com on 2026-10-29 (see its CLAUDE.md for the source of truth).
+> **The short version.** The site is an **instrument**, not an album cover. Bureau lineage: Dieter Rams / Braun / Eames Office via Walkie. Neutral canvas (flat white or near-black), one saturated accent, Archivo headlines with narrow Archivo labels over Hanken sentence-case body and chrome, surface-tone cards instead of rules, restrained atmosphere. Keep the drama dialed down; let composition and typography carry the weight. Both palettes and the type, shape and interaction rules were ported from gpenston.com on 2026-10-29, and the two-family type system on 2026-10-31 (see its CLAUDE.md for the source of truth).
 
 ---
 
@@ -88,18 +88,25 @@ pages in both modes at 1280, 375 and 320px.
 ### Families
 
 ```css
---font-display: 'Hanken Grotesk', system-ui, sans-serif;  /* headlines, name */
+--font-display: 'Archivo', system-ui, sans-serif;         /* headlines, name; width 115 */
+--font-label:   'Archivo', system-ui, sans-serif;         /* tiny meta; width 75 */
 --font-body:    'Hanken Grotesk', system-ui, sans-serif;  /* body, nav, buttons, footer */
---mono:         'Martian Mono', ui-monospace, monospace;  /* tiny meta only */
+--mono:         ui-monospace, 'SF Mono', Menlo, monospace; /* real code only */
 ```
 
-Both load via Google Fonts. **D-DIN Condensed was removed 2026-10-29** (and
-`assets/fonts/D-DINCondensed-Bold.woff2` with it): it only styled section
-numbers, the hero chapter marker and the footer `EST.` mark. When those went
-it was a font loaded for nothing. Don't add a font without a rendered use.
+Both load via Google Fonts (one `@import` in `assets/style.css`). **Two families
+since 2026-10-31.** Archivo is a variable font with a width axis; the wide cut
+(115) is for headings and the narrow cut (75) for labels, switched with CSS
+`font-stretch`. It is set once on `<html>` (`--display-stretch`) and inherited:
+Hanken has no width axis, so body copy ignores it, and every label overrides it
+with `--label-stretch`. Martian Mono was removed; **D-DIN Condensed was removed
+2026-10-29** (and `assets/fonts/D-DINCondensed-Bold.woff2` with it). Don't add
+a font without a rendered use.
 
-Hanken does display, body **and chrome**. Martian Mono is for one-to-two-word
-meta only.
+**The rule: Archivo for anything headline-like, Hanken for anything you read as
+running text or press.** Bold, dark ink, set as a heading → Archivo;
+regular-weight running text or a control → Hanken. Labels are Archivo narrow,
+one to three words, never a phrase.
 
 ### Scale
 
@@ -114,23 +121,23 @@ meta only.
 | `body` | 16px / 1.6 | 400 | Long-form body, privacy and FAQ prose |
 | `body-sm` | 14–15px / 1.5 | 400 | Card text, captions, footer |
 | `control` | 15px | 500–600 | Nav links (500), buttons (600) |
-| `meta` | 11px mono, 0.06em tracking, uppercase | 500 | Chips and file-type tags only |
+| `meta` | 12px Archivo width 75, 0.09em tracking, uppercase | 600 | Chips and file-type tags only (11px for the OCR tag) |
 
 ### Rules
 
-- **Display weight is 700–800.** Hanken reads lighter than the old Space Grotesk at matched weights, so hero display sits at 800, section headlines at 700, base headings at 600.
+- **Display weight is 700–800.** Hero display sits at 800, section headlines and base headings at 700. The sizes in the table were left as they were when Archivo replaced Hanken (2026-10-31); the wide cut sets larger on the line, which suits the poster-scale heroes.
 - **One emphasized word per headline.** Wrap it in `<em>` and it renders in `--accent-cool`, not italic.
   ```html
   <h2>Small and <em>considered</em>.</h2>
   ```
-- **Mono is meta, not chrome.** One-to-two-word chips and file types (`macOS`, `DOCX`), inline `code`. Never a phrase, never a control. Nav, buttons, section headings, the footer and form labels are Hanken sentence case.
+- **Labels are narrow Archivo, meta not chrome.** One-to-three-word chips and file types (`macOS`, `DOCX`). Never a phrase, never a control. Nav, buttons, the footer and form labels are Hanken sentence case; section headings are Archivo sentence case. Inline `code` uses the system mono.
 - **No numerals.** No `data-num`, no chapter marker, no plate or figure numbers.
 - **The highlight marker (`.hl`, accent-cool) is reserved for the pullquote block** — the single expressive flourish per page. Don't scatter it per section.
 - **`text-wrap: balance`** on headline-like elements (`h1`–`h6`, `.hero-name`, `.hero-headline`, `.big-h2`, `.pullquote`, `.callout-heading`, `.closing-cta-headline`, `.section-label`); **`pretty`** on prose. Button labels are `nowrap`. Cap big type in `px`, never `ch`, and avoid hard `<br>`s. Where a break matters, wrap the tail in `.nowrap` (applies from 640px up).
 - **Line height by role:** lead 1.55, long-form body 1.6, 15px small text 1.5.
 - **11px is the floor.** No text goes below 11px. `--text-tertiary` clears WCAG AA (4.5:1) on `--bg-primary` and `--bg-secondary`.
 
-> **Type direction.** Chapter 03 (Hanken Grotesk + Martian Mono + D-DIN) was resolved 2026-07-10. D-DIN and the mono-everywhere chrome were dropped in the 2026-10-29 pass; see `DESIGN.md`.
+> **Type direction.** Chapter 03 (Hanken Grotesk + Martian Mono + D-DIN) was resolved 2026-07-10. D-DIN and the mono-everywhere chrome were dropped in the 2026-10-29 pass. Archivo (headings and narrow labels) + Hanken replaced Hanken + Martian Mono on 2026-10-31, ported from gpenston.com; see `DESIGN.md`.
 
 ---
 
@@ -302,15 +309,15 @@ Icon tile, name + description, platform chip. A 4px-radius card on `--bg-seconda
 <h2 class="section-label" data-reveal>The Studio</h2>
 ```
 
-An ordinary `h2` (so heading order is valid), Hanken 700 on the section-heading step, 16px above its content. No numeral and no drawn rule. The class name is kept for the reveal and selector history.
+An ordinary `h2` (so heading order is valid), Archivo 700 on the section-heading step, 16px above its content. No numeral and no drawn rule. The class name is kept for the reveal and selector history.
 
 ### Big H2 (section headline)
 
-Hanken Grotesk, weight 700, `clamp(36px, 6vw, 56px)` (see §3 Scale — `big-h2`), `text-wrap: balance`, `max-width: 640px`. Usually has one `<em>` word in `--accent-cool`. No hard breaks.
+Archivo (width 115), weight 700, `clamp(36px, 6vw, 56px)` (see §3 Scale — `big-h2`), `text-wrap: balance`, `max-width: 640px`. Usually has one `<em>` word in `--accent-cool`. No hard breaks.
 
 ### Feature tiles (product features)
 
-`.features` is a 2-up grid with a 12px gap. Each `.feature` is a 4px-radius card on `--bg-secondary` (28px padding): a 24px `--accent` icon, a Hanken subhead, a 15px/1.5 paragraph. No hairlines, no borders.
+`.features` is a 2-up grid with a 12px gap. Each `.feature` is a 4px-radius card on `--bg-secondary` (28px padding): a 24px `--accent` icon, an Archivo subhead, a 15px/1.5 paragraph. No hairlines, no borders.
 
 ### Inline links
 
@@ -408,7 +415,7 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 - **Remixicon via CDN** for feature icons. `<i class="ri-drag-drop-line"></i>`.
 - **Arrows earn their place.** Only external links (`ri-arrow-right-up-line` in the footer and support list) and directional pagers. No button, internal card or row carries one.
-- **No emoji.** The mono-label style covers anywhere you'd be tempted.
+- **No emoji.** The narrow label style covers anywhere you'd be tempted.
 - **Never draw proprietary logos in SVG.** Use Remixicon's brand glyphs (`ri-github-line`) or real asset files.
 
 ---
@@ -441,9 +448,12 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 
 ```css
 :root {
-  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-label:   'Archivo', system-ui, sans-serif;
   --font-body:    'Hanken Grotesk', system-ui, sans-serif;
-  --mono:         'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --mono:         ui-monospace, 'SF Mono', Menlo, monospace;
+  --display-stretch: 115%;  --label-stretch: 75%;
+  --label-weight: 600;      --label-tracking: 0.09em;
 
   /* Space */
   --container-max: 880px;
@@ -471,7 +481,8 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
 - Don't use Inter Tight, Satoshi, General Sans, or any "designer" substitute for Hanken Grotesk — they're all trying too hard.
 - Don't make the accent orange darker "to be tasteful." The orange is the signal. (Small orange *text* in light mode is the exception: it uses the rust `--accent-text`.)
 - Don't reintroduce eyebrows, kickers, `data-num` numbering, chapter numerals, plate/figure numbers, the drawn section rule, hairline dividers or image borders (all removed 2026-10-29).
-- Don't set nav, buttons, section headings, the footer or form labels in uppercase mono. Mono is for one-to-two-word meta.
+- Don't set nav, buttons, the footer or form labels in the uppercase label style, and don't set a phrase in it. Labels are one-to-three-word meta.
+- Don't set a headline in Hanken or running text in Archivo. Archivo for headline-like text, Hanken for running text and controls.
 - Don't put a pill on navigation, or an 8px rect on an action button.
 - Don't add a third button tier or an arrow to a button.
 - Don't add D-DIN (or any font) back without a rendered use.

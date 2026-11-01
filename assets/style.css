@@ -4,7 +4,7 @@
    on <html>. Default mode is dark.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Martian+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 /* ----- Page navigation --------------------------------------------
    Cross-document view transition, scoped to the product switcher only.
@@ -124,9 +124,21 @@ html.vt-mode.vt-to-light::view-transition-new(root) {
   --shadow-md: 0 12px 24px rgba(0,0,0,0.6);
   --shadow-lg: 0 40px 80px rgba(0,0,0,0.8), 0 12px 20px rgba(0,0,0,0.5);
 
-  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  /* Two-family type system (ported from gpenston.com, 2026-10-31):
+     Archivo = headings + labels (one variable file, two widths),
+     Hanken Grotesk = body, nav and buttons. --mono is a system stack for real
+     code only; there is no mono webfont. */
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-label:   'Archivo', system-ui, sans-serif;
   --font-body:    'Hanken Grotesk', system-ui, sans-serif;
-  --mono: 'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Archivo widths and the shared label recipe. Headings inherit the wide cut
+     from <html>; a label sets the narrow one. */
+  --display-stretch: 115%;
+  --label-stretch:   75%;
+  --label-weight:    600;
+  --label-tracking:  0.09em;
 
   --container-max: 880px;
   --container-pad: 32px;
@@ -187,6 +199,10 @@ html.vt-mode.vt-to-light::view-transition-new(root) {
 
 html {
   background: var(--bg-primary); /* explicit, so overscroll paints the page colour */
+  /* Archivo's width axis rides on font-stretch. Set once and inherited:
+     Hanken has no width axis, so body copy ignores it, and every label
+     overrides it with --label-stretch. */
+  font-stretch: var(--display-stretch);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-padding-top: 64px; /* clear sticky chrome on anchor jumps */
@@ -238,7 +254,7 @@ body::after {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.1;
   color: var(--text-primary);
   text-wrap: balance;
@@ -536,7 +552,7 @@ main { position: relative; overflow-x: clip; }
 .project-name {
   font-family: var(--font-display);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--text-primary);
   margin-bottom: 2px;
@@ -557,10 +573,11 @@ main { position: relative; overflow-x: clip; }
 
 .project-meta { display: flex; align-items: center; gap: 10px; }
 .project-badge {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-family: var(--font-label);
+  font-stretch: var(--label-stretch);
+  font-size: 12px;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   padding: 3px 8px;
   background: var(--bg-primary);
@@ -783,7 +800,7 @@ main { position: relative; overflow-x: clip; }
 .app-name {
   font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--text-primary);
   line-height: 1;
@@ -882,7 +899,7 @@ main { position: relative; overflow-x: clip; }
 .feature h3 {
   font-family: var(--font-display);
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
   margin-bottom: 8px;
   color: var(--text-primary);
@@ -957,10 +974,11 @@ main { position: relative; overflow-x: clip; }
   gap: 6px;
 }
 .format-ocr {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-family: var(--font-label);
+  font-stretch: var(--label-stretch);
+  font-size: 11px;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--accent-cool);
   background: var(--bg-secondary);
@@ -973,10 +991,11 @@ main { position: relative; overflow-x: clip; }
   gap: 6px;
 }
 .format-tag {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-family: var(--font-label);
+  font-stretch: var(--label-stretch);
+  font-size: 12px;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--text-secondary);
   background: var(--bg-secondary);
@@ -1013,7 +1032,7 @@ main { position: relative; overflow-x: clip; }
   flex-shrink: 0;
 }
 .ww-name {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 18.5px;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -1042,7 +1061,7 @@ main { position: relative; overflow-x: clip; }
 .callout-heading {
   font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin-bottom: 12px;
@@ -1384,7 +1403,7 @@ footer {
 .privacy-content h2 {
   font-family: var(--font-display);
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.015em;
   margin-bottom: 8px;
 }
@@ -1396,7 +1415,7 @@ footer {
 .privacy-content h3 {
   font-family: var(--font-display);
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
   margin: 26px 0 8px;
   color: var(--text-primary);
@@ -1466,7 +1485,7 @@ footer {
   min-width: 0;
 }
 .support-link-label {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 15px;
   margin-bottom: 2px;
