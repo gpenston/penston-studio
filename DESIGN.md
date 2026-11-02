@@ -29,7 +29,7 @@ colors:
 typography:
   # Archivo is one variable file: display, headline, section-heading and title
   # run at width 115 (CSS font-stretch, set once on <html>); meta runs at width
-  # 75. Hanken Grotesk has no width axis. See the Typography section.
+  # 88. Hanken Grotesk has no width axis. See the Typography section.
   display:
     fontFamily: Archivo
     fontSize: 84px
@@ -248,7 +248,7 @@ lines) or 13px (labels, chips); 13px is the floor.
   inherited; Hanken has no width axis, so body copy ignores it.
 - **Archivo, narrow — labels.** One-to-three-word chips and file-type tags
   (`macOS`, `GitHub Action`, `DOCX`). The recipe is `--font-label` at
-  `--label-stretch` (75%), weight 600, 13px, uppercase, `--label-tracking`
+  `--label-stretch` (88%), weight 600, 13px, uppercase, `--label-tracking`
   (0.09em). **A label is never a phrase and never a control.** Set a sentence
   in it and the page reads as a spec sheet.
 - **Hanken Grotesk — body, nav, buttons.** Long-form body (400), nav links
