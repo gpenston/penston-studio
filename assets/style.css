@@ -185,7 +185,7 @@ html.vt-mode.vt-to-light::view-transition-new(root) {
   /* Archivo widths and the shared label recipe. Headings inherit the wide cut
      from <html>; a label sets the narrow one. */
   --display-stretch: 115%;
-  --label-stretch:   75%;
+  --label-stretch:   88%;
   --label-weight:    600;
   --label-tracking:  0.09em;
 

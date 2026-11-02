@@ -89,14 +89,14 @@ pages in both modes at 1280, 375 and 320px.
 
 ```css
 --font-display: 'Archivo', system-ui, sans-serif;         /* headlines, name; width 115 */
---font-label:   'Archivo', system-ui, sans-serif;         /* tiny meta; width 75 */
+--font-label:   'Archivo', system-ui, sans-serif;         /* tiny meta; width 88 */
 --font-body:    'Hanken Grotesk', system-ui, sans-serif;  /* body, nav, buttons, footer */
 --mono:         ui-monospace, 'SF Mono', Menlo, monospace; /* real code only */
 ```
 
 Both are self-hosted in `assets/fonts/` (latin subset, `@font-face` at the top of `assets/style.css`, preloaded in each page's `<head>`; no Google Fonts request). **Two families
 since 2026-10-31.** Archivo is a variable font with a width axis; the wide cut
-(115) is for headings and the narrow cut (75) for labels, switched with CSS
+(115) is for headings and the label cut (88) for labels, switched with CSS
 `font-stretch`. It is set once on `<html>` (`--display-stretch`) and inherited:
 Hanken has no width axis, so body copy ignores it, and every label overrides it
 with `--label-stretch`. Martian Mono was removed; **D-DIN Condensed was removed
@@ -125,7 +125,7 @@ never a phrase.
 | `body` | 16px / 1.6 | 400 | Long-form body, privacy and FAQ prose |
 | `body-sm` | 14–15px / 1.5 | 400 | Card text, captions, footer |
 | `control` | 15px | 500–600 | Nav links (500), buttons (600) |
-| `meta` | 13px Archivo width 75, 0.09em tracking, uppercase | 600 | Chips and file-type tags only |
+| `meta` | 13px Archivo width 88, 0.09em tracking, uppercase | 600 | Chips and file-type tags only |
 
 ### Rules
 
@@ -455,7 +455,7 @@ Two ambient animations, both gated on `prefers-reduced-motion: no-preference`:
   --font-label:   'Archivo', system-ui, sans-serif;
   --font-body:    'Hanken Grotesk', system-ui, sans-serif;
   --mono:         ui-monospace, 'SF Mono', Menlo, monospace;
-  --display-stretch: 115%;  --label-stretch: 75%;
+  --display-stretch: 115%;  --label-stretch: 88%;
   --label-weight: 600;      --label-tracking: 0.09em;
 
   /* Space */
