@@ -1768,6 +1768,10 @@ main {
     transform: translateY(-50%);
   }
   .mode-toggle::before { inset-inline: -6px; }
+  /* The back link is glyph-only on phones (about 31px wide), so the shared
+     inset-inline: 0 left a target narrower than 44px. Widen the invisible
+     target only; the visible mark does not move. */
+  .unified-bar .nav-mark::before { inset-inline: -7px; }
 }
 
 @media (min-width: 640px) { .nowrap { white-space: nowrap; } }
