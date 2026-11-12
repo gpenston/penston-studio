@@ -75,13 +75,15 @@
     });
 
     // Follow OS preference changes in real-time (e.g. macOS auto dark/light
-    // schedule, or user switching system theme). Updates localStorage so the
-    // next page load also reflects the new OS preference.
+    // schedule, or user switching system theme). An OS change outranks an
+    // earlier manual pick, so the stored pick is cleared rather than
+    // overwritten: writing the OS value here used to pin it, and a later
+    // visit after the OS flipped back loaded the stale mode.
     if (window.matchMedia) {
       var mq = window.matchMedia('(prefers-color-scheme: dark)');
       function onOSChange(e) {
         root.setAttribute('data-mode', e.matches ? 'dark' : 'light');
-        localStorage.setItem(KEY, e.matches ? 'dark' : 'light');
+        try { localStorage.removeItem(KEY); } catch (err) {}
         syncThemeColor();
       }
       if (mq.addEventListener) {
